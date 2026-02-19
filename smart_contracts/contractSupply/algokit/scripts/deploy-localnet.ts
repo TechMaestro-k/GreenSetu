@@ -98,7 +98,7 @@ async function deployToLocalNet() {
         console.log(`✅ Saved deployment info to deployment-localnet.json`);
 
         console.log('\n📚 Next steps:');
-        console.log(`1. Start the server: cd /home/karan/ChainVerify/server && npm run dev`);
+        console.log(`1. Start the server: cd /home/karan/GreenSetu/server && npm run dev`);
         console.log(`2. Test the API: curl -X POST http://127.0.0.1:4000/verify -H "Content-Type: application/json" -d '{"batchAsaId": "batch-001"}'`);
         console.log(`3. Get status: curl http://127.0.0.1:4000/status/batch-001`);
 

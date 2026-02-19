@@ -1,4 +1,4 @@
-# ChainVerify — Complete Project Specification
+# GreenSetu — Complete Project Specification
 
 ## Tagline
 > "The first x402-powered autonomous verification agent on Algorand — proving trust in every supply chain, one micropayment at a time."
@@ -59,7 +59,7 @@ An AI agent that autonomously pays for, verifies, and certifies the integrity of
 
 ## 2. Solution Overview
 
-ChainVerify is a platform where:
+GreenSetu is a platform where:
 
 1. **Every product batch** gets a unique digital identity (ASA token) on Algorand at harvest
 2. **Every handler** (farmer, transporter, warehouse, retailer) logs checkpoints on-chain with verifiable data
@@ -74,9 +74,9 @@ ChainVerify is a platform where:
 
 ### This is NOT just a supply chain tracker.
 
-Existing supply chain projects (even past Algorand hackathon entries) simply log data on-chain. ChainVerify's innovation is the **x402-powered autonomous verification agent**.
+Existing supply chain projects (even past Algorand hackathon entries) simply log data on-chain. GreenSetu's innovation is the **x402-powered autonomous verification agent**.
 
-| What Others Build | What ChainVerify Does |
+| What Others Build | What GreenSetu Does |
 |---|---|
 | Log supply chain data on blockchain | Log data + **AI agent autonomously verifies it** |
 | Manual verification / human auditors | **Autonomous AI verification via x402 micropayments** |
@@ -237,7 +237,7 @@ Existing supply chain projects (even past Algorand hackathon entries) simply log
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                        CHAINVERIFY                          │
+│                        GREENSETU                          │
 │                                                             │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────┐  │
 │  │  FARMER  │  │TRANSPORTER│ │ RETAILER │  │  CONSUMER  │  │
@@ -251,7 +251,7 @@ Existing supply chain projects (even past Algorand hackathon entries) simply log
 │         ALGORAND TESTNET                     │     │
 │                                              │     │
 │  ┌─────────────────────────────────────────┐ │     │
-│  │     ChainVerifyApp (Smart Contract)     │ │     │
+│  │     GreenSetuApp (Smart Contract)     │ │     │
 │  │                                         │ │     │
 │  │  Methods:                               │ │     │
 │  │  ├─ createBatch() → mints ASA          │ │     │
@@ -333,10 +333,10 @@ Existing supply chain projects (even past Algorand hackathon entries) simply log
 
 ## 7. Smart Contracts
 
-### Contract: ChainVerifyApp
+### Contract: GreenSetuApp
 
 ```
-Contract Name: ChainVerifyApp
+Contract Name: GreenSetuApp
 Language: TEALScript (TypeScript)
 Type: Stateful Application
 
@@ -455,7 +455,7 @@ Methods:
 ### Journey 1: Farmer Creates a Batch
 
 ```
-Step 1: Farmer opens ChainVerify web app
+Step 1: Farmer opens GreenSetu web app
 Step 2: Connects Pera Wallet
 Step 3: Navigates to /farmer → "Create New Batch"
 Step 4: Fills form:
@@ -561,7 +561,7 @@ Step 10: Farmer's dashboard updates: new payment received
 
 ```
 Step 1: Consumer picks up product in store, sees QR code on packaging
-Step 2: Opens chainverify.app/scan on phone (no wallet needed)
+Step 2: Opens greensetu.app/scan on phone (no wallet needed)
 Step 3: Scans QR code with camera
 Step 4: Redirected to /product/[asaId]
 Step 5: Page loads, fetching data from Algorand indexer:
@@ -712,7 +712,7 @@ farmer_{addr}_reputation          | {
 
 ```
 ┌──────────────────────────────────────────────┐
-│  CHAINVERIFY                    [Connect Wallet]
+│  GREENSETU                    [Connect Wallet]
 │                                               │
 │  ┌───────────────────────────────────────────┐│
 │  │  "AI-Verified Trust for Every            ││
@@ -900,7 +900,7 @@ interface VerificationResult {
 ### Duration: 5 minutes
 
 **[0:00 - 0:30] Hook**
-> "Every year, $40 billion worth of food is sold with fake labels. The organic mangoes you bought? They might not be organic. The 'local' honey? It could be from another continent. And right now, there's no way for you to verify any of it. Until ChainVerify."
+> "Every year, $40 billion worth of food is sold with fake labels. The organic mangoes you bought? They might not be organic. The 'local' honey? It could be from another continent. And right now, there's no way for you to verify any of it. Until GreenSetu."
 
 **[0:30 - 1:15] Farmer Creates a Batch (Live)**
 - Open app, connect Pera Wallet as farmer
@@ -940,7 +940,7 @@ interface VerificationResult {
 - "This is what transparency looks like. Every consumer can see this. No app download needed. Just scan."
 
 **[4:15 - 5:00] Vision**
-> "ChainVerify isn't just for food. The x402 verification agent works on ANY on-chain data pipeline — pharmaceuticals, luxury goods, carbon credits, construction materials. We built an autonomous trust layer for the real world, powered by Algorand."
+> "GreenSetu isn't just for food. The x402 verification agent works on ANY on-chain data pipeline — pharmaceuticals, luxury goods, carbon credits, construction materials. We built an autonomous trust layer for the real world, powered by Algorand."
 >
 > "We used: ASAs for product identity, box storage for checkpoint data, atomic transfers for instant payments, x402 for AI agent micropayments, and dynamic NFTs for farmer reputation. This is the future of verified commerce."
 
@@ -948,7 +948,7 @@ interface VerificationResult {
 
 ## 13. Judging Criteria Mapping
 
-| Typical Criteria | How ChainVerify Scores |
+| Typical Criteria | How GreenSetu Scores |
 |---|---|
 | **Innovation / Creativity** | First project to use x402 (3 days old) for autonomous AI verification. Combines 3 trends no one else is merging: x402 + supply chain + carbon credits. |
 | **Technical Complexity** | Smart contracts with box storage, atomic transfers, x402 protocol implementation, AI verification engine, Pera Wallet integration, QR scanning, map visualization — deep full-stack build. |
@@ -966,7 +966,7 @@ interface VerificationResult {
 | Time | Task |
 |---|---|
 | 2 hours | Install AlgoKit, scaffold project, configure TestNet |
-| 3 hours | Write ChainVerifyApp smart contract (TEALScript): createBatch(), logCheckpoint() |
+| 3 hours | Write GreenSetuApp smart contract (TEALScript): createBatch(), logCheckpoint() |
 | 2 hours | Implement box storage for checkpoints |
 | 1 hour | Deploy tUSDCa test stablecoin ASA |
 | 1 hour | Test batch creation + checkpoint logging via CLI/scripts |
@@ -1030,7 +1030,7 @@ interface VerificationResult {
 - Algorand Accelerator application ($50K funding)
 
 **Phase 3 (6-12 months)**
-- B2B API: any platform can use ChainVerify's x402 verification agent
+- B2B API: any platform can use GreenSetu's x402 verification agent
 - Integrate with EU CSRD compliance reporting
 - Cross-chain verification via Algorand State Proofs
 - Seed funding round ($500K-$1M)

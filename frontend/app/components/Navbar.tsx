@@ -21,7 +21,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
           <span className="text-2xl font-bold text-[var(--color-text)]">
-            🌿 ChainVerify
+            🌿 GreenSetu
           </span>
         </Link>
 

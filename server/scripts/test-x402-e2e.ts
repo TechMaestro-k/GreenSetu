@@ -1,5 +1,5 @@
 /**
- * End-to-end x402 payment flow test for ChainVerify.
+ * End-to-end x402 payment flow test for GreenSetu.
  *
  * Steps:
  *  1. GET /verify  → expects HTTP 402 with payment requirements

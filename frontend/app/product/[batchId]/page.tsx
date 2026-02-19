@@ -632,7 +632,7 @@ export default function ProductPage() {
                   Batch Created
                 </h3>
                 <p className="text-sm text-[var(--color-text-muted)]">
-                  Via ChainVerify API
+                  Via GreenSetu API
                 </p>
               </div>
             </div>

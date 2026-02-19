@@ -18,7 +18,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="mb-10 text-xl text-[var(--color-text-muted)] max-w-2xl">
-            ChainVerify combines AI anomaly detection with blockchain immutability to verify farm-to-consumer provenance. 6 real-time checks. 1000 CVT per verification. 100% on-chain.
+            GreenSetu combines AI anomaly detection with blockchain immutability to verify farm-to-consumer provenance. 6 real-time checks. 1000 CVT per verification. 100% on-chain.
           </p>
 
           <div className="flex flex-col gap-4 sm:flex-row">
@@ -220,7 +220,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-5xl">
           <div className="grid gap-12 md:grid-cols-3 mb-8">
             <div>
-              <h4 className="mb-4 font-bold text-[var(--color-text)]">🌿 ChainVerify</h4>
+              <h4 className="mb-4 font-bold text-[var(--color-text)]">🌿 GreenSetu</h4>
               <p className="text-sm text-[var(--color-text-muted)]">
                 AI-verified supply chains on Algorand. Trust every link.
               </p>
@@ -258,7 +258,7 @@ export default function LandingPage() {
 
           <div className="border-t border-[var(--color-border)] pt-8 text-center">
             <p className="text-sm text-[var(--color-text-muted)]">
-              © 2024 ChainVerify. Verify supply chains with AI and blockchain.
+              © 2024 GreenSetu. Verify supply chains with AI and blockchain.
             </p>
           </div>
         </div>

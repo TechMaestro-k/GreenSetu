@@ -1,4 +1,4 @@
-# ChainVerify Server API Documentation
+# GreenSetu Server API Documentation
 
 ## Base URL
 
@@ -8,7 +8,7 @@ http://localhost:4000
 
 ## Overview
 
-ChainVerify provides a RESTful API for supply chain verification. Verifications are stored on the Algorand blockchain (when contract is deployed) or in-memory for development.
+GreenSetu provides a RESTful API for supply chain verification. Verifications are stored on the Algorand blockchain (when contract is deployed) or in-memory for development.
 
 ---
 

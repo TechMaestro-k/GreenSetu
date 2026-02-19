@@ -154,7 +154,7 @@ async function deployToTestNet() {
     console.log(`✅ Saved deployment info to deployment-testnet.json`);
 
     console.log("\n📚 Next steps:");
-    console.log("1. Restart the server: cd /home/karan/ChainVerify/server && npx tsx index.ts");
+    console.log("1. Restart the server: cd /home/karan/GreenSetu/server && npx tsx index.ts");
     console.log("2. Run paid verification: npx tsx scripts/test-x402-e2e.ts");
 }
 

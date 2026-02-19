@@ -1,6 +1,6 @@
 # Phase 4.1: Deployment Guide
 
-This guide explains how to deploy the ChainVerify smart contract and connect it to the server.
+This guide explains how to deploy the GreenSetu smart contract and connect it to the server.
 
 ## Overview
 

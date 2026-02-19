@@ -182,7 +182,7 @@ export default function ScanPage() {
                 {/* Recent Lookup Hint */}
                 <div className="text-center">
                     <p className="text-xs text-[var(--color-text-muted)]">
-                        Powered by ChainVerify on{" "}
+                        Powered by GreenSetu on{" "}
                         <span className="font-semibold text-[var(--color-primary)]">
                             Algorand
                         </span>

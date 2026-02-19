@@ -11,7 +11,7 @@ import { algorandConfig, x402Config } from '../config/algorand.config.js';
  * Orchestrates between on-chain storage (ContractClient) and SQLite persistence.
  * All write operations go to BOTH contract + SQLite.
  * Read operations try SQLite first, then fall back to contract.
- * Data survives server restarts (stored in server/data/chainverify.db).
+ * Data survives server restarts (stored in server/data/greensetu.db).
  */
 export class ContractSupplyService {
     private contractClient: ContractClientInterface | null = null;

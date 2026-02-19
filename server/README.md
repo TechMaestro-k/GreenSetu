@@ -1,4 +1,4 @@
-# ChainVerify Server
+# GreenSetu Server
 
 Backend API server for supply chain verification built with Fastify and Algorand.
 

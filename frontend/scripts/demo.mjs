@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * ChainVerify Demo Script
+ * GreenSetu Demo Script
  * 
  * This demonstrates the full payment flow using two separate wallets:
  * - Client Wallet (DYWL5...) pays for verification
@@ -49,7 +49,7 @@ if (!CLIENT_SK_B64) {
 const clientSk = new Uint8Array(Buffer.from(CLIENT_SK_B64, 'base64'));
 const clientAddress = algosdk.encodeAddress(clientSk.slice(32));
 
-console.log('\n🎬 ChainVerify Payment Demo\n');
+console.log('\n🎬 GreenSetu Payment Demo\n');
 console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 console.log(`API:      ${API_BASE}`);
 console.log(`Network:  Algorand Testnet`);

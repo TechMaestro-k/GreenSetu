@@ -372,7 +372,7 @@ export default function HomePage() {
           }}
         >
           <div>
-            <h1 style={{ fontSize: 42, margin: 0 }}>ChainVerify</h1>
+            <h1 style={{ fontSize: 42, margin: 0 }}>GreenSetu</h1>
             <p style={{ margin: "8px 0 0", maxWidth: 560 }}>
               Farm-to-consumer provenance. Smart contract storage. x402 paywall.
             </p>

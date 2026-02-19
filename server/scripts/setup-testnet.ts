@@ -1,10 +1,10 @@
 /**
- * Testnet setup script for ChainVerify x402 integration.
+ * Testnet setup script for GreenSetu x402 integration.
  *
  * Generates:
  *  1. Merchant account (receives x402 payments)
  *  2. Deployer account (deploys smart contract, creates ASA)
- *  3. Custom test ASA ("CVT" - ChainVerify Token)
+ *  3. Custom test ASA ("CVT" - GreenSetu Token)
  *
  * Usage:
  *   npx tsx scripts/setup-testnet.ts
@@ -61,7 +61,7 @@ async function waitForFunding(addr: string, label: string): Promise<void> {
 
 async function main() {
     console.log("═══════════════════════════════════════════════════");
-    console.log("  ChainVerify — Testnet Setup");
+    console.log("  GreenSetu — Testnet Setup");
     console.log("═══════════════════════════════════════════════════\n");
 
     // Check if we already have a merchant key; if not, generate one
@@ -116,7 +116,7 @@ async function main() {
     }
 
     // ── Create Custom Test ASA ──────────────────────────────────────────
-    console.log("\n── Creating Custom Test ASA (CVT - ChainVerify Token) ──");
+    console.log("\n── Creating Custom Test ASA (CVT - GreenSetu Token) ──");
 
     const params = await algod.getTransactionParams().do();
 
@@ -126,8 +126,8 @@ async function main() {
         decimals: 6,
         defaultFrozen: false,
         unitName: "CVT",
-        assetName: "ChainVerify Token",
-        assetURL: "https://chainverify.dev",
+        assetName: "GreenSetu Token",
+        assetURL: "https://greensetu.dev",
         manager: algosdk.Address.fromString(merchantAddress),
         reserve: algosdk.Address.fromString(merchantAddress),
         freeze: algosdk.Address.fromString(merchantAddress),

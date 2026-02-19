@@ -2,7 +2,7 @@
  * SQLite-backed persistence for verification records, batches, checkpoints, and handoffs.
  *
  * Uses better-sqlite3 for synchronous, fast, zero-config storage.
- * Data survives server restarts. File stored at server/data/chainverify.db
+ * Data survives server restarts. File stored at server/data/greensetu.db
  */
 
 import Database from 'better-sqlite3';
@@ -15,7 +15,7 @@ import type { IVerificationStore } from './verification.store.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const DB_PATH = process.env.SQLITE_DB_PATH || join(__dirname, '..', 'data', 'chainverify.db');
+const DB_PATH = process.env.SQLITE_DB_PATH || join(__dirname, '..', 'data', 'greensetu.db');
 
 // Ensure data directory exists
 mkdirSync(dirname(DB_PATH), { recursive: true });

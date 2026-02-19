@@ -1,8 +1,8 @@
-# ChainVerify
+# GreenSetu
 
 > **The first x402-powered autonomous verification agent on Algorand — proving trust in every supply chain, one micropayment at a time.**
 
-ChainVerify is a full-stack supply-chain verification platform where an AI agent autonomously pays for, verifies, and certifies the integrity of real-world supply chain data on the Algorand blockchain using the **x402 protocol** — with tokenized carbon rewards for sustainable farmers.
+GreenSetu is a full-stack supply-chain verification platform where an AI agent autonomously pays for, verifies, and certifies the integrity of real-world supply chain data on the Algorand blockchain using the **x402 protocol** — with tokenized carbon rewards for sustainable farmers.
 
 ---
 
@@ -28,9 +28,9 @@ ChainVerify is a full-stack supply-chain verification platform where an AI agent
 
 ## Key Innovation — Why x402?
 
-x402 is Algorand's newest protocol (announced Feb 12, 2026) enabling AI agents to make autonomous micropayments over HTTP. ChainVerify uses it so the verification agent can **self-fund its own verification work** without any human wallet interaction.
+x402 is Algorand's newest protocol (announced Feb 12, 2026) enabling AI agents to make autonomous micropayments over HTTP. GreenSetu uses it so the verification agent can **self-fund its own verification work** without any human wallet interaction.
 
-| Traditional Supply Chain Apps | ChainVerify |
+| Traditional Supply Chain Apps | GreenSetu |
 |------|------|
 | Log data on-chain | Log data + **AI agent autonomously verifies it** |
 | Manual / human auditors | **Autonomous AI verification via x402 micropayments** |
@@ -51,7 +51,7 @@ x402 is Algorand's newest protocol (announced Feb 12, 2026) enabling AI agents t
 | **Wallet** | Defly Wallet Connect |
 | **Maps & QR** | Leaflet.js, html5-qrcode, qrcode.react |
 | **Network** | Algorand TestNet (Nodely node provider) |
-| **Payment Token** | CVT (ChainVerify Token) — custom ASA for x402 micropayments |
+| **Payment Token** | CVT (GreenSetu Token) — custom ASA for x402 micropayments |
 
 ---
 
@@ -124,7 +124,7 @@ x402 is Algorand's newest protocol (announced Feb 12, 2026) enabling AI agents t
 ## Project Structure
 
 ```
-ChainVerify/
+GreenSetu/
 ├── frontend/                  # Next.js 14 frontend
 │   ├── app/
 │   │   ├── page.tsx           # Landing page
@@ -165,7 +165,7 @@ ChainVerify/
 
 ```bash
 git clone <repo-url>
-cd ChainVerify
+cd GreenSetu
 
 # Install backend dependencies
 cd server && npm install && cd ..
@@ -247,7 +247,7 @@ See [docs/API.md](docs/API.md) for the complete API documentation. Key endpoints
 ## x402 Verification Flow
 
 ```
-Consumer / Agent                    ChainVerify Server               Algorand
+Consumer / Agent                    GreenSetu Server               Algorand
        │                                   │                            │
        │──── GET /verify ─────────────────▶│                            │
        │◀─── 402 Payment Required ─────────│                            │
@@ -348,7 +348,7 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed deployment instruction
 
 ### Judging Criteria Alignment
 
-| Criteria | How ChainVerify Addresses It |
+| Criteria | How GreenSetu Addresses It |
 |----------|------------------------------|
 | **x402 Protocol Usage** | Core feature — AI agent pays for verification via x402 micropayments |
 | **Algorand Integration** | ASA minting, box storage, atomic transfers, indexer queries |

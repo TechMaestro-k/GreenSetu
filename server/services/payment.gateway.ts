@@ -15,7 +15,7 @@ import { x402Config } from "../config/algorand.config.js";
 import { HttpRequest } from "../types/http.types.js";
 import { PaymentReceipt, VerificationRequest } from "../types/verification.types.js";
 
-const DEFAULT_RESOURCE_DESCRIPTION = "ChainVerify verification";
+const DEFAULT_RESOURCE_DESCRIPTION = "GreenSetu verification";
 const DEFAULT_RESOURCE_MIME = "application/json";
 
 export interface PaymentGateway {

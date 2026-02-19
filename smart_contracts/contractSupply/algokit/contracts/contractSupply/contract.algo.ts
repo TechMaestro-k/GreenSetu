@@ -218,7 +218,7 @@ export class ContractSupply extends Contract {
             fee: globals.minTxnFee,
             configAssetTotal: 1,
             configAssetDecimals: 0,
-            configAssetName: "CHAINVERIFY-BATCH",
+            configAssetName: "GREENSETU-BATCH",
             configAssetUnitName: "CVBATCH",
             configAssetManager: globals.currentApplicationAddress,
             configAssetReserve: globals.currentApplicationAddress,

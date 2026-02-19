@@ -3,7 +3,7 @@ import { WalletProvider } from "./providers";
 import Navbar from "./components/Navbar";
 
 export const metadata = {
-  title: "ChainVerify | Farm to Shelf Provenance on Algorand",
+  title: "GreenSetu | Farm to Shelf Provenance on Algorand",
   description:
     "AI-verified supply chain provenance with x402 micropayments on Algorand. Track products from farm to shelf with immutable on-chain records.",
 };
