@@ -20,9 +20,8 @@ GreenSetu is a full-stack supply-chain verification platform where an AI agent a
 1. **Every product batch** gets a unique digital identity (ASA token) on Algorand at harvest.
 2. **Every handler** (farmer → transporter → warehouse → retailer) logs immutable checkpoints on-chain with GPS, temperature, humidity, and photos.
 3. **An x402 AI verification agent** autonomously analyzes every checkpoint for anomalies — paying for each verification via x402 micropayments.
-4. **Farmers get paid instantly** in stablecoins the moment their product reaches the retailer via atomic transfers.
-5. **Consumers scan a QR code** and see the full verified journey, AI trust score, and carbon footprint.
-6. **Sustainable farmers earn** tokenized carbon credit tokens and build an on-chain reputation.
+4. **Consumers scan a QR code** and see the full verified journey, AI trust score, and carbon footprint.
+5. **Sustainable farmers earn** tokenized carbon credit tokens and build an on-chain reputation.
 
 ---
 
@@ -107,7 +106,6 @@ x402 is Algorand's newest protocol (announced Feb 12, 2026) enabling AI agents t
 - **Batch Minting** — Each product batch becomes a unique ASA with full metadata (crop type, weight, GPS, organic cert)
 - **Checkpoint Logging** — Immutable on-chain records at every supply chain stage (GPS, temp, humidity, photos)
 - **x402 AI Verification** — Autonomous anomaly detection: speed checks, temperature validation, certification verification, route analysis
-- **Instant Farmer Payment** — Atomic transfers in USDCa on delivery confirmation
 - **Consumer QR Scan** — Mobile-friendly journey page with timeline, map, verification badge, and carbon score
 
 ### Trust & Anti-Fraud
