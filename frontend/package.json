@@ -1,0 +1,43 @@
+{
+  "name": "chainverify-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@blockshake/defly-connect": "^1.2.1",
+    "@react-leaflet/core": "^2.1.0",
+    "@tailwindcss/postcss": "^4.2.0",
+    "@types/leaflet": "^1.9.21",
+    "@types/qrcode": "^1.5.6",
+    "@x402-avm/avm": "^2.2.0",
+    "@x402-avm/core": "^2.2.2",
+    "algosdk": "^3.5.2",
+    "autoprefixer": "^10.4.24",
+    "clsx": "^2.1.1",
+    "html5-qrcode": "^2.3.8",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.574.0",
+    "next": "^14.2.6",
+    "postcss": "^8.5.6",
+    "qrcode": "^1.5.4",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1",
+    "tailwindcss": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.6",
+    "typescript": "^5.6.3"
+  }
+}

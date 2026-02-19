@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.next/
+out/
+*.tsbuildinfo
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+frontend/.env.local
+server/.env
+server/.env.localnet
+server/.env.testnet
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
+server/data/
+
+# Deployment secrets (contains wallet addresses)
+smart_contracts/contractSupply/algokit/deployment-testnet.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+*.log

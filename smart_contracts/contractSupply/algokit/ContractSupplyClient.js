@@ -1,0 +1,5101 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContractSupplyClient = exports.ContractSupplyFactory = exports.ContractSupplyParamsFactory = exports.APP_SPEC = void 0;
+const app_arc56_1 = require("@algorandfoundation/algokit-utils/types/app-arc56");
+const app_client_1 = require("@algorandfoundation/algokit-utils/types/app-client");
+const app_factory_1 = require("@algorandfoundation/algokit-utils/types/app-factory");
+exports.APP_SPEC = { "name": "ContractSupply", "desc": "", "methods": [{ "name": "createApplication", "desc": "Called once when the application is created. Sets the deployer as admin.", "args": [], "returns": { "type": "void" }, "actions": { "create": ["NoOp"], "call": [] } }, { "name": "setAdmin", "desc": "Transfer admin rights to a new address. Only current admin can call.", "args": [{ "name": "newAdmin", "type": "address" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "createBatch", "args": [{ "name": "cropType", "type": "string" }, { "name": "weight", "type": "uint64" }, { "name": "farmGps", "type": "string" }, { "name": "farmingPractices", "type": "string" }, { "name": "organicCertId", "type": "string" }, { "name": "farmerAddr", "type": "string" }, { "name": "createdAt", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "logCheckpoint", "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "gpsLat", "type": "string" }, { "name": "gpsLng", "type": "string" }, { "name": "temperature", "type": "uint64" }, { "name": "humidity", "type": "uint64" }, { "name": "handlerType", "type": "string" }, { "name": "notes", "type": "string" }, { "name": "photoHash", "type": "string" }, { "name": "checkpointTimestamp", "type": "uint64" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "initiateHandoff", "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "fromAddr", "type": "string" }, { "name": "toAddr", "type": "string" }, { "name": "handoffType", "type": "string" }, { "name": "handoffPhotoHashes", "type": "string" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "confirmHandoff", "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }, { "name": "confirmedAt", "type": "uint64" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "mintBatchAsa", "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "metadataHash", "type": "byte[]" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "storeVerification", "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "result", "type": "string" }, { "name": "confidence", "type": "uint64" }, { "name": "reason", "type": "string" }, { "name": "verifierAddr", "type": "string" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "updateCarbonScore", "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "score", "type": "uint64" }, { "name": "creditsEarned", "type": "uint64" }, { "name": "distance", "type": "uint64" }, { "name": "transportMethod", "type": "string" }, { "name": "calculatedAt", "type": "uint64" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "updateFarmerReputation", "args": [{ "name": "farmerAddr", "type": "string" }, { "name": "totalBatches", "type": "uint64" }, { "name": "verifiedCount", "type": "uint64" }, { "name": "flaggedCount", "type": "uint64" }, { "name": "tier", "type": "string" }, { "name": "carbonCreditsTotal", "type": "uint64" }, { "name": "totalPaymentsReceived", "type": "uint64" }, { "name": "lastUpdated", "type": "uint64" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "recordFarmerPayment", "args": [{ "name": "farmerAddr", "type": "string" }, { "name": "batchAsaId", "type": "uint64" }, { "name": "amount", "type": "uint64" }, { "name": "currency", "type": "string" }, { "name": "txId", "type": "string" }, { "name": "timestamp", "type": "uint64" }], "returns": { "type": "void" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getVerification", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getTotalVerifications", "readonly": true, "args": [], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getTotalBatches", "readonly": true, "args": [], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getTotalPayments", "readonly": true, "args": [], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getVerificationConfidence", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getVerificationReason", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getVerificationVerifierAddr", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getVerificationTimestamp", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCarbonScore", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCarbonCredits", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCarbonDistance", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCarbonTransportMethod", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCarbonCalculatedAt", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getFarmerTotalBatches", "readonly": true, "args": [{ "name": "farmerAddr", "type": "string" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getFarmerVerifiedCount", "readonly": true, "args": [{ "name": "farmerAddr", "type": "string" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getFarmerFlaggedCount", "readonly": true, "args": [{ "name": "farmerAddr", "type": "string" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getFarmerTier", "readonly": true, "args": [{ "name": "farmerAddr", "type": "string" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getFarmerCarbonCreditsTotal", "readonly": true, "args": [{ "name": "farmerAddr", "type": "string" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getFarmerPaymentsTotal", "readonly": true, "args": [{ "name": "farmerAddr", "type": "string" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getFarmerLastUpdated", "readonly": true, "args": [{ "name": "farmerAddr", "type": "string" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getPaymentFarmerAddr", "readonly": true, "args": [{ "name": "paymentId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getPaymentBatchId", "readonly": true, "args": [{ "name": "paymentId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getPaymentAmount", "readonly": true, "args": [{ "name": "paymentId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getPaymentCurrency", "readonly": true, "args": [{ "name": "paymentId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getPaymentTxId", "readonly": true, "args": [{ "name": "paymentId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getPaymentTimestamp", "readonly": true, "args": [{ "name": "paymentId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatch", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "hasBatch", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "bool" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpoint", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointCount", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoff", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "hasHandoff", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "bool" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoffCount", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchWeight", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchCropType", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchFarmGps", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchFarmingPractices", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchOrganicCertId", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchFarmerAddr", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchCreatedAt", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getBatchAsaId", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointTemperature", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointHumidity", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointGps", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointHandlerType", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointNotes", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointPhotoHash", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getCheckpointTimestamp", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "index", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoffFromAddr", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoffToAddr", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoffType", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoffStatus", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoffConfirmedAt", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "uint64" }, "actions": { "create": [], "call": ["NoOp"] } }, { "name": "getHandoffPhotoHashes", "readonly": true, "args": [{ "name": "batchAsaId", "type": "uint64" }, { "name": "handoffIndex", "type": "uint64" }], "returns": { "type": "string" }, "actions": { "create": [], "call": ["NoOp"] } }], "arcs": [4, 56], "structs": {}, "state": { "schema": { "global": { "bytes": 1, "ints": 3 }, "local": { "bytes": 0, "ints": 0 } }, "keys": { "global": { "totalBatches": { "key": "dG90YWxCYXRjaGVz", "keyType": "AVMBytes", "valueType": "uint64" }, "totalVerifications": { "key": "dG90YWxWZXJpZmljYXRpb25z", "keyType": "AVMBytes", "valueType": "uint64" }, "totalPayments": { "key": "dG90YWxQYXltZW50cw==", "keyType": "AVMBytes", "valueType": "uint64" }, "admin": { "key": "YWRtaW4=", "keyType": "AVMBytes", "valueType": "address" } }, "local": {}, "box": {} }, "maps": { "global": {}, "local": {}, "box": { "batchCropTypeBox": { "keyType": "uint64", "valueType": "string", "prefix": "YmN0" }, "batchFarmGpsBox": { "keyType": "uint64", "valueType": "string", "prefix": "YmZn" }, "batchOrganicCertIdBox": { "keyType": "uint64", "valueType": "string", "prefix": "Ym9j" }, "batchFarmerAddrBox": { "keyType": "uint64", "valueType": "string", "prefix": "YmZh" }, "batchWeightBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Ync=" }, "batchFarmingPracticesBox": { "keyType": "uint64", "valueType": "string", "prefix": "YmZw" }, "batchCreatedAtBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "YmNh" }, "batchAsaIdBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "YmFz" }, "checkpointGpsBox": { "keyType": "uint64", "valueType": "string", "prefix": "Y3Bn" }, "checkpointTemperatureBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y3B0" }, "checkpointHumidityBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y3Bo" }, "checkpointHandlerTypeBox": { "keyType": "uint64", "valueType": "string", "prefix": "Y3Bobg==" }, "checkpointNotesBox": { "keyType": "uint64", "valueType": "string", "prefix": "Y3Bubw==" }, "checkpointPhotoHashBox": { "keyType": "uint64", "valueType": "string", "prefix": "Y3Bw" }, "checkpointTimestampBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y3B0cw==" }, "checkpointCountBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y3Bu" }, "handoffFromAddrBox": { "keyType": "uint64", "valueType": "string", "prefix": "aG9m" }, "handoffToAddrBox": { "keyType": "uint64", "valueType": "string", "prefix": "aG90" }, "handoffTypeBox": { "keyType": "uint64", "valueType": "string", "prefix": "aG95" }, "handoffStatusBox": { "keyType": "uint64", "valueType": "string", "prefix": "aG9z" }, "handoffConfirmedAtBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "aGNh" }, "handoffPhotoHashesBox": { "keyType": "uint64", "valueType": "string", "prefix": "aHBo" }, "handoffCountBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "aG9u" }, "verificationResultBox": { "keyType": "uint64", "valueType": "string", "prefix": "dnJz" }, "verificationConfidenceBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "dnJj" }, "verificationReasonBox": { "keyType": "uint64", "valueType": "string", "prefix": "dnJy" }, "verificationVerifierAddrBox": { "keyType": "uint64", "valueType": "string", "prefix": "dnJ2" }, "verificationTimestampBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "dnJ0" }, "carbonScoreBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y2Nz" }, "carbonCreditsBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y2Nj" }, "carbonDistanceBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y2Nk" }, "carbonTransportBox": { "keyType": "uint64", "valueType": "string", "prefix": "Y2N0" }, "carbonCalculatedAtBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "Y2Nh" }, "farmerTotalBatchesBox": { "keyType": "string", "valueType": "uint64", "prefix": "ZnJi" }, "farmerVerifiedCountBox": { "keyType": "string", "valueType": "uint64", "prefix": "ZnJ2" }, "farmerFlaggedCountBox": { "keyType": "string", "valueType": "uint64", "prefix": "ZnJm" }, "farmerTierBox": { "keyType": "string", "valueType": "string", "prefix": "ZnJ0" }, "farmerCarbonCreditsBox": { "keyType": "string", "valueType": "uint64", "prefix": "ZnJj" }, "farmerPaymentsTotalBox": { "keyType": "string", "valueType": "uint64", "prefix": "ZnJw" }, "farmerLastUpdatedBox": { "keyType": "string", "valueType": "uint64", "prefix": "ZnJ1" }, "paymentFarmerAddrBox": { "keyType": "uint64", "valueType": "string", "prefix": "cGY=" }, "paymentBatchIdBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "cGI=" }, "paymentAmountBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "cGE=" }, "paymentCurrencyBox": { "keyType": "uint64", "valueType": "string", "prefix": "cGM=" }, "paymentTxBox": { "keyType": "uint64", "valueType": "string", "prefix": "cHQ=" }, "paymentTimestampBox": { "keyType": "uint64", "valueType": "uint64", "prefix": "cHRz" } } } }, "bareActions": { "create": [], "call": [] }, "sourceInfo": { "approval": { "sourceInfo": [{ "teal": 1, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [0] }, { "teal": 2, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [1, 2, 3, 4, 5, 6] }, { "teal": 3, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251] }, { "teal": 15, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [252, 253] }, { "teal": 16, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [254] }, { "teal": 17, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [255, 256] }, { "teal": 18, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [257] }, { "teal": 19, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [258, 259] }, { "teal": 20, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [260] }, { "teal": 21, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [261, 262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286] }, { "teal": 25, "source": "contracts/contractSupply/contract.algo.ts:6", "errorMessage": "The requested action is not implemented in this contract. Are you using the correct OnComplete? Did you set your app ID?", "pc": [287] }, { "teal": 29, "source": "contracts/contractSupply/contract.algo.ts:64", "pc": [288, 289, 290] }, { "teal": 32, "source": "contracts/contractSupply/contract.algo.ts:64", "pc": [291] }, { "teal": 36, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [292, 293, 294] }, { "teal": 37, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [295, 296] }, { "teal": 38, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [297] }, { "teal": 39, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [298] }, { "teal": 40, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [299] }, { "teal": 41, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [300, 301, 302] }, { "teal": 42, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [303, 304] }, { "teal": 43, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [305] }, { "teal": 44, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [306, 307, 308] }, { "teal": 47, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [309] }, { "teal": 50, "source": "contracts/contractSupply/contract.algo.ts:65", "pc": [310, 311] }, { "teal": 54, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [312, 313] }, { "teal": 55, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [314] }, { "teal": 56, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [315] }, { "teal": 57, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [316] }, { "teal": 58, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [317, 318, 319] }, { "teal": 59, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [320, 321] }, { "teal": 60, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [322, 323] }, { "teal": 61, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [324] }, { "teal": 62, "source": "contracts/contractSupply/contract.algo.ts:66", "pc": [325] }, { "teal": 66, "source": "contracts/contractSupply/contract.algo.ts:66", "errorMessage": "Batch not found", "pc": [326] }, { "teal": 67, "source": "contracts/contractSupply/contract.algo.ts:64", "pc": [327] }, { "teal": 74, "source": "contracts/contractSupply/contract.algo.ts:73", "pc": [328, 329, 330] }, { "teal": 81, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [331, 332, 333] }, { "teal": 82, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [334, 335] }, { "teal": 83, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [336] }, { "teal": 84, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [337] }, { "teal": 85, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [338] }, { "teal": 86, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [339] }, { "teal": 87, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [340, 341, 342] }, { "teal": 88, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [343, 344] }, { "teal": 89, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [345, 346] }, { "teal": 90, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [347] }, { "teal": 91, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [348] }, { "teal": 92, "source": "contracts/contractSupply/contract.algo.ts:75", "pc": [349] }, { "teal": 96, "source": "contracts/contractSupply/contract.algo.ts:74", "errorMessage": "Only admin can perform this action", "pc": [350] }, { "teal": 97, "source": "contracts/contractSupply/contract.algo.ts:73", "pc": [351] }, { "teal": 102, "source": "contracts/contractSupply/contract.algo.ts:83", "pc": [352, 353, 354] }, { "teal": 103, "source": "contracts/contractSupply/contract.algo.ts:83", "pc": [355] }, { "teal": 104, "source": "contracts/contractSupply/contract.algo.ts:83", "pc": [356] }, { "teal": 110, "source": "contracts/contractSupply/contract.algo.ts:83", "pc": [357, 358, 359] }, { "teal": 114, "source": "contracts/contractSupply/contract.algo.ts:84", "pc": [360, 361] }, { "teal": 115, "source": "contracts/contractSupply/contract.algo.ts:84", "pc": [362, 363] }, { "teal": 116, "source": "contracts/contractSupply/contract.algo.ts:84", "pc": [364] }, { "teal": 117, "source": "contracts/contractSupply/contract.algo.ts:83", "pc": [365] }, { "teal": 122, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [366, 367, 368] }, { "teal": 123, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [369] }, { "teal": 124, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [370] }, { "teal": 125, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [371, 372] }, { "teal": 126, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [373] }, { "teal": 129, "source": "contracts/contractSupply/contract.algo.ts:90", "errorMessage": "argument 0 (newAdmin) for setAdmin must be a address", "pc": [374] }, { "teal": 132, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [375, 376, 377] }, { "teal": 133, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [378] }, { "teal": 134, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [379] }, { "teal": 140, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [380, 381, 382] }, { "teal": 144, "source": "contracts/contractSupply/contract.algo.ts:91", "pc": [383, 384, 385] }, { "teal": 148, "source": "contracts/contractSupply/contract.algo.ts:92", "pc": [386, 387] }, { "teal": 149, "source": "contracts/contractSupply/contract.algo.ts:92", "pc": [388, 389] }, { "teal": 150, "source": "contracts/contractSupply/contract.algo.ts:92", "pc": [390] }, { "teal": 151, "source": "contracts/contractSupply/contract.algo.ts:90", "pc": [391] }, { "teal": 155, "source": "contracts/contractSupply/contract.algo.ts:95", "pc": [392, 393, 394] }, { "teal": 160, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [395, 396] }, { "teal": 161, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [397, 398] }, { "teal": 162, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [399] }, { "teal": 163, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [400] }, { "teal": 164, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [401] }, { "teal": 165, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [402] }, { "teal": 166, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [403] }, { "teal": 167, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [404] }, { "teal": 168, "source": "contracts/contractSupply/contract.algo.ts:96", "pc": [405, 406, 407] }, { "teal": 173, "source": "contracts/contractSupply/contract.algo.ts:97", "pc": [408] }, { "teal": 176, "source": "contracts/contractSupply/contract.algo.ts:97", "errorMessage": "Verification not found", "pc": [409] }, { "teal": 179, "source": "contracts/contractSupply/contract.algo.ts:95", "pc": [410] }, { "teal": 183, "source": "contracts/contractSupply/contract.algo.ts:101", "pc": [411, 412, 413] }, { "teal": 186, "source": "contracts/contractSupply/contract.algo.ts:101", "pc": [414] }, { "teal": 190, "source": "contracts/contractSupply/contract.algo.ts:102", "pc": [415, 416] }, { "teal": 191, "source": "contracts/contractSupply/contract.algo.ts:102", "pc": [417] }, { "teal": 192, "source": "contracts/contractSupply/contract.algo.ts:102", "pc": [418] }, { "teal": 195, "source": "contracts/contractSupply/contract.algo.ts:102", "errorMessage": "Checkpoint index must be > 0", "pc": [419] }, { "teal": 200, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [420, 421] }, { "teal": 201, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [422, 423] }, { "teal": 202, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [424] }, { "teal": 203, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [425] }, { "teal": 204, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [426] }, { "teal": 205, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [427] }, { "teal": 206, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [428] }, { "teal": 207, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [429] }, { "teal": 208, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [430, 431, 432] }, { "teal": 213, "source": "contracts/contractSupply/contract.algo.ts:103", "pc": [433] }, { "teal": 216, "source": "contracts/contractSupply/contract.algo.ts:103", "errorMessage": "Checkpoint not found", "pc": [434] }, { "teal": 221, "source": "contracts/contractSupply/contract.algo.ts:104", "pc": [435, 436] }, { "teal": 222, "source": "contracts/contractSupply/contract.algo.ts:104", "pc": [437, 438] }, { "teal": 223, "source": "contracts/contractSupply/contract.algo.ts:104", "pc": [439] }, { "teal": 224, "source": "contracts/contractSupply/contract.algo.ts:104", "pc": [440] }, { "teal": 225, "source": "contracts/contractSupply/contract.algo.ts:104", "pc": [441] }, { "teal": 228, "source": "contracts/contractSupply/contract.algo.ts:104", "errorMessage": "box value does not exist: this.checkpointCountBox(batchAsaId).value", "pc": [442] }, { "teal": 229, "source": "contracts/contractSupply/contract.algo.ts:104", "pc": [443] }, { "teal": 230, "source": "contracts/contractSupply/contract.algo.ts:104", "pc": [444, 445] }, { "teal": 234, "source": "contracts/contractSupply/contract.algo.ts:105", "pc": [446, 447] }, { "teal": 235, "source": "contracts/contractSupply/contract.algo.ts:105", "pc": [448, 449] }, { "teal": 236, "source": "contracts/contractSupply/contract.algo.ts:105", "pc": [450] }, { "teal": 239, "source": "contracts/contractSupply/contract.algo.ts:105", "errorMessage": "Checkpoint not found", "pc": [451] }, { "teal": 240, "source": "contracts/contractSupply/contract.algo.ts:101", "pc": [452] }, { "teal": 244, "source": "contracts/contractSupply/contract.algo.ts:108", "pc": [453, 454, 455] }, { "teal": 247, "source": "contracts/contractSupply/contract.algo.ts:108", "pc": [456] }, { "teal": 251, "source": "contracts/contractSupply/contract.algo.ts:109", "pc": [457, 458] }, { "teal": 252, "source": "contracts/contractSupply/contract.algo.ts:109", "pc": [459] }, { "teal": 253, "source": "contracts/contractSupply/contract.algo.ts:109", "pc": [460] }, { "teal": 256, "source": "contracts/contractSupply/contract.algo.ts:109", "errorMessage": "Handoff index must be > 0", "pc": [461] }, { "teal": 261, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [462] }, { "teal": 262, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [463, 464] }, { "teal": 263, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [465] }, { "teal": 264, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [466] }, { "teal": 265, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [467] }, { "teal": 266, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [468] }, { "teal": 267, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [469] }, { "teal": 268, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [470] }, { "teal": 269, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [471, 472, 473] }, { "teal": 274, "source": "contracts/contractSupply/contract.algo.ts:110", "pc": [474] }, { "teal": 277, "source": "contracts/contractSupply/contract.algo.ts:110", "errorMessage": "Handoff not found", "pc": [475] }, { "teal": 282, "source": "contracts/contractSupply/contract.algo.ts:111", "pc": [476] }, { "teal": 283, "source": "contracts/contractSupply/contract.algo.ts:111", "pc": [477, 478] }, { "teal": 284, "source": "contracts/contractSupply/contract.algo.ts:111", "pc": [479] }, { "teal": 285, "source": "contracts/contractSupply/contract.algo.ts:111", "pc": [480] }, { "teal": 286, "source": "contracts/contractSupply/contract.algo.ts:111", "pc": [481] }, { "teal": 289, "source": "contracts/contractSupply/contract.algo.ts:111", "errorMessage": "box value does not exist: this.handoffCountBox(batchAsaId).value", "pc": [482] }, { "teal": 290, "source": "contracts/contractSupply/contract.algo.ts:111", "pc": [483] }, { "teal": 291, "source": "contracts/contractSupply/contract.algo.ts:111", "pc": [484, 485] }, { "teal": 295, "source": "contracts/contractSupply/contract.algo.ts:112", "pc": [486, 487] }, { "teal": 296, "source": "contracts/contractSupply/contract.algo.ts:112", "pc": [488, 489] }, { "teal": 297, "source": "contracts/contractSupply/contract.algo.ts:112", "pc": [490] }, { "teal": 300, "source": "contracts/contractSupply/contract.algo.ts:112", "errorMessage": "Handoff not found", "pc": [491] }, { "teal": 301, "source": "contracts/contractSupply/contract.algo.ts:108", "pc": [492] }, { "teal": 305, "source": "contracts/contractSupply/contract.algo.ts:115", "pc": [493, 494, 495] }, { "teal": 308, "source": "contracts/contractSupply/contract.algo.ts:115", "pc": [496] }, { "teal": 309, "source": "contracts/contractSupply/contract.algo.ts:115", "pc": [497] }, { "teal": 313, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [498, 499, 500] }, { "teal": 314, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [501, 502] }, { "teal": 315, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [503] }, { "teal": 316, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [504] }, { "teal": 317, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [505] }, { "teal": 318, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [506, 507, 508] }, { "teal": 319, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [509, 510] }, { "teal": 320, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [511] }, { "teal": 321, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [512, 513, 514] }, { "teal": 324, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [515] }, { "teal": 327, "source": "contracts/contractSupply/contract.algo.ts:116", "pc": [516, 517] }, { "teal": 331, "source": "contracts/contractSupply/contract.algo.ts:117", "pc": [518, 519] }, { "teal": 332, "source": "contracts/contractSupply/contract.algo.ts:117", "pc": [520] }, { "teal": 333, "source": "contracts/contractSupply/contract.algo.ts:117", "pc": [521] }, { "teal": 334, "source": "contracts/contractSupply/contract.algo.ts:117", "pc": [522, 523] }, { "teal": 338, "source": "contracts/contractSupply/contract.algo.ts:118", "pc": [524, 525] }, { "teal": 339, "source": "contracts/contractSupply/contract.algo.ts:118", "pc": [526, 527] }, { "teal": 340, "source": "contracts/contractSupply/contract.algo.ts:118", "pc": [528] }, { "teal": 344, "source": "contracts/contractSupply/contract.algo.ts:119", "pc": [529, 530] }, { "teal": 347, "source": "contracts/contractSupply/contract.algo.ts:115", "pc": [531, 532] }, { "teal": 350, "source": "contracts/contractSupply/contract.algo.ts:115", "pc": [533, 534] }, { "teal": 351, "source": "contracts/contractSupply/contract.algo.ts:115", "pc": [535] }, { "teal": 356, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [536] }, { "teal": 359, "source": "contracts/contractSupply/contract.algo.ts:130", "pc": [537, 538, 539] }, { "teal": 360, "source": "contracts/contractSupply/contract.algo.ts:130", "pc": [540] }, { "teal": 363, "source": "contracts/contractSupply/contract.algo.ts:129", "pc": [541, 542, 543] }, { "teal": 364, "source": "contracts/contractSupply/contract.algo.ts:129", "pc": [544, 545, 546] }, { "teal": 367, "source": "contracts/contractSupply/contract.algo.ts:128", "pc": [547, 548, 549] }, { "teal": 368, "source": "contracts/contractSupply/contract.algo.ts:128", "pc": [550, 551, 552] }, { "teal": 371, "source": "contracts/contractSupply/contract.algo.ts:127", "pc": [553, 554, 555] }, { "teal": 372, "source": "contracts/contractSupply/contract.algo.ts:127", "pc": [556, 557, 558] }, { "teal": 375, "source": "contracts/contractSupply/contract.algo.ts:126", "pc": [559, 560, 561] }, { "teal": 376, "source": "contracts/contractSupply/contract.algo.ts:126", "pc": [562, 563, 564] }, { "teal": 379, "source": "contracts/contractSupply/contract.algo.ts:125", "pc": [565, 566, 567] }, { "teal": 380, "source": "contracts/contractSupply/contract.algo.ts:125", "pc": [568] }, { "teal": 383, "source": "contracts/contractSupply/contract.algo.ts:124", "pc": [569, 570, 571] }, { "teal": 384, "source": "contracts/contractSupply/contract.algo.ts:124", "pc": [572, 573, 574] }, { "teal": 387, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [575, 576, 577] }, { "teal": 388, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [578] }, { "teal": 389, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [579] }, { "teal": 390, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [580] }, { "teal": 391, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [581] }, { "teal": 392, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [582] }, { "teal": 396, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [583, 584, 585] }, { "teal": 399, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [586] }, { "teal": 400, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [587] }, { "teal": 404, "source": "contracts/contractSupply/contract.algo.ts:132", "pc": [588, 589, 590] }, { "teal": 408, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [591, 592, 593] }, { "teal": 409, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [594, 595] }, { "teal": 410, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [596] }, { "teal": 411, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [597] }, { "teal": 412, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [598] }, { "teal": 413, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [599, 600, 601] }, { "teal": 414, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [602, 603] }, { "teal": 415, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [604] }, { "teal": 416, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [605, 606, 607] }, { "teal": 419, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [608] }, { "teal": 422, "source": "contracts/contractSupply/contract.algo.ts:133", "pc": [609, 610] }, { "teal": 426, "source": "contracts/contractSupply/contract.algo.ts:134", "pc": [611, 612] }, { "teal": 427, "source": "contracts/contractSupply/contract.algo.ts:134", "pc": [613] }, { "teal": 428, "source": "contracts/contractSupply/contract.algo.ts:134", "pc": [614] }, { "teal": 429, "source": "contracts/contractSupply/contract.algo.ts:134", "pc": [615, 616] }, { "teal": 433, "source": "contracts/contractSupply/contract.algo.ts:135", "pc": [617, 618] }, { "teal": 434, "source": "contracts/contractSupply/contract.algo.ts:135", "pc": [619, 620] }, { "teal": 435, "source": "contracts/contractSupply/contract.algo.ts:135", "pc": [621] }, { "teal": 439, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [622, 623] }, { "teal": 440, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [624, 625] }, { "teal": 441, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [626] }, { "teal": 442, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [627] }, { "teal": 443, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [628] }, { "teal": 444, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [629] }, { "teal": 445, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [630] }, { "teal": 446, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [631, 632] }, { "teal": 447, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [633] }, { "teal": 448, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [634] }, { "teal": 449, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [635] }, { "teal": 450, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [636, 637, 638] }, { "teal": 451, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [639] }, { "teal": 452, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [640] }, { "teal": 453, "source": "contracts/contractSupply/contract.algo.ts:136", "pc": [641] }, { "teal": 457, "source": "contracts/contractSupply/contract.algo.ts:137", "pc": [642, 643] }, { "teal": 458, "source": "contracts/contractSupply/contract.algo.ts:137", "pc": [644, 645] }, { "teal": 459, "source": "contracts/contractSupply/contract.algo.ts:137", "pc": [646] }, { "teal": 460, "source": "contracts/contractSupply/contract.algo.ts:137", "pc": [647] }, { "teal": 461, "source": "contracts/contractSupply/contract.algo.ts:137", "pc": [648, 649] }, { "teal": 462, "source": "contracts/contractSupply/contract.algo.ts:137", "pc": [650] }, { "teal": 463, "source": "contracts/contractSupply/contract.algo.ts:137", "pc": [651] }, { "teal": 467, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [652, 653] }, { "teal": 468, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [654, 655] }, { "teal": 469, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [656] }, { "teal": 470, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [657] }, { "teal": 471, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [658] }, { "teal": 472, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [659] }, { "teal": 473, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [660] }, { "teal": 474, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [661, 662] }, { "teal": 475, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [663] }, { "teal": 476, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [664] }, { "teal": 477, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [665] }, { "teal": 478, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [666, 667, 668] }, { "teal": 479, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [669] }, { "teal": 480, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [670] }, { "teal": 481, "source": "contracts/contractSupply/contract.algo.ts:138", "pc": [671] }, { "teal": 485, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [672, 673] }, { "teal": 486, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [674, 675] }, { "teal": 487, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [676] }, { "teal": 488, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [677] }, { "teal": 489, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [678] }, { "teal": 490, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [679] }, { "teal": 491, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [680] }, { "teal": 492, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [681, 682] }, { "teal": 493, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [683] }, { "teal": 494, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [684] }, { "teal": 495, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [685] }, { "teal": 496, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [686, 687, 688] }, { "teal": 497, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [689] }, { "teal": 498, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [690] }, { "teal": 499, "source": "contracts/contractSupply/contract.algo.ts:139", "pc": [691] }, { "teal": 503, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [692, 693] }, { "teal": 504, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [694, 695] }, { "teal": 505, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [696] }, { "teal": 506, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [697] }, { "teal": 507, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [698] }, { "teal": 508, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [699] }, { "teal": 509, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [700] }, { "teal": 510, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [701, 702] }, { "teal": 511, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [703] }, { "teal": 512, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [704] }, { "teal": 513, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [705] }, { "teal": 514, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [706, 707, 708] }, { "teal": 515, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [709] }, { "teal": 516, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [710] }, { "teal": 517, "source": "contracts/contractSupply/contract.algo.ts:140", "pc": [711] }, { "teal": 521, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [712, 713] }, { "teal": 522, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [714, 715] }, { "teal": 523, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [716] }, { "teal": 524, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [717] }, { "teal": 525, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [718] }, { "teal": 526, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [719] }, { "teal": 527, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [720] }, { "teal": 528, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [721, 722] }, { "teal": 529, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [723] }, { "teal": 530, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [724] }, { "teal": 531, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [725] }, { "teal": 532, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [726, 727, 728] }, { "teal": 533, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [729] }, { "teal": 534, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [730] }, { "teal": 535, "source": "contracts/contractSupply/contract.algo.ts:141", "pc": [731] }, { "teal": 539, "source": "contracts/contractSupply/contract.algo.ts:142", "pc": [732, 733] }, { "teal": 540, "source": "contracts/contractSupply/contract.algo.ts:142", "pc": [734, 735] }, { "teal": 541, "source": "contracts/contractSupply/contract.algo.ts:142", "pc": [736] }, { "teal": 542, "source": "contracts/contractSupply/contract.algo.ts:142", "pc": [737] }, { "teal": 543, "source": "contracts/contractSupply/contract.algo.ts:142", "pc": [738, 739] }, { "teal": 544, "source": "contracts/contractSupply/contract.algo.ts:142", "pc": [740] }, { "teal": 545, "source": "contracts/contractSupply/contract.algo.ts:142", "pc": [741] }, { "teal": 549, "source": "contracts/contractSupply/contract.algo.ts:143", "pc": [742, 743] }, { "teal": 552, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [744, 745] }, { "teal": 555, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [746, 747] }, { "teal": 556, "source": "contracts/contractSupply/contract.algo.ts:123", "pc": [748] }, { "teal": 561, "source": "contracts/contractSupply/contract.algo.ts:156", "pc": [749, 750, 751] }, { "teal": 562, "source": "contracts/contractSupply/contract.algo.ts:156", "pc": [752] }, { "teal": 565, "source": "contracts/contractSupply/contract.algo.ts:155", "pc": [753, 754, 755] }, { "teal": 566, "source": "contracts/contractSupply/contract.algo.ts:155", "pc": [756, 757, 758] }, { "teal": 569, "source": "contracts/contractSupply/contract.algo.ts:154", "pc": [759, 760, 761] }, { "teal": 570, "source": "contracts/contractSupply/contract.algo.ts:154", "pc": [762, 763, 764] }, { "teal": 573, "source": "contracts/contractSupply/contract.algo.ts:153", "pc": [765, 766, 767] }, { "teal": 574, "source": "contracts/contractSupply/contract.algo.ts:153", "pc": [768, 769, 770] }, { "teal": 577, "source": "contracts/contractSupply/contract.algo.ts:152", "pc": [771, 772, 773] }, { "teal": 578, "source": "contracts/contractSupply/contract.algo.ts:152", "pc": [774] }, { "teal": 581, "source": "contracts/contractSupply/contract.algo.ts:151", "pc": [775, 776, 777] }, { "teal": 582, "source": "contracts/contractSupply/contract.algo.ts:151", "pc": [778] }, { "teal": 585, "source": "contracts/contractSupply/contract.algo.ts:150", "pc": [779, 780, 781] }, { "teal": 586, "source": "contracts/contractSupply/contract.algo.ts:150", "pc": [782, 783, 784] }, { "teal": 589, "source": "contracts/contractSupply/contract.algo.ts:149", "pc": [785, 786, 787] }, { "teal": 590, "source": "contracts/contractSupply/contract.algo.ts:149", "pc": [788, 789, 790] }, { "teal": 593, "source": "contracts/contractSupply/contract.algo.ts:148", "pc": [791, 792, 793] }, { "teal": 594, "source": "contracts/contractSupply/contract.algo.ts:148", "pc": [794] }, { "teal": 597, "source": "contracts/contractSupply/contract.algo.ts:147", "pc": [795, 796, 797] }, { "teal": 598, "source": "contracts/contractSupply/contract.algo.ts:147", "pc": [798] }, { "teal": 599, "source": "contracts/contractSupply/contract.algo.ts:147", "pc": [799] }, { "teal": 603, "source": "contracts/contractSupply/contract.algo.ts:147", "pc": [800, 801, 802] }, { "teal": 606, "source": "contracts/contractSupply/contract.algo.ts:147", "pc": [803] }, { "teal": 607, "source": "contracts/contractSupply/contract.algo.ts:147", "pc": [804, 805] }, { "teal": 611, "source": "contracts/contractSupply/contract.algo.ts:158", "pc": [806, 807, 808] }, { "teal": 615, "source": "contracts/contractSupply/contract.algo.ts:159", "pc": [809, 810] }, { "teal": 616, "source": "contracts/contractSupply/contract.algo.ts:159", "pc": [811, 812, 813] }, { "teal": 622, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [814, 815] }, { "teal": 623, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [816, 817] }, { "teal": 624, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [818] }, { "teal": 625, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [819] }, { "teal": 626, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [820] }, { "teal": 627, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [821] }, { "teal": 628, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [822] }, { "teal": 629, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [823, 824, 825] }, { "teal": 630, "source": "contracts/contractSupply/contract.algo.ts:162", "pc": [826, 827] }, { "teal": 631, "source": "contracts/contractSupply/contract.algo.ts:162", "pc": [828, 829] }, { "teal": 632, "source": "contracts/contractSupply/contract.algo.ts:162", "pc": [830] }, { "teal": 633, "source": "contracts/contractSupply/contract.algo.ts:162", "pc": [831] }, { "teal": 634, "source": "contracts/contractSupply/contract.algo.ts:162", "pc": [832] }, { "teal": 637, "source": "contracts/contractSupply/contract.algo.ts:162", "errorMessage": "box value does not exist: this.checkpointCountBox(batchAsaId).value", "pc": [833] }, { "teal": 638, "source": "contracts/contractSupply/contract.algo.ts:162", "pc": [834] }, { "teal": 639, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [835, 836, 837] }, { "teal": 642, "source": "contracts/contractSupply/contract.algo.ts:163", "pc": [838] }, { "teal": 645, "source": "contracts/contractSupply/contract.algo.ts:161", "pc": [839, 840] }, { "teal": 649, "source": "contracts/contractSupply/contract.algo.ts:164", "pc": [841, 842] }, { "teal": 650, "source": "contracts/contractSupply/contract.algo.ts:164", "pc": [843] }, { "teal": 651, "source": "contracts/contractSupply/contract.algo.ts:164", "pc": [844] }, { "teal": 652, "source": "contracts/contractSupply/contract.algo.ts:164", "pc": [845, 846] }, { "teal": 656, "source": "contracts/contractSupply/contract.algo.ts:165", "pc": [847, 848] }, { "teal": 657, "source": "contracts/contractSupply/contract.algo.ts:165", "pc": [849, 850] }, { "teal": 658, "source": "contracts/contractSupply/contract.algo.ts:165", "pc": [851] }, { "teal": 659, "source": "contracts/contractSupply/contract.algo.ts:165", "pc": [852] }, { "teal": 660, "source": "contracts/contractSupply/contract.algo.ts:165", "pc": [853, 854] }, { "teal": 661, "source": "contracts/contractSupply/contract.algo.ts:165", "pc": [855] }, { "teal": 662, "source": "contracts/contractSupply/contract.algo.ts:165", "pc": [856] }, { "teal": 666, "source": "contracts/contractSupply/contract.algo.ts:167", "pc": [857, 858] }, { "teal": 667, "source": "contracts/contractSupply/contract.algo.ts:167", "pc": [859] }, { "teal": 668, "source": "contracts/contractSupply/contract.algo.ts:167", "pc": [860] }, { "teal": 669, "source": "contracts/contractSupply/contract.algo.ts:167", "pc": [861, 862] }, { "teal": 670, "source": "contracts/contractSupply/contract.algo.ts:167", "pc": [863] }, { "teal": 671, "source": "contracts/contractSupply/contract.algo.ts:167", "pc": [864, 865] }, { "teal": 675, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [866, 867] }, { "teal": 676, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [868, 869] }, { "teal": 677, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [870] }, { "teal": 678, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [871] }, { "teal": 679, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [872] }, { "teal": 680, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [873] }, { "teal": 681, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [874] }, { "teal": 682, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [875, 876] }, { "teal": 683, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [877] }, { "teal": 684, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [878] }, { "teal": 685, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [879, 880] }, { "teal": 686, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [881] }, { "teal": 687, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [882] }, { "teal": 688, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [883] }, { "teal": 689, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [884] }, { "teal": 690, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [885, 886, 887] }, { "teal": 691, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [888] }, { "teal": 692, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [889] }, { "teal": 693, "source": "contracts/contractSupply/contract.algo.ts:168", "pc": [890] }, { "teal": 697, "source": "contracts/contractSupply/contract.algo.ts:169", "pc": [891, 892] }, { "teal": 698, "source": "contracts/contractSupply/contract.algo.ts:169", "pc": [893, 894] }, { "teal": 699, "source": "contracts/contractSupply/contract.algo.ts:169", "pc": [895] }, { "teal": 700, "source": "contracts/contractSupply/contract.algo.ts:169", "pc": [896] }, { "teal": 701, "source": "contracts/contractSupply/contract.algo.ts:169", "pc": [897, 898] }, { "teal": 702, "source": "contracts/contractSupply/contract.algo.ts:169", "pc": [899] }, { "teal": 703, "source": "contracts/contractSupply/contract.algo.ts:169", "pc": [900] }, { "teal": 707, "source": "contracts/contractSupply/contract.algo.ts:170", "pc": [901, 902] }, { "teal": 708, "source": "contracts/contractSupply/contract.algo.ts:170", "pc": [903, 904] }, { "teal": 709, "source": "contracts/contractSupply/contract.algo.ts:170", "pc": [905] }, { "teal": 710, "source": "contracts/contractSupply/contract.algo.ts:170", "pc": [906] }, { "teal": 711, "source": "contracts/contractSupply/contract.algo.ts:170", "pc": [907, 908] }, { "teal": 712, "source": "contracts/contractSupply/contract.algo.ts:170", "pc": [909] }, { "teal": 713, "source": "contracts/contractSupply/contract.algo.ts:170", "pc": [910] }, { "teal": 717, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [911, 912] }, { "teal": 718, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [913, 914] }, { "teal": 719, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [915] }, { "teal": 720, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [916] }, { "teal": 721, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [917] }, { "teal": 722, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [918] }, { "teal": 723, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [919] }, { "teal": 724, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [920, 921] }, { "teal": 725, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [922] }, { "teal": 726, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [923] }, { "teal": 727, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [924] }, { "teal": 728, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [925, 926, 927] }, { "teal": 729, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [928] }, { "teal": 730, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [929] }, { "teal": 731, "source": "contracts/contractSupply/contract.algo.ts:171", "pc": [930] }, { "teal": 735, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [931, 932] }, { "teal": 736, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [933, 934] }, { "teal": 737, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [935] }, { "teal": 738, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [936] }, { "teal": 739, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [937] }, { "teal": 740, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [938] }, { "teal": 741, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [939] }, { "teal": 742, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [940, 941] }, { "teal": 743, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [942] }, { "teal": 744, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [943] }, { "teal": 745, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [944] }, { "teal": 746, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [945, 946, 947] }, { "teal": 747, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [948] }, { "teal": 748, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [949] }, { "teal": 749, "source": "contracts/contractSupply/contract.algo.ts:172", "pc": [950] }, { "teal": 753, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [951, 952] }, { "teal": 754, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [953, 954] }, { "teal": 755, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [955] }, { "teal": 756, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [956] }, { "teal": 757, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [957] }, { "teal": 758, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [958] }, { "teal": 759, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [959] }, { "teal": 760, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [960, 961] }, { "teal": 761, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [962] }, { "teal": 762, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [963] }, { "teal": 763, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [964] }, { "teal": 764, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [965, 966, 967] }, { "teal": 765, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [968] }, { "teal": 766, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [969] }, { "teal": 767, "source": "contracts/contractSupply/contract.algo.ts:173", "pc": [970] }, { "teal": 771, "source": "contracts/contractSupply/contract.algo.ts:174", "pc": [971, 972] }, { "teal": 772, "source": "contracts/contractSupply/contract.algo.ts:174", "pc": [973, 974] }, { "teal": 773, "source": "contracts/contractSupply/contract.algo.ts:174", "pc": [975] }, { "teal": 774, "source": "contracts/contractSupply/contract.algo.ts:174", "pc": [976] }, { "teal": 775, "source": "contracts/contractSupply/contract.algo.ts:174", "pc": [977, 978] }, { "teal": 776, "source": "contracts/contractSupply/contract.algo.ts:174", "pc": [979] }, { "teal": 777, "source": "contracts/contractSupply/contract.algo.ts:174", "pc": [980] }, { "teal": 778, "source": "contracts/contractSupply/contract.algo.ts:147", "pc": [981] }, { "teal": 783, "source": "contracts/contractSupply/contract.algo.ts:183", "pc": [982, 983, 984] }, { "teal": 784, "source": "contracts/contractSupply/contract.algo.ts:183", "pc": [985, 986, 987] }, { "teal": 787, "source": "contracts/contractSupply/contract.algo.ts:182", "pc": [988, 989, 990] }, { "teal": 788, "source": "contracts/contractSupply/contract.algo.ts:182", "pc": [991, 992, 993] }, { "teal": 791, "source": "contracts/contractSupply/contract.algo.ts:181", "pc": [994, 995, 996] }, { "teal": 792, "source": "contracts/contractSupply/contract.algo.ts:181", "pc": [997, 998, 999] }, { "teal": 795, "source": "contracts/contractSupply/contract.algo.ts:180", "pc": [1000, 1001, 1002] }, { "teal": 796, "source": "contracts/contractSupply/contract.algo.ts:180", "pc": [1003, 1004, 1005] }, { "teal": 799, "source": "contracts/contractSupply/contract.algo.ts:179", "pc": [1006, 1007, 1008] }, { "teal": 800, "source": "contracts/contractSupply/contract.algo.ts:179", "pc": [1009] }, { "teal": 803, "source": "contracts/contractSupply/contract.algo.ts:178", "pc": [1010, 1011, 1012] }, { "teal": 804, "source": "contracts/contractSupply/contract.algo.ts:178", "pc": [1013] }, { "teal": 805, "source": "contracts/contractSupply/contract.algo.ts:178", "pc": [1014] }, { "teal": 809, "source": "contracts/contractSupply/contract.algo.ts:178", "pc": [1015, 1016, 1017] }, { "teal": 812, "source": "contracts/contractSupply/contract.algo.ts:178", "pc": [1018] }, { "teal": 813, "source": "contracts/contractSupply/contract.algo.ts:178", "pc": [1019, 1020] }, { "teal": 817, "source": "contracts/contractSupply/contract.algo.ts:185", "pc": [1021, 1022, 1023] }, { "teal": 821, "source": "contracts/contractSupply/contract.algo.ts:186", "pc": [1024, 1025] }, { "teal": 822, "source": "contracts/contractSupply/contract.algo.ts:186", "pc": [1026, 1027, 1028] }, { "teal": 828, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1029] }, { "teal": 829, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1030, 1031] }, { "teal": 830, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1032] }, { "teal": 831, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1033] }, { "teal": 832, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1034] }, { "teal": 833, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1035] }, { "teal": 834, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1036] }, { "teal": 835, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1037, 1038, 1039] }, { "teal": 836, "source": "contracts/contractSupply/contract.algo.ts:189", "pc": [1040] }, { "teal": 837, "source": "contracts/contractSupply/contract.algo.ts:189", "pc": [1041, 1042] }, { "teal": 838, "source": "contracts/contractSupply/contract.algo.ts:189", "pc": [1043] }, { "teal": 839, "source": "contracts/contractSupply/contract.algo.ts:189", "pc": [1044] }, { "teal": 840, "source": "contracts/contractSupply/contract.algo.ts:189", "pc": [1045] }, { "teal": 843, "source": "contracts/contractSupply/contract.algo.ts:189", "errorMessage": "box value does not exist: this.handoffCountBox(batchAsaId).value", "pc": [1046] }, { "teal": 844, "source": "contracts/contractSupply/contract.algo.ts:189", "pc": [1047] }, { "teal": 845, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1048, 1049, 1050] }, { "teal": 848, "source": "contracts/contractSupply/contract.algo.ts:190", "pc": [1051] }, { "teal": 851, "source": "contracts/contractSupply/contract.algo.ts:188", "pc": [1052, 1053] }, { "teal": 855, "source": "contracts/contractSupply/contract.algo.ts:191", "pc": [1054, 1055] }, { "teal": 856, "source": "contracts/contractSupply/contract.algo.ts:191", "pc": [1056] }, { "teal": 857, "source": "contracts/contractSupply/contract.algo.ts:191", "pc": [1057] }, { "teal": 858, "source": "contracts/contractSupply/contract.algo.ts:191", "pc": [1058, 1059] }, { "teal": 862, "source": "contracts/contractSupply/contract.algo.ts:192", "pc": [1060] }, { "teal": 863, "source": "contracts/contractSupply/contract.algo.ts:192", "pc": [1061, 1062] }, { "teal": 864, "source": "contracts/contractSupply/contract.algo.ts:192", "pc": [1063] }, { "teal": 865, "source": "contracts/contractSupply/contract.algo.ts:192", "pc": [1064] }, { "teal": 866, "source": "contracts/contractSupply/contract.algo.ts:192", "pc": [1065, 1066] }, { "teal": 867, "source": "contracts/contractSupply/contract.algo.ts:192", "pc": [1067] }, { "teal": 868, "source": "contracts/contractSupply/contract.algo.ts:192", "pc": [1068] }, { "teal": 872, "source": "contracts/contractSupply/contract.algo.ts:194", "pc": [1069, 1070] }, { "teal": 873, "source": "contracts/contractSupply/contract.algo.ts:194", "pc": [1071] }, { "teal": 874, "source": "contracts/contractSupply/contract.algo.ts:194", "pc": [1072] }, { "teal": 875, "source": "contracts/contractSupply/contract.algo.ts:194", "pc": [1073, 1074] }, { "teal": 876, "source": "contracts/contractSupply/contract.algo.ts:194", "pc": [1075] }, { "teal": 877, "source": "contracts/contractSupply/contract.algo.ts:194", "pc": [1076, 1077] }, { "teal": 881, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1078, 1079] }, { "teal": 882, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1080, 1081] }, { "teal": 883, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1082] }, { "teal": 884, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1083] }, { "teal": 885, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1084] }, { "teal": 886, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1085] }, { "teal": 887, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1086] }, { "teal": 888, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1087, 1088] }, { "teal": 889, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1089] }, { "teal": 890, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1090] }, { "teal": 891, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1091] }, { "teal": 892, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1092, 1093, 1094] }, { "teal": 893, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1095] }, { "teal": 894, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1096] }, { "teal": 895, "source": "contracts/contractSupply/contract.algo.ts:195", "pc": [1097] }, { "teal": 899, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1098, 1099] }, { "teal": 900, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1100, 1101] }, { "teal": 901, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1102] }, { "teal": 902, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1103] }, { "teal": 903, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1104] }, { "teal": 904, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1105] }, { "teal": 905, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1106] }, { "teal": 906, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1107, 1108] }, { "teal": 907, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1109] }, { "teal": 908, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1110] }, { "teal": 909, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1111] }, { "teal": 910, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1112, 1113, 1114] }, { "teal": 911, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1115] }, { "teal": 912, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1116] }, { "teal": 913, "source": "contracts/contractSupply/contract.algo.ts:196", "pc": [1117] }, { "teal": 917, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1118, 1119] }, { "teal": 918, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1120, 1121] }, { "teal": 919, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1122] }, { "teal": 920, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1123] }, { "teal": 921, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1124] }, { "teal": 922, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1125] }, { "teal": 923, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1126] }, { "teal": 924, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1127, 1128] }, { "teal": 925, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1129] }, { "teal": 926, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1130] }, { "teal": 927, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1131] }, { "teal": 928, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1132, 1133, 1134] }, { "teal": 929, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1135] }, { "teal": 930, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1136] }, { "teal": 931, "source": "contracts/contractSupply/contract.algo.ts:197", "pc": [1137] }, { "teal": 935, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1138, 1139] }, { "teal": 936, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1140, 1141] }, { "teal": 937, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1142] }, { "teal": 938, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1143] }, { "teal": 939, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1144] }, { "teal": 940, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1145] }, { "teal": 941, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1146] }, { "teal": 942, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1147, 1148, 1149, 1150, 1151, 1152, 1153, 1154, 1155, 1156, 1157] }, { "teal": 943, "source": "contracts/contractSupply/contract.algo.ts:198", "pc": [1158] }, { "teal": 947, "source": "contracts/contractSupply/contract.algo.ts:199", "pc": [1159, 1160] }, { "teal": 948, "source": "contracts/contractSupply/contract.algo.ts:199", "pc": [1161, 1162] }, { "teal": 949, "source": "contracts/contractSupply/contract.algo.ts:199", "pc": [1163] }, { "teal": 950, "source": "contracts/contractSupply/contract.algo.ts:199", "pc": [1164] }, { "teal": 951, "source": "contracts/contractSupply/contract.algo.ts:199", "pc": [1165, 1166, 1167, 1168, 1169, 1170, 1171, 1172, 1173, 1174] }, { "teal": 952, "source": "contracts/contractSupply/contract.algo.ts:199", "pc": [1175] }, { "teal": 956, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1176, 1177] }, { "teal": 957, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1178, 1179] }, { "teal": 958, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1180] }, { "teal": 959, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1181] }, { "teal": 960, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1182] }, { "teal": 961, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1183] }, { "teal": 962, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1184] }, { "teal": 963, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1185, 1186] }, { "teal": 964, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1187] }, { "teal": 965, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1188] }, { "teal": 966, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1189] }, { "teal": 967, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1190, 1191, 1192] }, { "teal": 968, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1193] }, { "teal": 969, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1194] }, { "teal": 970, "source": "contracts/contractSupply/contract.algo.ts:200", "pc": [1195] }, { "teal": 971, "source": "contracts/contractSupply/contract.algo.ts:178", "pc": [1196] }, { "teal": 976, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1197, 1198, 1199] }, { "teal": 977, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1200] }, { "teal": 980, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1201, 1202, 1203] }, { "teal": 981, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1204] }, { "teal": 984, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1205, 1206, 1207] }, { "teal": 985, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1208] }, { "teal": 988, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1209, 1210, 1211] }, { "teal": 989, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1212] }, { "teal": 990, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1213] }, { "teal": 994, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1214, 1215, 1216] }, { "teal": 997, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1217] }, { "teal": 1001, "source": "contracts/contractSupply/contract.algo.ts:204", "pc": [1218, 1219, 1220] }, { "teal": 1005, "source": "contracts/contractSupply/contract.algo.ts:205", "pc": [1221, 1222] }, { "teal": 1006, "source": "contracts/contractSupply/contract.algo.ts:205", "pc": [1223, 1224, 1225] }, { "teal": 1010, "source": "contracts/contractSupply/contract.algo.ts:206", "pc": [1226, 1227] }, { "teal": 1011, "source": "contracts/contractSupply/contract.algo.ts:206", "pc": [1228, 1229] }, { "teal": 1012, "source": "contracts/contractSupply/contract.algo.ts:206", "pc": [1230, 1231, 1232] }, { "teal": 1016, "source": "contracts/contractSupply/contract.algo.ts:207", "pc": [1233, 1234] }, { "teal": 1017, "source": "contracts/contractSupply/contract.algo.ts:207", "pc": [1235] }, { "teal": 1018, "source": "contracts/contractSupply/contract.algo.ts:207", "pc": [1236] }, { "teal": 1019, "source": "contracts/contractSupply/contract.algo.ts:207", "pc": [1237, 1238] }, { "teal": 1020, "source": "contracts/contractSupply/contract.algo.ts:207", "pc": [1239] }, { "teal": 1021, "source": "contracts/contractSupply/contract.algo.ts:207", "pc": [1240, 1241] }, { "teal": 1025, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1242, 1243] }, { "teal": 1026, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1244, 1245] }, { "teal": 1027, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1246] }, { "teal": 1028, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1247] }, { "teal": 1029, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1248] }, { "teal": 1030, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1249] }, { "teal": 1031, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1250] }, { "teal": 1032, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1251, 1252, 1253, 1254, 1255, 1256, 1257, 1258, 1259, 1260, 1261, 1262, 1263] }, { "teal": 1033, "source": "contracts/contractSupply/contract.algo.ts:208", "pc": [1264] }, { "teal": 1037, "source": "contracts/contractSupply/contract.algo.ts:209", "pc": [1265, 1266] }, { "teal": 1038, "source": "contracts/contractSupply/contract.algo.ts:209", "pc": [1267, 1268] }, { "teal": 1039, "source": "contracts/contractSupply/contract.algo.ts:209", "pc": [1269] }, { "teal": 1040, "source": "contracts/contractSupply/contract.algo.ts:209", "pc": [1270] }, { "teal": 1041, "source": "contracts/contractSupply/contract.algo.ts:209", "pc": [1271, 1272] }, { "teal": 1042, "source": "contracts/contractSupply/contract.algo.ts:209", "pc": [1273] }, { "teal": 1043, "source": "contracts/contractSupply/contract.algo.ts:209", "pc": [1274] }, { "teal": 1044, "source": "contracts/contractSupply/contract.algo.ts:203", "pc": [1275] }, { "teal": 1049, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1276] }, { "teal": 1052, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1277, 1278, 1279] }, { "teal": 1053, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1280, 1281, 1282] }, { "teal": 1056, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1283, 1284, 1285] }, { "teal": 1057, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1286] }, { "teal": 1060, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1287, 1288, 1289] }, { "teal": 1061, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1290] }, { "teal": 1062, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1291] }, { "teal": 1063, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1292] }, { "teal": 1064, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1293] }, { "teal": 1065, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1294] }, { "teal": 1069, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1295, 1296, 1297] }, { "teal": 1072, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1298] }, { "teal": 1073, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1299] }, { "teal": 1077, "source": "contracts/contractSupply/contract.algo.ts:213", "pc": [1300, 1301, 1302] }, { "teal": 1081, "source": "contracts/contractSupply/contract.algo.ts:214", "pc": [1303, 1304] }, { "teal": 1082, "source": "contracts/contractSupply/contract.algo.ts:214", "pc": [1305, 1306, 1307] }, { "teal": 1086, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1308, 1309] }, { "teal": 1087, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1310, 1311] }, { "teal": 1088, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1312] }, { "teal": 1089, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1313] }, { "teal": 1090, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1314] }, { "teal": 1091, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1315] }, { "teal": 1092, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1316] }, { "teal": 1093, "source": "contracts/contractSupply/contract.algo.ts:215", "pc": [1317] }, { "teal": 1096, "source": "contracts/contractSupply/contract.algo.ts:215", "errorMessage": "ASA already minted", "pc": [1318] }, { "teal": 1111, "source": "contracts/contractSupply/contract.algo.ts:216", "pc": [1319] }, { "teal": 1112, "source": "contracts/contractSupply/contract.algo.ts:216", "pc": [1320, 1321] }, { "teal": 1113, "source": "contracts/contractSupply/contract.algo.ts:216", "pc": [1322, 1323] }, { "teal": 1117, "source": "contracts/contractSupply/contract.algo.ts:217", "pc": [1324, 1325] }, { "teal": 1118, "source": "contracts/contractSupply/contract.algo.ts:217", "pc": [1326, 1327] }, { "teal": 1122, "source": "contracts/contractSupply/contract.algo.ts:218", "pc": [1328] }, { "teal": 1123, "source": "contracts/contractSupply/contract.algo.ts:218", "pc": [1329, 1330] }, { "teal": 1127, "source": "contracts/contractSupply/contract.algo.ts:219", "pc": [1331] }, { "teal": 1128, "source": "contracts/contractSupply/contract.algo.ts:219", "pc": [1332, 1333] }, { "teal": 1132, "source": "contracts/contractSupply/contract.algo.ts:220", "pc": [1334, 1335, 1336, 1337, 1338, 1339, 1340, 1341, 1342, 1343, 1344, 1345, 1346, 1347, 1348, 1349, 1350, 1351, 1352] }, { "teal": 1133, "source": "contracts/contractSupply/contract.algo.ts:220", "pc": [1353, 1354] }, { "teal": 1137, "source": "contracts/contractSupply/contract.algo.ts:221", "pc": [1355, 1356, 1357, 1358, 1359, 1360, 1361, 1362, 1363] }, { "teal": 1138, "source": "contracts/contractSupply/contract.algo.ts:221", "pc": [1364, 1365] }, { "teal": 1142, "source": "contracts/contractSupply/contract.algo.ts:222", "pc": [1366, 1367] }, { "teal": 1143, "source": "contracts/contractSupply/contract.algo.ts:222", "pc": [1368, 1369] }, { "teal": 1147, "source": "contracts/contractSupply/contract.algo.ts:223", "pc": [1370, 1371] }, { "teal": 1148, "source": "contracts/contractSupply/contract.algo.ts:223", "pc": [1372, 1373] }, { "teal": 1152, "source": "contracts/contractSupply/contract.algo.ts:224", "pc": [1374, 1375] }, { "teal": 1153, "source": "contracts/contractSupply/contract.algo.ts:224", "pc": [1376, 1377] }, { "teal": 1157, "source": "contracts/contractSupply/contract.algo.ts:225", "pc": [1378, 1379] }, { "teal": 1158, "source": "contracts/contractSupply/contract.algo.ts:225", "pc": [1380, 1381] }, { "teal": 1162, "source": "contracts/contractSupply/contract.algo.ts:226", "pc": [1382, 1383] }, { "teal": 1163, "source": "contracts/contractSupply/contract.algo.ts:226", "pc": [1384, 1385] }, { "teal": 1166, "source": "contracts/contractSupply/contract.algo.ts:216", "pc": [1386] }, { "teal": 1167, "source": "contracts/contractSupply/contract.algo.ts:216", "pc": [1387, 1388] }, { "teal": 1168, "source": "contracts/contractSupply/contract.algo.ts:216", "pc": [1389, 1390] }, { "teal": 1172, "source": "contracts/contractSupply/contract.algo.ts:228", "pc": [1391, 1392] }, { "teal": 1173, "source": "contracts/contractSupply/contract.algo.ts:228", "pc": [1393, 1394] }, { "teal": 1177, "source": "contracts/contractSupply/contract.algo.ts:229", "pc": [1395, 1396] }, { "teal": 1178, "source": "contracts/contractSupply/contract.algo.ts:229", "pc": [1397, 1398] }, { "teal": 1179, "source": "contracts/contractSupply/contract.algo.ts:229", "pc": [1399] }, { "teal": 1180, "source": "contracts/contractSupply/contract.algo.ts:229", "pc": [1400] }, { "teal": 1181, "source": "contracts/contractSupply/contract.algo.ts:229", "pc": [1401, 1402] }, { "teal": 1182, "source": "contracts/contractSupply/contract.algo.ts:229", "pc": [1403] }, { "teal": 1183, "source": "contracts/contractSupply/contract.algo.ts:229", "pc": [1404] }, { "teal": 1187, "source": "contracts/contractSupply/contract.algo.ts:230", "pc": [1405, 1406] }, { "teal": 1190, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1407, 1408] }, { "teal": 1193, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1409, 1410] }, { "teal": 1194, "source": "contracts/contractSupply/contract.algo.ts:212", "pc": [1411] }, { "teal": 1199, "source": "contracts/contractSupply/contract.algo.ts:239", "pc": [1412, 1413, 1414] }, { "teal": 1200, "source": "contracts/contractSupply/contract.algo.ts:239", "pc": [1415, 1416, 1417] }, { "teal": 1203, "source": "contracts/contractSupply/contract.algo.ts:238", "pc": [1418, 1419, 1420] }, { "teal": 1204, "source": "contracts/contractSupply/contract.algo.ts:238", "pc": [1421, 1422, 1423] }, { "teal": 1207, "source": "contracts/contractSupply/contract.algo.ts:237", "pc": [1424, 1425, 1426] }, { "teal": 1208, "source": "contracts/contractSupply/contract.algo.ts:237", "pc": [1427] }, { "teal": 1211, "source": "contracts/contractSupply/contract.algo.ts:236", "pc": [1428, 1429, 1430] }, { "teal": 1212, "source": "contracts/contractSupply/contract.algo.ts:236", "pc": [1431, 1432, 1433] }, { "teal": 1215, "source": "contracts/contractSupply/contract.algo.ts:235", "pc": [1434, 1435, 1436] }, { "teal": 1216, "source": "contracts/contractSupply/contract.algo.ts:235", "pc": [1437] }, { "teal": 1219, "source": "contracts/contractSupply/contract.algo.ts:234", "pc": [1438, 1439, 1440] }, { "teal": 1220, "source": "contracts/contractSupply/contract.algo.ts:234", "pc": [1441] }, { "teal": 1221, "source": "contracts/contractSupply/contract.algo.ts:234", "pc": [1442] }, { "teal": 1225, "source": "contracts/contractSupply/contract.algo.ts:234", "pc": [1443, 1444, 1445] }, { "teal": 1228, "source": "contracts/contractSupply/contract.algo.ts:234", "pc": [1446] }, { "teal": 1229, "source": "contracts/contractSupply/contract.algo.ts:234", "pc": [1447] }, { "teal": 1233, "source": "contracts/contractSupply/contract.algo.ts:241", "pc": [1448, 1449, 1450] }, { "teal": 1237, "source": "contracts/contractSupply/contract.algo.ts:242", "pc": [1451, 1452] }, { "teal": 1238, "source": "contracts/contractSupply/contract.algo.ts:242", "pc": [1453, 1454, 1455] }, { "teal": 1242, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1456, 1457] }, { "teal": 1243, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1458, 1459] }, { "teal": 1244, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1460] }, { "teal": 1245, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1461] }, { "teal": 1246, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1462] }, { "teal": 1247, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1463] }, { "teal": 1248, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1464] }, { "teal": 1249, "source": "contracts/contractSupply/contract.algo.ts:244", "pc": [1465, 1466] }, { "teal": 1253, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1467, 1468] }, { "teal": 1254, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1469, 1470] }, { "teal": 1255, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1471] }, { "teal": 1256, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1472] }, { "teal": 1257, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1473] }, { "teal": 1258, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1474] }, { "teal": 1259, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1475] }, { "teal": 1260, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1476, 1477] }, { "teal": 1261, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1478] }, { "teal": 1262, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1479] }, { "teal": 1263, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1480] }, { "teal": 1264, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1481, 1482, 1483] }, { "teal": 1265, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1484] }, { "teal": 1266, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1485] }, { "teal": 1267, "source": "contracts/contractSupply/contract.algo.ts:245", "pc": [1486] }, { "teal": 1271, "source": "contracts/contractSupply/contract.algo.ts:246", "pc": [1487, 1488] }, { "teal": 1272, "source": "contracts/contractSupply/contract.algo.ts:246", "pc": [1489, 1490] }, { "teal": 1273, "source": "contracts/contractSupply/contract.algo.ts:246", "pc": [1491] }, { "teal": 1274, "source": "contracts/contractSupply/contract.algo.ts:246", "pc": [1492] }, { "teal": 1275, "source": "contracts/contractSupply/contract.algo.ts:246", "pc": [1493, 1494] }, { "teal": 1276, "source": "contracts/contractSupply/contract.algo.ts:246", "pc": [1495] }, { "teal": 1277, "source": "contracts/contractSupply/contract.algo.ts:246", "pc": [1496] }, { "teal": 1281, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1497, 1498] }, { "teal": 1282, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1499, 1500] }, { "teal": 1283, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1501] }, { "teal": 1284, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1502] }, { "teal": 1285, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1503] }, { "teal": 1286, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1504] }, { "teal": 1287, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1505] }, { "teal": 1288, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1506, 1507] }, { "teal": 1289, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1508] }, { "teal": 1290, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1509] }, { "teal": 1291, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1510] }, { "teal": 1292, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1511, 1512, 1513] }, { "teal": 1293, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1514] }, { "teal": 1294, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1515] }, { "teal": 1295, "source": "contracts/contractSupply/contract.algo.ts:247", "pc": [1516] }, { "teal": 1299, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1517, 1518] }, { "teal": 1300, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1519, 1520] }, { "teal": 1301, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1521] }, { "teal": 1302, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1522] }, { "teal": 1303, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1523] }, { "teal": 1304, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1524] }, { "teal": 1305, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1525] }, { "teal": 1306, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1526, 1527] }, { "teal": 1307, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1528] }, { "teal": 1308, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1529] }, { "teal": 1309, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1530] }, { "teal": 1310, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1531, 1532, 1533] }, { "teal": 1311, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1534] }, { "teal": 1312, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1535] }, { "teal": 1313, "source": "contracts/contractSupply/contract.algo.ts:248", "pc": [1536] }, { "teal": 1317, "source": "contracts/contractSupply/contract.algo.ts:249", "pc": [1537, 1538] }, { "teal": 1318, "source": "contracts/contractSupply/contract.algo.ts:249", "pc": [1539, 1540] }, { "teal": 1319, "source": "contracts/contractSupply/contract.algo.ts:249", "pc": [1541] }, { "teal": 1320, "source": "contracts/contractSupply/contract.algo.ts:249", "pc": [1542] }, { "teal": 1321, "source": "contracts/contractSupply/contract.algo.ts:249", "pc": [1543, 1544] }, { "teal": 1322, "source": "contracts/contractSupply/contract.algo.ts:249", "pc": [1545] }, { "teal": 1323, "source": "contracts/contractSupply/contract.algo.ts:249", "pc": [1546] }, { "teal": 1328, "source": "contracts/contractSupply/contract.algo.ts:251", "pc": [1547, 1548] }, { "teal": 1329, "source": "contracts/contractSupply/contract.algo.ts:251", "pc": [1549] }, { "teal": 1330, "source": "contracts/contractSupply/contract.algo.ts:251", "pc": [1550, 1551, 1552] }, { "teal": 1335, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1553, 1554, 1555] }, { "teal": 1336, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1556, 1557] }, { "teal": 1337, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1558] }, { "teal": 1338, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1559] }, { "teal": 1339, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1560] }, { "teal": 1340, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1561, 1562, 1563] }, { "teal": 1341, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1564, 1565] }, { "teal": 1342, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1566] }, { "teal": 1343, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1567, 1568, 1569] }, { "teal": 1346, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1570] }, { "teal": 1349, "source": "contracts/contractSupply/contract.algo.ts:252", "pc": [1571, 1572] }, { "teal": 1353, "source": "contracts/contractSupply/contract.algo.ts:253", "pc": [1573, 1574] }, { "teal": 1354, "source": "contracts/contractSupply/contract.algo.ts:253", "pc": [1575, 1576] }, { "teal": 1355, "source": "contracts/contractSupply/contract.algo.ts:253", "pc": [1577] }, { "teal": 1356, "source": "contracts/contractSupply/contract.algo.ts:253", "pc": [1578] }, { "teal": 1357, "source": "contracts/contractSupply/contract.algo.ts:253", "pc": [1579] }, { "teal": 1360, "source": "contracts/contractSupply/contract.algo.ts:234", "pc": [1580] }, { "teal": 1365, "source": "contracts/contractSupply/contract.algo.ts:264", "pc": [1581, 1582, 1583] }, { "teal": 1366, "source": "contracts/contractSupply/contract.algo.ts:264", "pc": [1584] }, { "teal": 1369, "source": "contracts/contractSupply/contract.algo.ts:263", "pc": [1585, 1586, 1587] }, { "teal": 1370, "source": "contracts/contractSupply/contract.algo.ts:263", "pc": [1588, 1589, 1590] }, { "teal": 1373, "source": "contracts/contractSupply/contract.algo.ts:262", "pc": [1591, 1592, 1593] }, { "teal": 1374, "source": "contracts/contractSupply/contract.algo.ts:262", "pc": [1594] }, { "teal": 1377, "source": "contracts/contractSupply/contract.algo.ts:261", "pc": [1595, 1596, 1597] }, { "teal": 1378, "source": "contracts/contractSupply/contract.algo.ts:261", "pc": [1598] }, { "teal": 1381, "source": "contracts/contractSupply/contract.algo.ts:260", "pc": [1599, 1600, 1601] }, { "teal": 1382, "source": "contracts/contractSupply/contract.algo.ts:260", "pc": [1602] }, { "teal": 1385, "source": "contracts/contractSupply/contract.algo.ts:259", "pc": [1603, 1604, 1605] }, { "teal": 1386, "source": "contracts/contractSupply/contract.algo.ts:259", "pc": [1606] }, { "teal": 1389, "source": "contracts/contractSupply/contract.algo.ts:258", "pc": [1607, 1608, 1609] }, { "teal": 1390, "source": "contracts/contractSupply/contract.algo.ts:258", "pc": [1610] }, { "teal": 1391, "source": "contracts/contractSupply/contract.algo.ts:258", "pc": [1611] }, { "teal": 1395, "source": "contracts/contractSupply/contract.algo.ts:258", "pc": [1612, 1613, 1614] }, { "teal": 1399, "source": "contracts/contractSupply/contract.algo.ts:266", "pc": [1615, 1616, 1617] }, { "teal": 1403, "source": "contracts/contractSupply/contract.algo.ts:267", "pc": [1618, 1619] }, { "teal": 1404, "source": "contracts/contractSupply/contract.algo.ts:267", "pc": [1620, 1621, 1622] }, { "teal": 1408, "source": "contracts/contractSupply/contract.algo.ts:268", "pc": [1623, 1624] }, { "teal": 1409, "source": "contracts/contractSupply/contract.algo.ts:268", "pc": [1625, 1626] }, { "teal": 1410, "source": "contracts/contractSupply/contract.algo.ts:268", "pc": [1627] }, { "teal": 1411, "source": "contracts/contractSupply/contract.algo.ts:268", "pc": [1628] }, { "teal": 1412, "source": "contracts/contractSupply/contract.algo.ts:268", "pc": [1629, 1630] }, { "teal": 1413, "source": "contracts/contractSupply/contract.algo.ts:268", "pc": [1631] }, { "teal": 1414, "source": "contracts/contractSupply/contract.algo.ts:268", "pc": [1632] }, { "teal": 1418, "source": "contracts/contractSupply/contract.algo.ts:269", "pc": [1633, 1634] }, { "teal": 1419, "source": "contracts/contractSupply/contract.algo.ts:269", "pc": [1635, 1636] }, { "teal": 1420, "source": "contracts/contractSupply/contract.algo.ts:269", "pc": [1637] }, { "teal": 1421, "source": "contracts/contractSupply/contract.algo.ts:269", "pc": [1638] }, { "teal": 1422, "source": "contracts/contractSupply/contract.algo.ts:269", "pc": [1639, 1640] }, { "teal": 1423, "source": "contracts/contractSupply/contract.algo.ts:269", "pc": [1641] }, { "teal": 1424, "source": "contracts/contractSupply/contract.algo.ts:269", "pc": [1642] }, { "teal": 1428, "source": "contracts/contractSupply/contract.algo.ts:270", "pc": [1643, 1644] }, { "teal": 1429, "source": "contracts/contractSupply/contract.algo.ts:270", "pc": [1645, 1646] }, { "teal": 1430, "source": "contracts/contractSupply/contract.algo.ts:270", "pc": [1647] }, { "teal": 1431, "source": "contracts/contractSupply/contract.algo.ts:270", "pc": [1648] }, { "teal": 1432, "source": "contracts/contractSupply/contract.algo.ts:270", "pc": [1649, 1650] }, { "teal": 1433, "source": "contracts/contractSupply/contract.algo.ts:270", "pc": [1651] }, { "teal": 1434, "source": "contracts/contractSupply/contract.algo.ts:270", "pc": [1652] }, { "teal": 1438, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1653, 1654] }, { "teal": 1439, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1655, 1656] }, { "teal": 1440, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1657] }, { "teal": 1441, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1658] }, { "teal": 1442, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1659] }, { "teal": 1443, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1660] }, { "teal": 1444, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1661] }, { "teal": 1445, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1662, 1663] }, { "teal": 1446, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1664] }, { "teal": 1447, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1665] }, { "teal": 1448, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1666] }, { "teal": 1449, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1667, 1668, 1669] }, { "teal": 1450, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1670] }, { "teal": 1451, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1671] }, { "teal": 1452, "source": "contracts/contractSupply/contract.algo.ts:271", "pc": [1672] }, { "teal": 1456, "source": "contracts/contractSupply/contract.algo.ts:272", "pc": [1673, 1674] }, { "teal": 1457, "source": "contracts/contractSupply/contract.algo.ts:272", "pc": [1675, 1676] }, { "teal": 1458, "source": "contracts/contractSupply/contract.algo.ts:272", "pc": [1677] }, { "teal": 1459, "source": "contracts/contractSupply/contract.algo.ts:272", "pc": [1678] }, { "teal": 1460, "source": "contracts/contractSupply/contract.algo.ts:272", "pc": [1679, 1680] }, { "teal": 1461, "source": "contracts/contractSupply/contract.algo.ts:272", "pc": [1681] }, { "teal": 1462, "source": "contracts/contractSupply/contract.algo.ts:272", "pc": [1682] }, { "teal": 1463, "source": "contracts/contractSupply/contract.algo.ts:258", "pc": [1683] }, { "teal": 1468, "source": "contracts/contractSupply/contract.algo.ts:284", "pc": [1684, 1685, 1686] }, { "teal": 1469, "source": "contracts/contractSupply/contract.algo.ts:284", "pc": [1687] }, { "teal": 1472, "source": "contracts/contractSupply/contract.algo.ts:283", "pc": [1688, 1689, 1690] }, { "teal": 1473, "source": "contracts/contractSupply/contract.algo.ts:283", "pc": [1691] }, { "teal": 1476, "source": "contracts/contractSupply/contract.algo.ts:282", "pc": [1692, 1693, 1694] }, { "teal": 1477, "source": "contracts/contractSupply/contract.algo.ts:282", "pc": [1695] }, { "teal": 1480, "source": "contracts/contractSupply/contract.algo.ts:281", "pc": [1696, 1697, 1698] }, { "teal": 1481, "source": "contracts/contractSupply/contract.algo.ts:281", "pc": [1699, 1700, 1701] }, { "teal": 1484, "source": "contracts/contractSupply/contract.algo.ts:280", "pc": [1702, 1703, 1704] }, { "teal": 1485, "source": "contracts/contractSupply/contract.algo.ts:280", "pc": [1705] }, { "teal": 1488, "source": "contracts/contractSupply/contract.algo.ts:279", "pc": [1706, 1707, 1708] }, { "teal": 1489, "source": "contracts/contractSupply/contract.algo.ts:279", "pc": [1709] }, { "teal": 1492, "source": "contracts/contractSupply/contract.algo.ts:278", "pc": [1710, 1711, 1712] }, { "teal": 1493, "source": "contracts/contractSupply/contract.algo.ts:278", "pc": [1713] }, { "teal": 1496, "source": "contracts/contractSupply/contract.algo.ts:277", "pc": [1714, 1715, 1716] }, { "teal": 1497, "source": "contracts/contractSupply/contract.algo.ts:277", "pc": [1717, 1718, 1719] }, { "teal": 1500, "source": "contracts/contractSupply/contract.algo.ts:276", "pc": [1720, 1721, 1722] }, { "teal": 1501, "source": "contracts/contractSupply/contract.algo.ts:276", "pc": [1723] }, { "teal": 1502, "source": "contracts/contractSupply/contract.algo.ts:276", "pc": [1724] }, { "teal": 1506, "source": "contracts/contractSupply/contract.algo.ts:276", "pc": [1725, 1726, 1727] }, { "teal": 1510, "source": "contracts/contractSupply/contract.algo.ts:286", "pc": [1728, 1729, 1730] }, { "teal": 1514, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1731, 1732] }, { "teal": 1515, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1733, 1734] }, { "teal": 1516, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1735] }, { "teal": 1517, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1736] }, { "teal": 1518, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1737] }, { "teal": 1519, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1738, 1739, 1740] }, { "teal": 1520, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1741] }, { "teal": 1521, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1742] }, { "teal": 1522, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1743] }, { "teal": 1523, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1744, 1745] }, { "teal": 1524, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1746] }, { "teal": 1525, "source": "contracts/contractSupply/contract.algo.ts:287", "pc": [1747] }, { "teal": 1529, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1748, 1749] }, { "teal": 1530, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1750, 1751] }, { "teal": 1531, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1752] }, { "teal": 1532, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1753] }, { "teal": 1533, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1754] }, { "teal": 1534, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1755, 1756, 1757] }, { "teal": 1535, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1758] }, { "teal": 1536, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1759] }, { "teal": 1537, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1760] }, { "teal": 1538, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1761, 1762] }, { "teal": 1539, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1763] }, { "teal": 1540, "source": "contracts/contractSupply/contract.algo.ts:288", "pc": [1764] }, { "teal": 1544, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1765, 1766] }, { "teal": 1545, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1767, 1768] }, { "teal": 1546, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1769] }, { "teal": 1547, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1770] }, { "teal": 1548, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1771] }, { "teal": 1549, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1772, 1773, 1774] }, { "teal": 1550, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1775] }, { "teal": 1551, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1776] }, { "teal": 1552, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1777] }, { "teal": 1553, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1778, 1779] }, { "teal": 1554, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1780] }, { "teal": 1555, "source": "contracts/contractSupply/contract.algo.ts:289", "pc": [1781] }, { "teal": 1559, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1782, 1783] }, { "teal": 1560, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1784, 1785] }, { "teal": 1561, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1786] }, { "teal": 1562, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1787] }, { "teal": 1563, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1788] }, { "teal": 1564, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1789, 1790, 1791] }, { "teal": 1565, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1792] }, { "teal": 1566, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1793] }, { "teal": 1567, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1794] }, { "teal": 1568, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1795] }, { "teal": 1569, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1796] }, { "teal": 1570, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1797] }, { "teal": 1571, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1798, 1799] }, { "teal": 1572, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1800] }, { "teal": 1573, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1801] }, { "teal": 1574, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1802] }, { "teal": 1575, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1803, 1804, 1805] }, { "teal": 1576, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1806] }, { "teal": 1577, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1807] }, { "teal": 1578, "source": "contracts/contractSupply/contract.algo.ts:290", "pc": [1808] }, { "teal": 1582, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1809, 1810] }, { "teal": 1583, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1811, 1812] }, { "teal": 1584, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1813] }, { "teal": 1585, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1814] }, { "teal": 1586, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1815] }, { "teal": 1587, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1816, 1817, 1818] }, { "teal": 1588, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1819] }, { "teal": 1589, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1820] }, { "teal": 1590, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1821] }, { "teal": 1591, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1822, 1823] }, { "teal": 1592, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1824] }, { "teal": 1593, "source": "contracts/contractSupply/contract.algo.ts:291", "pc": [1825] }, { "teal": 1597, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1826, 1827] }, { "teal": 1598, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1828, 1829] }, { "teal": 1599, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1830] }, { "teal": 1600, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1831] }, { "teal": 1601, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1832] }, { "teal": 1602, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1833, 1834, 1835] }, { "teal": 1603, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1836] }, { "teal": 1604, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1837] }, { "teal": 1605, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1838] }, { "teal": 1606, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1839, 1840] }, { "teal": 1607, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1841] }, { "teal": 1608, "source": "contracts/contractSupply/contract.algo.ts:292", "pc": [1842] }, { "teal": 1612, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1843, 1844] }, { "teal": 1613, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1845, 1846] }, { "teal": 1614, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1847] }, { "teal": 1615, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1848] }, { "teal": 1616, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1849] }, { "teal": 1617, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1850, 1851, 1852] }, { "teal": 1618, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1853] }, { "teal": 1619, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1854] }, { "teal": 1620, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1855] }, { "teal": 1621, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1856, 1857] }, { "teal": 1622, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1858] }, { "teal": 1623, "source": "contracts/contractSupply/contract.algo.ts:293", "pc": [1859] }, { "teal": 1624, "source": "contracts/contractSupply/contract.algo.ts:276", "pc": [1860] }, { "teal": 1629, "source": "contracts/contractSupply/contract.algo.ts:302", "pc": [1861, 1862, 1863] }, { "teal": 1630, "source": "contracts/contractSupply/contract.algo.ts:302", "pc": [1864] }, { "teal": 1633, "source": "contracts/contractSupply/contract.algo.ts:301", "pc": [1865, 1866, 1867] }, { "teal": 1634, "source": "contracts/contractSupply/contract.algo.ts:301", "pc": [1868, 1869, 1870] }, { "teal": 1637, "source": "contracts/contractSupply/contract.algo.ts:300", "pc": [1871, 1872, 1873] }, { "teal": 1638, "source": "contracts/contractSupply/contract.algo.ts:300", "pc": [1874, 1875, 1876] }, { "teal": 1641, "source": "contracts/contractSupply/contract.algo.ts:299", "pc": [1877, 1878, 1879] }, { "teal": 1642, "source": "contracts/contractSupply/contract.algo.ts:299", "pc": [1880] }, { "teal": 1645, "source": "contracts/contractSupply/contract.algo.ts:298", "pc": [1881, 1882, 1883] }, { "teal": 1646, "source": "contracts/contractSupply/contract.algo.ts:298", "pc": [1884] }, { "teal": 1649, "source": "contracts/contractSupply/contract.algo.ts:297", "pc": [1885, 1886, 1887] }, { "teal": 1650, "source": "contracts/contractSupply/contract.algo.ts:297", "pc": [1888, 1889, 1890] }, { "teal": 1653, "source": "contracts/contractSupply/contract.algo.ts:296", "pc": [1891, 1892, 1893] }, { "teal": 1654, "source": "contracts/contractSupply/contract.algo.ts:296", "pc": [1894] }, { "teal": 1655, "source": "contracts/contractSupply/contract.algo.ts:296", "pc": [1895] }, { "teal": 1659, "source": "contracts/contractSupply/contract.algo.ts:296", "pc": [1896, 1897, 1898] }, { "teal": 1662, "source": "contracts/contractSupply/contract.algo.ts:296", "pc": [1899] }, { "teal": 1666, "source": "contracts/contractSupply/contract.algo.ts:304", "pc": [1900, 1901, 1902] }, { "teal": 1670, "source": "contracts/contractSupply/contract.algo.ts:305", "pc": [1903, 1904, 1905] }, { "teal": 1671, "source": "contracts/contractSupply/contract.algo.ts:305", "pc": [1906, 1907] }, { "teal": 1675, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1908, 1909] }, { "teal": 1676, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1910, 1911] }, { "teal": 1677, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1912] }, { "teal": 1678, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1913] }, { "teal": 1679, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1914] }, { "teal": 1680, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1915] }, { "teal": 1681, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1916] }, { "teal": 1682, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1917, 1918] }, { "teal": 1683, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1919] }, { "teal": 1684, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1920] }, { "teal": 1685, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1921] }, { "teal": 1686, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1922, 1923, 1924] }, { "teal": 1687, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1925] }, { "teal": 1688, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1926] }, { "teal": 1689, "source": "contracts/contractSupply/contract.algo.ts:306", "pc": [1927] }, { "teal": 1693, "source": "contracts/contractSupply/contract.algo.ts:307", "pc": [1928, 1929] }, { "teal": 1694, "source": "contracts/contractSupply/contract.algo.ts:307", "pc": [1930, 1931] }, { "teal": 1695, "source": "contracts/contractSupply/contract.algo.ts:307", "pc": [1932] }, { "teal": 1696, "source": "contracts/contractSupply/contract.algo.ts:307", "pc": [1933] }, { "teal": 1697, "source": "contracts/contractSupply/contract.algo.ts:307", "pc": [1934, 1935] }, { "teal": 1698, "source": "contracts/contractSupply/contract.algo.ts:307", "pc": [1936] }, { "teal": 1699, "source": "contracts/contractSupply/contract.algo.ts:307", "pc": [1937] }, { "teal": 1703, "source": "contracts/contractSupply/contract.algo.ts:308", "pc": [1938, 1939] }, { "teal": 1704, "source": "contracts/contractSupply/contract.algo.ts:308", "pc": [1940, 1941] }, { "teal": 1705, "source": "contracts/contractSupply/contract.algo.ts:308", "pc": [1942] }, { "teal": 1706, "source": "contracts/contractSupply/contract.algo.ts:308", "pc": [1943] }, { "teal": 1707, "source": "contracts/contractSupply/contract.algo.ts:308", "pc": [1944, 1945] }, { "teal": 1708, "source": "contracts/contractSupply/contract.algo.ts:308", "pc": [1946] }, { "teal": 1709, "source": "contracts/contractSupply/contract.algo.ts:308", "pc": [1947] }, { "teal": 1713, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1948, 1949] }, { "teal": 1714, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1950, 1951] }, { "teal": 1715, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1952] }, { "teal": 1716, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1953] }, { "teal": 1717, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1954] }, { "teal": 1718, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1955] }, { "teal": 1719, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1956] }, { "teal": 1720, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1957, 1958] }, { "teal": 1721, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1959] }, { "teal": 1722, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1960] }, { "teal": 1723, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1961] }, { "teal": 1724, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1962, 1963, 1964] }, { "teal": 1725, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1965] }, { "teal": 1726, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1966] }, { "teal": 1727, "source": "contracts/contractSupply/contract.algo.ts:309", "pc": [1967] }, { "teal": 1731, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1968, 1969] }, { "teal": 1732, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1970, 1971] }, { "teal": 1733, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1972] }, { "teal": 1734, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1973] }, { "teal": 1735, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1974] }, { "teal": 1736, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1975] }, { "teal": 1737, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1976] }, { "teal": 1738, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1977, 1978] }, { "teal": 1739, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1979] }, { "teal": 1740, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1980] }, { "teal": 1741, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1981] }, { "teal": 1742, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1982, 1983, 1984] }, { "teal": 1743, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1985] }, { "teal": 1744, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1986] }, { "teal": 1745, "source": "contracts/contractSupply/contract.algo.ts:310", "pc": [1987] }, { "teal": 1749, "source": "contracts/contractSupply/contract.algo.ts:311", "pc": [1988, 1989] }, { "teal": 1750, "source": "contracts/contractSupply/contract.algo.ts:311", "pc": [1990, 1991] }, { "teal": 1751, "source": "contracts/contractSupply/contract.algo.ts:311", "pc": [1992] }, { "teal": 1752, "source": "contracts/contractSupply/contract.algo.ts:311", "pc": [1993] }, { "teal": 1753, "source": "contracts/contractSupply/contract.algo.ts:311", "pc": [1994, 1995] }, { "teal": 1754, "source": "contracts/contractSupply/contract.algo.ts:311", "pc": [1996] }, { "teal": 1755, "source": "contracts/contractSupply/contract.algo.ts:311", "pc": [1997] }, { "teal": 1756, "source": "contracts/contractSupply/contract.algo.ts:296", "pc": [1998] }, { "teal": 1761, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [1999] }, { "teal": 1764, "source": "contracts/contractSupply/contract.algo.ts:316", "pc": [2000, 2001, 2002] }, { "teal": 1765, "source": "contracts/contractSupply/contract.algo.ts:316", "pc": [2003] }, { "teal": 1768, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2004, 2005, 2006] }, { "teal": 1769, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2007] }, { "teal": 1770, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2008] }, { "teal": 1771, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2009] }, { "teal": 1772, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2010, 2011, 2012] }, { "teal": 1773, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2013] }, { "teal": 1774, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2014] }, { "teal": 1775, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2015] }, { "teal": 1776, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2016] }, { "teal": 1777, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2017] }, { "teal": 1778, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2018] }, { "teal": 1782, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2019, 2020, 2021] }, { "teal": 1786, "source": "contracts/contractSupply/contract.algo.ts:317", "pc": [2022, 2023] }, { "teal": 1787, "source": "contracts/contractSupply/contract.algo.ts:317", "pc": [2024, 2025, 2026] }, { "teal": 1791, "source": "contracts/contractSupply/contract.algo.ts:318", "pc": [2027, 2028] }, { "teal": 1792, "source": "contracts/contractSupply/contract.algo.ts:318", "pc": [2029, 2030, 2031] }, { "teal": 1796, "source": "contracts/contractSupply/contract.algo.ts:319", "pc": [2032, 2033] }, { "teal": 1797, "source": "contracts/contractSupply/contract.algo.ts:319", "pc": [2034, 2035] }, { "teal": 1798, "source": "contracts/contractSupply/contract.algo.ts:319", "pc": [2036] }, { "teal": 1799, "source": "contracts/contractSupply/contract.algo.ts:319", "pc": [2037] }, { "teal": 1800, "source": "contracts/contractSupply/contract.algo.ts:319", "pc": [2038] }, { "teal": 1803, "source": "contracts/contractSupply/contract.algo.ts:319", "errorMessage": "box value does not exist: this.verificationResultBox(batchAsaId).value", "pc": [2039] }, { "teal": 1804, "source": "contracts/contractSupply/contract.algo.ts:319", "pc": [2040, 2041, 2042] }, { "teal": 1805, "source": "contracts/contractSupply/contract.algo.ts:315", "pc": [2043] }, { "teal": 1810, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2044] }, { "teal": 1813, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2045, 2046, 2047] }, { "teal": 1814, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2048] }, { "teal": 1815, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2049] }, { "teal": 1816, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2050] }, { "teal": 1817, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2051] }, { "teal": 1818, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2052] }, { "teal": 1822, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2053, 2054, 2055] }, { "teal": 1827, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2056, 2057, 2058] }, { "teal": 1828, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2059, 2060] }, { "teal": 1829, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2061] }, { "teal": 1830, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2062] }, { "teal": 1831, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2063] }, { "teal": 1832, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2064] }, { "teal": 1833, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2065, 2066, 2067] }, { "teal": 1838, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2068] }, { "teal": 1839, "source": "contracts/contractSupply/contract.algo.ts:324", "pc": [2069] }, { "teal": 1844, "source": "contracts/contractSupply/contract.algo.ts:325", "pc": [2070, 2071] }, { "teal": 1845, "source": "contracts/contractSupply/contract.algo.ts:325", "pc": [2072] }, { "teal": 1846, "source": "contracts/contractSupply/contract.algo.ts:322", "pc": [2073] }, { "teal": 1851, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2074] }, { "teal": 1854, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2075, 2076, 2077] }, { "teal": 1855, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2078] }, { "teal": 1856, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2079] }, { "teal": 1857, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2080] }, { "teal": 1858, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2081] }, { "teal": 1859, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2082] }, { "teal": 1863, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2083, 2084, 2085] }, { "teal": 1868, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2086, 2087, 2088] }, { "teal": 1869, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2089, 2090] }, { "teal": 1870, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2091] }, { "teal": 1871, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2092] }, { "teal": 1872, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2093] }, { "teal": 1873, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2094] }, { "teal": 1874, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2095, 2096, 2097] }, { "teal": 1879, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2098] }, { "teal": 1880, "source": "contracts/contractSupply/contract.algo.ts:330", "pc": [2099] }, { "teal": 1885, "source": "contracts/contractSupply/contract.algo.ts:331", "pc": [2100, 2101] }, { "teal": 1886, "source": "contracts/contractSupply/contract.algo.ts:331", "pc": [2102] }, { "teal": 1887, "source": "contracts/contractSupply/contract.algo.ts:328", "pc": [2103] }, { "teal": 1892, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2104] }, { "teal": 1895, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2105, 2106, 2107] }, { "teal": 1896, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2108] }, { "teal": 1897, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2109] }, { "teal": 1898, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2110] }, { "teal": 1899, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2111] }, { "teal": 1900, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2112] }, { "teal": 1904, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2113, 2114, 2115] }, { "teal": 1909, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2116, 2117, 2118] }, { "teal": 1910, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2119, 2120] }, { "teal": 1911, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2121] }, { "teal": 1912, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2122] }, { "teal": 1913, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2123] }, { "teal": 1914, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2124] }, { "teal": 1915, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2125, 2126, 2127] }, { "teal": 1920, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2128] }, { "teal": 1921, "source": "contracts/contractSupply/contract.algo.ts:336", "pc": [2129] }, { "teal": 1926, "source": "contracts/contractSupply/contract.algo.ts:337", "pc": [2130, 2131] }, { "teal": 1927, "source": "contracts/contractSupply/contract.algo.ts:337", "pc": [2132] }, { "teal": 1928, "source": "contracts/contractSupply/contract.algo.ts:334", "pc": [2133] }, { "teal": 1933, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2134] }, { "teal": 1936, "source": "contracts/contractSupply/contract.algo.ts:341", "pc": [2135, 2136, 2137] }, { "teal": 1937, "source": "contracts/contractSupply/contract.algo.ts:341", "pc": [2138] }, { "teal": 1940, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2139, 2140, 2141] }, { "teal": 1941, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2142] }, { "teal": 1942, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2143] }, { "teal": 1943, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2144] }, { "teal": 1944, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2145] }, { "teal": 1945, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2146] }, { "teal": 1949, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2147, 2148, 2149] }, { "teal": 1953, "source": "contracts/contractSupply/contract.algo.ts:342", "pc": [2150, 2151] }, { "teal": 1954, "source": "contracts/contractSupply/contract.algo.ts:342", "pc": [2152, 2153, 2154] }, { "teal": 1958, "source": "contracts/contractSupply/contract.algo.ts:343", "pc": [2155, 2156] }, { "teal": 1959, "source": "contracts/contractSupply/contract.algo.ts:343", "pc": [2157, 2158, 2159] }, { "teal": 1963, "source": "contracts/contractSupply/contract.algo.ts:344", "pc": [2160, 2161] }, { "teal": 1964, "source": "contracts/contractSupply/contract.algo.ts:344", "pc": [2162, 2163] }, { "teal": 1965, "source": "contracts/contractSupply/contract.algo.ts:344", "pc": [2164] }, { "teal": 1966, "source": "contracts/contractSupply/contract.algo.ts:344", "pc": [2165] }, { "teal": 1967, "source": "contracts/contractSupply/contract.algo.ts:344", "pc": [2166] }, { "teal": 1970, "source": "contracts/contractSupply/contract.algo.ts:344", "errorMessage": "box value does not exist: this.verificationConfidenceBox(batchAsaId).value", "pc": [2167] }, { "teal": 1971, "source": "contracts/contractSupply/contract.algo.ts:344", "pc": [2168] }, { "teal": 1972, "source": "contracts/contractSupply/contract.algo.ts:340", "pc": [2169] }, { "teal": 1977, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2170] }, { "teal": 1980, "source": "contracts/contractSupply/contract.algo.ts:348", "pc": [2171, 2172, 2173] }, { "teal": 1981, "source": "contracts/contractSupply/contract.algo.ts:348", "pc": [2174] }, { "teal": 1984, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2175, 2176, 2177] }, { "teal": 1985, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2178] }, { "teal": 1986, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2179] }, { "teal": 1987, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2180] }, { "teal": 1988, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2181, 2182, 2183] }, { "teal": 1989, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2184] }, { "teal": 1990, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2185] }, { "teal": 1991, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2186] }, { "teal": 1992, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2187] }, { "teal": 1993, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2188] }, { "teal": 1994, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2189] }, { "teal": 1998, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2190, 2191, 2192] }, { "teal": 2002, "source": "contracts/contractSupply/contract.algo.ts:349", "pc": [2193, 2194] }, { "teal": 2003, "source": "contracts/contractSupply/contract.algo.ts:349", "pc": [2195, 2196, 2197] }, { "teal": 2007, "source": "contracts/contractSupply/contract.algo.ts:350", "pc": [2198, 2199] }, { "teal": 2008, "source": "contracts/contractSupply/contract.algo.ts:350", "pc": [2200, 2201, 2202] }, { "teal": 2012, "source": "contracts/contractSupply/contract.algo.ts:351", "pc": [2203, 2204] }, { "teal": 2013, "source": "contracts/contractSupply/contract.algo.ts:351", "pc": [2205, 2206] }, { "teal": 2014, "source": "contracts/contractSupply/contract.algo.ts:351", "pc": [2207] }, { "teal": 2015, "source": "contracts/contractSupply/contract.algo.ts:351", "pc": [2208] }, { "teal": 2016, "source": "contracts/contractSupply/contract.algo.ts:351", "pc": [2209] }, { "teal": 2019, "source": "contracts/contractSupply/contract.algo.ts:351", "errorMessage": "box value does not exist: this.verificationReasonBox(batchAsaId).value", "pc": [2210] }, { "teal": 2020, "source": "contracts/contractSupply/contract.algo.ts:351", "pc": [2211, 2212, 2213] }, { "teal": 2021, "source": "contracts/contractSupply/contract.algo.ts:347", "pc": [2214] }, { "teal": 2026, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2215] }, { "teal": 2029, "source": "contracts/contractSupply/contract.algo.ts:355", "pc": [2216, 2217, 2218] }, { "teal": 2030, "source": "contracts/contractSupply/contract.algo.ts:355", "pc": [2219] }, { "teal": 2033, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2220, 2221, 2222] }, { "teal": 2034, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2223] }, { "teal": 2035, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2224] }, { "teal": 2036, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2225] }, { "teal": 2037, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2226, 2227, 2228] }, { "teal": 2038, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2229] }, { "teal": 2039, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2230] }, { "teal": 2040, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2231] }, { "teal": 2041, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2232] }, { "teal": 2042, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2233] }, { "teal": 2043, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2234] }, { "teal": 2047, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2235, 2236, 2237] }, { "teal": 2051, "source": "contracts/contractSupply/contract.algo.ts:356", "pc": [2238, 2239] }, { "teal": 2052, "source": "contracts/contractSupply/contract.algo.ts:356", "pc": [2240, 2241, 2242] }, { "teal": 2056, "source": "contracts/contractSupply/contract.algo.ts:357", "pc": [2243, 2244] }, { "teal": 2057, "source": "contracts/contractSupply/contract.algo.ts:357", "pc": [2245, 2246, 2247] }, { "teal": 2061, "source": "contracts/contractSupply/contract.algo.ts:358", "pc": [2248, 2249] }, { "teal": 2062, "source": "contracts/contractSupply/contract.algo.ts:358", "pc": [2250, 2251] }, { "teal": 2063, "source": "contracts/contractSupply/contract.algo.ts:358", "pc": [2252] }, { "teal": 2064, "source": "contracts/contractSupply/contract.algo.ts:358", "pc": [2253] }, { "teal": 2065, "source": "contracts/contractSupply/contract.algo.ts:358", "pc": [2254] }, { "teal": 2068, "source": "contracts/contractSupply/contract.algo.ts:358", "errorMessage": "box value does not exist: this.verificationVerifierAddrBox(batchAsaId).value", "pc": [2255] }, { "teal": 2069, "source": "contracts/contractSupply/contract.algo.ts:358", "pc": [2256, 2257, 2258] }, { "teal": 2070, "source": "contracts/contractSupply/contract.algo.ts:354", "pc": [2259] }, { "teal": 2075, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2260] }, { "teal": 2078, "source": "contracts/contractSupply/contract.algo.ts:362", "pc": [2261, 2262, 2263] }, { "teal": 2079, "source": "contracts/contractSupply/contract.algo.ts:362", "pc": [2264] }, { "teal": 2082, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2265, 2266, 2267] }, { "teal": 2083, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2268] }, { "teal": 2084, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2269] }, { "teal": 2085, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2270] }, { "teal": 2086, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2271] }, { "teal": 2087, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2272] }, { "teal": 2091, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2273, 2274, 2275] }, { "teal": 2095, "source": "contracts/contractSupply/contract.algo.ts:363", "pc": [2276, 2277] }, { "teal": 2096, "source": "contracts/contractSupply/contract.algo.ts:363", "pc": [2278, 2279, 2280] }, { "teal": 2100, "source": "contracts/contractSupply/contract.algo.ts:364", "pc": [2281, 2282] }, { "teal": 2101, "source": "contracts/contractSupply/contract.algo.ts:364", "pc": [2283, 2284, 2285] }, { "teal": 2105, "source": "contracts/contractSupply/contract.algo.ts:365", "pc": [2286, 2287] }, { "teal": 2106, "source": "contracts/contractSupply/contract.algo.ts:365", "pc": [2288, 2289] }, { "teal": 2107, "source": "contracts/contractSupply/contract.algo.ts:365", "pc": [2290] }, { "teal": 2108, "source": "contracts/contractSupply/contract.algo.ts:365", "pc": [2291] }, { "teal": 2109, "source": "contracts/contractSupply/contract.algo.ts:365", "pc": [2292] }, { "teal": 2112, "source": "contracts/contractSupply/contract.algo.ts:365", "errorMessage": "box value does not exist: this.verificationTimestampBox(batchAsaId).value", "pc": [2293] }, { "teal": 2113, "source": "contracts/contractSupply/contract.algo.ts:365", "pc": [2294] }, { "teal": 2114, "source": "contracts/contractSupply/contract.algo.ts:361", "pc": [2295] }, { "teal": 2119, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2296] }, { "teal": 2122, "source": "contracts/contractSupply/contract.algo.ts:369", "pc": [2297, 2298, 2299] }, { "teal": 2123, "source": "contracts/contractSupply/contract.algo.ts:369", "pc": [2300] }, { "teal": 2126, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2301, 2302, 2303] }, { "teal": 2127, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2304] }, { "teal": 2128, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2305] }, { "teal": 2129, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2306] }, { "teal": 2130, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2307] }, { "teal": 2131, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2308] }, { "teal": 2135, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2309, 2310, 2311] }, { "teal": 2140, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2312, 2313] }, { "teal": 2141, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2314, 2315] }, { "teal": 2142, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2316] }, { "teal": 2143, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2317] }, { "teal": 2144, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2318] }, { "teal": 2145, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2319] }, { "teal": 2146, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2320] }, { "teal": 2147, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2321] }, { "teal": 2148, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2322, 2323, 2324] }, { "teal": 2153, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2325] }, { "teal": 2154, "source": "contracts/contractSupply/contract.algo.ts:370", "pc": [2326] }, { "teal": 2159, "source": "contracts/contractSupply/contract.algo.ts:371", "pc": [2327, 2328] }, { "teal": 2160, "source": "contracts/contractSupply/contract.algo.ts:371", "pc": [2329, 2330] }, { "teal": 2161, "source": "contracts/contractSupply/contract.algo.ts:371", "pc": [2331] }, { "teal": 2162, "source": "contracts/contractSupply/contract.algo.ts:371", "pc": [2332] }, { "teal": 2163, "source": "contracts/contractSupply/contract.algo.ts:371", "pc": [2333] }, { "teal": 2166, "source": "contracts/contractSupply/contract.algo.ts:371", "errorMessage": "box value does not exist: this.carbonScoreBox(batchAsaId).value", "pc": [2334] }, { "teal": 2167, "source": "contracts/contractSupply/contract.algo.ts:371", "pc": [2335] }, { "teal": 2168, "source": "contracts/contractSupply/contract.algo.ts:368", "pc": [2336] }, { "teal": 2173, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2337] }, { "teal": 2176, "source": "contracts/contractSupply/contract.algo.ts:375", "pc": [2338, 2339, 2340] }, { "teal": 2177, "source": "contracts/contractSupply/contract.algo.ts:375", "pc": [2341] }, { "teal": 2180, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2342, 2343, 2344] }, { "teal": 2181, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2345] }, { "teal": 2182, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2346] }, { "teal": 2183, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2347] }, { "teal": 2184, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2348] }, { "teal": 2185, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2349] }, { "teal": 2189, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2350, 2351, 2352] }, { "teal": 2194, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2353, 2354] }, { "teal": 2195, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2355, 2356] }, { "teal": 2196, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2357] }, { "teal": 2197, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2358] }, { "teal": 2198, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2359] }, { "teal": 2199, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2360] }, { "teal": 2200, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2361] }, { "teal": 2201, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2362] }, { "teal": 2202, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2363, 2364, 2365] }, { "teal": 2207, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2366] }, { "teal": 2208, "source": "contracts/contractSupply/contract.algo.ts:376", "pc": [2367] }, { "teal": 2213, "source": "contracts/contractSupply/contract.algo.ts:377", "pc": [2368, 2369] }, { "teal": 2214, "source": "contracts/contractSupply/contract.algo.ts:377", "pc": [2370, 2371] }, { "teal": 2215, "source": "contracts/contractSupply/contract.algo.ts:377", "pc": [2372] }, { "teal": 2216, "source": "contracts/contractSupply/contract.algo.ts:377", "pc": [2373] }, { "teal": 2217, "source": "contracts/contractSupply/contract.algo.ts:377", "pc": [2374] }, { "teal": 2220, "source": "contracts/contractSupply/contract.algo.ts:377", "errorMessage": "box value does not exist: this.carbonCreditsBox(batchAsaId).value", "pc": [2375] }, { "teal": 2221, "source": "contracts/contractSupply/contract.algo.ts:377", "pc": [2376] }, { "teal": 2222, "source": "contracts/contractSupply/contract.algo.ts:374", "pc": [2377] }, { "teal": 2227, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2378] }, { "teal": 2230, "source": "contracts/contractSupply/contract.algo.ts:381", "pc": [2379, 2380, 2381] }, { "teal": 2231, "source": "contracts/contractSupply/contract.algo.ts:381", "pc": [2382] }, { "teal": 2234, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2383, 2384, 2385] }, { "teal": 2235, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2386] }, { "teal": 2236, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2387] }, { "teal": 2237, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2388] }, { "teal": 2238, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2389] }, { "teal": 2239, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2390] }, { "teal": 2243, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2391, 2392, 2393] }, { "teal": 2248, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2394, 2395] }, { "teal": 2249, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2396, 2397] }, { "teal": 2250, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2398] }, { "teal": 2251, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2399] }, { "teal": 2252, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2400] }, { "teal": 2253, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2401] }, { "teal": 2254, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2402] }, { "teal": 2255, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2403] }, { "teal": 2256, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2404, 2405, 2406] }, { "teal": 2261, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2407] }, { "teal": 2262, "source": "contracts/contractSupply/contract.algo.ts:382", "pc": [2408] }, { "teal": 2267, "source": "contracts/contractSupply/contract.algo.ts:383", "pc": [2409, 2410] }, { "teal": 2268, "source": "contracts/contractSupply/contract.algo.ts:383", "pc": [2411, 2412] }, { "teal": 2269, "source": "contracts/contractSupply/contract.algo.ts:383", "pc": [2413] }, { "teal": 2270, "source": "contracts/contractSupply/contract.algo.ts:383", "pc": [2414] }, { "teal": 2271, "source": "contracts/contractSupply/contract.algo.ts:383", "pc": [2415] }, { "teal": 2274, "source": "contracts/contractSupply/contract.algo.ts:383", "errorMessage": "box value does not exist: this.carbonDistanceBox(batchAsaId).value", "pc": [2416] }, { "teal": 2275, "source": "contracts/contractSupply/contract.algo.ts:383", "pc": [2417] }, { "teal": 2276, "source": "contracts/contractSupply/contract.algo.ts:380", "pc": [2418] }, { "teal": 2281, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2419] }, { "teal": 2284, "source": "contracts/contractSupply/contract.algo.ts:387", "pc": [2420, 2421, 2422] }, { "teal": 2285, "source": "contracts/contractSupply/contract.algo.ts:387", "pc": [2423] }, { "teal": 2288, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2424, 2425, 2426] }, { "teal": 2289, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2427] }, { "teal": 2290, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2428] }, { "teal": 2291, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2429] }, { "teal": 2292, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2430, 2431, 2432] }, { "teal": 2293, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2433] }, { "teal": 2294, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2434] }, { "teal": 2295, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2435] }, { "teal": 2296, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2436] }, { "teal": 2297, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2437] }, { "teal": 2298, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2438] }, { "teal": 2302, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2439, 2440, 2441] }, { "teal": 2307, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2442, 2443] }, { "teal": 2308, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2444, 2445] }, { "teal": 2309, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2446] }, { "teal": 2310, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2447] }, { "teal": 2311, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2448] }, { "teal": 2312, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2449] }, { "teal": 2313, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2450] }, { "teal": 2314, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2451] }, { "teal": 2315, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2452, 2453, 2454] }, { "teal": 2320, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2455] }, { "teal": 2321, "source": "contracts/contractSupply/contract.algo.ts:388", "pc": [2456] }, { "teal": 2326, "source": "contracts/contractSupply/contract.algo.ts:389", "pc": [2457, 2458] }, { "teal": 2327, "source": "contracts/contractSupply/contract.algo.ts:389", "pc": [2459, 2460] }, { "teal": 2328, "source": "contracts/contractSupply/contract.algo.ts:389", "pc": [2461] }, { "teal": 2329, "source": "contracts/contractSupply/contract.algo.ts:389", "pc": [2462] }, { "teal": 2330, "source": "contracts/contractSupply/contract.algo.ts:389", "pc": [2463] }, { "teal": 2333, "source": "contracts/contractSupply/contract.algo.ts:389", "errorMessage": "box value does not exist: this.carbonTransportBox(batchAsaId).value", "pc": [2464] }, { "teal": 2334, "source": "contracts/contractSupply/contract.algo.ts:389", "pc": [2465, 2466, 2467] }, { "teal": 2335, "source": "contracts/contractSupply/contract.algo.ts:386", "pc": [2468] }, { "teal": 2340, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2469] }, { "teal": 2343, "source": "contracts/contractSupply/contract.algo.ts:393", "pc": [2470, 2471, 2472] }, { "teal": 2344, "source": "contracts/contractSupply/contract.algo.ts:393", "pc": [2473] }, { "teal": 2347, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2474, 2475, 2476] }, { "teal": 2348, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2477] }, { "teal": 2349, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2478] }, { "teal": 2350, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2479] }, { "teal": 2351, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2480] }, { "teal": 2352, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2481] }, { "teal": 2356, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2482, 2483, 2484] }, { "teal": 2361, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2485, 2486] }, { "teal": 2362, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2487, 2488] }, { "teal": 2363, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2489] }, { "teal": 2364, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2490] }, { "teal": 2365, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2491] }, { "teal": 2366, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2492] }, { "teal": 2367, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2493] }, { "teal": 2368, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2494] }, { "teal": 2369, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2495, 2496, 2497] }, { "teal": 2374, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2498] }, { "teal": 2375, "source": "contracts/contractSupply/contract.algo.ts:394", "pc": [2499] }, { "teal": 2380, "source": "contracts/contractSupply/contract.algo.ts:395", "pc": [2500, 2501] }, { "teal": 2381, "source": "contracts/contractSupply/contract.algo.ts:395", "pc": [2502, 2503] }, { "teal": 2382, "source": "contracts/contractSupply/contract.algo.ts:395", "pc": [2504] }, { "teal": 2383, "source": "contracts/contractSupply/contract.algo.ts:395", "pc": [2505] }, { "teal": 2384, "source": "contracts/contractSupply/contract.algo.ts:395", "pc": [2506] }, { "teal": 2387, "source": "contracts/contractSupply/contract.algo.ts:395", "errorMessage": "box value does not exist: this.carbonCalculatedAtBox(batchAsaId).value", "pc": [2507] }, { "teal": 2388, "source": "contracts/contractSupply/contract.algo.ts:395", "pc": [2508] }, { "teal": 2389, "source": "contracts/contractSupply/contract.algo.ts:392", "pc": [2509] }, { "teal": 2394, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2510] }, { "teal": 2397, "source": "contracts/contractSupply/contract.algo.ts:399", "pc": [2511, 2512, 2513] }, { "teal": 2398, "source": "contracts/contractSupply/contract.algo.ts:399", "pc": [2514, 2515, 2516] }, { "teal": 2401, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2517, 2518, 2519] }, { "teal": 2402, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2520] }, { "teal": 2403, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2521] }, { "teal": 2404, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2522] }, { "teal": 2405, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2523] }, { "teal": 2406, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2524] }, { "teal": 2410, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2525, 2526, 2527] }, { "teal": 2415, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2528, 2529] }, { "teal": 2416, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2530, 2531] }, { "teal": 2417, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2532] }, { "teal": 2418, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2533] }, { "teal": 2419, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2534] }, { "teal": 2420, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2535, 2536, 2537] }, { "teal": 2421, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2538] }, { "teal": 2422, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2539] }, { "teal": 2423, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2540] }, { "teal": 2424, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2541] }, { "teal": 2425, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2542] }, { "teal": 2426, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2543] }, { "teal": 2427, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2544] }, { "teal": 2428, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2545, 2546, 2547] }, { "teal": 2433, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2548] }, { "teal": 2434, "source": "contracts/contractSupply/contract.algo.ts:400", "pc": [2549] }, { "teal": 2439, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2550, 2551] }, { "teal": 2440, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2552, 2553] }, { "teal": 2441, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2554] }, { "teal": 2442, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2555] }, { "teal": 2443, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2556] }, { "teal": 2444, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2557, 2558, 2559] }, { "teal": 2445, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2560] }, { "teal": 2446, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2561] }, { "teal": 2447, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2562] }, { "teal": 2448, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2563] }, { "teal": 2451, "source": "contracts/contractSupply/contract.algo.ts:401", "errorMessage": "box value does not exist: this.farmerTotalBatchesBox(farmerAddr).value", "pc": [2564] }, { "teal": 2452, "source": "contracts/contractSupply/contract.algo.ts:401", "pc": [2565] }, { "teal": 2453, "source": "contracts/contractSupply/contract.algo.ts:398", "pc": [2566] }, { "teal": 2458, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2567] }, { "teal": 2461, "source": "contracts/contractSupply/contract.algo.ts:405", "pc": [2568, 2569, 2570] }, { "teal": 2462, "source": "contracts/contractSupply/contract.algo.ts:405", "pc": [2571, 2572, 2573] }, { "teal": 2465, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2574, 2575, 2576] }, { "teal": 2466, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2577] }, { "teal": 2467, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2578] }, { "teal": 2468, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2579] }, { "teal": 2469, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2580] }, { "teal": 2470, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2581] }, { "teal": 2474, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2582, 2583, 2584] }, { "teal": 2479, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2585, 2586] }, { "teal": 2480, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2587, 2588] }, { "teal": 2481, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2589] }, { "teal": 2482, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2590] }, { "teal": 2483, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2591] }, { "teal": 2484, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2592, 2593, 2594] }, { "teal": 2485, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2595] }, { "teal": 2486, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2596] }, { "teal": 2487, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2597] }, { "teal": 2488, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2598] }, { "teal": 2489, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2599] }, { "teal": 2490, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2600] }, { "teal": 2491, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2601] }, { "teal": 2492, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2602, 2603, 2604] }, { "teal": 2497, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2605] }, { "teal": 2498, "source": "contracts/contractSupply/contract.algo.ts:406", "pc": [2606] }, { "teal": 2503, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2607, 2608] }, { "teal": 2504, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2609, 2610] }, { "teal": 2505, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2611] }, { "teal": 2506, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2612] }, { "teal": 2507, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2613] }, { "teal": 2508, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2614, 2615, 2616] }, { "teal": 2509, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2617] }, { "teal": 2510, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2618] }, { "teal": 2511, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2619] }, { "teal": 2512, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2620] }, { "teal": 2515, "source": "contracts/contractSupply/contract.algo.ts:407", "errorMessage": "box value does not exist: this.farmerVerifiedCountBox(farmerAddr).value", "pc": [2621] }, { "teal": 2516, "source": "contracts/contractSupply/contract.algo.ts:407", "pc": [2622] }, { "teal": 2517, "source": "contracts/contractSupply/contract.algo.ts:404", "pc": [2623] }, { "teal": 2522, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2624] }, { "teal": 2525, "source": "contracts/contractSupply/contract.algo.ts:411", "pc": [2625, 2626, 2627] }, { "teal": 2526, "source": "contracts/contractSupply/contract.algo.ts:411", "pc": [2628, 2629, 2630] }, { "teal": 2529, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2631, 2632, 2633] }, { "teal": 2530, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2634] }, { "teal": 2531, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2635] }, { "teal": 2532, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2636] }, { "teal": 2533, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2637] }, { "teal": 2534, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2638] }, { "teal": 2538, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2639, 2640, 2641] }, { "teal": 2543, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2642, 2643] }, { "teal": 2544, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2644, 2645] }, { "teal": 2545, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2646] }, { "teal": 2546, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2647] }, { "teal": 2547, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2648] }, { "teal": 2548, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2649, 2650, 2651] }, { "teal": 2549, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2652] }, { "teal": 2550, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2653] }, { "teal": 2551, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2654] }, { "teal": 2552, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2655] }, { "teal": 2553, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2656] }, { "teal": 2554, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2657] }, { "teal": 2555, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2658] }, { "teal": 2556, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2659, 2660, 2661] }, { "teal": 2561, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2662] }, { "teal": 2562, "source": "contracts/contractSupply/contract.algo.ts:412", "pc": [2663] }, { "teal": 2567, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2664, 2665] }, { "teal": 2568, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2666, 2667] }, { "teal": 2569, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2668] }, { "teal": 2570, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2669] }, { "teal": 2571, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2670] }, { "teal": 2572, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2671, 2672, 2673] }, { "teal": 2573, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2674] }, { "teal": 2574, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2675] }, { "teal": 2575, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2676] }, { "teal": 2576, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2677] }, { "teal": 2579, "source": "contracts/contractSupply/contract.algo.ts:413", "errorMessage": "box value does not exist: this.farmerFlaggedCountBox(farmerAddr).value", "pc": [2678] }, { "teal": 2580, "source": "contracts/contractSupply/contract.algo.ts:413", "pc": [2679] }, { "teal": 2581, "source": "contracts/contractSupply/contract.algo.ts:410", "pc": [2680] }, { "teal": 2586, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2681] }, { "teal": 2589, "source": "contracts/contractSupply/contract.algo.ts:417", "pc": [2682, 2683, 2684] }, { "teal": 2590, "source": "contracts/contractSupply/contract.algo.ts:417", "pc": [2685, 2686, 2687] }, { "teal": 2593, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2688, 2689, 2690] }, { "teal": 2594, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2691] }, { "teal": 2595, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2692] }, { "teal": 2596, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2693] }, { "teal": 2597, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2694, 2695, 2696] }, { "teal": 2598, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2697] }, { "teal": 2599, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2698] }, { "teal": 2600, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2699] }, { "teal": 2601, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2700] }, { "teal": 2602, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2701] }, { "teal": 2603, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2702] }, { "teal": 2607, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2703, 2704, 2705] }, { "teal": 2612, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2706, 2707] }, { "teal": 2613, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2708, 2709] }, { "teal": 2614, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2710] }, { "teal": 2615, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2711] }, { "teal": 2616, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2712] }, { "teal": 2617, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2713, 2714, 2715] }, { "teal": 2618, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2716] }, { "teal": 2619, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2717] }, { "teal": 2620, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2718] }, { "teal": 2621, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2719] }, { "teal": 2622, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2720] }, { "teal": 2623, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2721] }, { "teal": 2624, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2722] }, { "teal": 2625, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2723, 2724, 2725] }, { "teal": 2630, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2726] }, { "teal": 2631, "source": "contracts/contractSupply/contract.algo.ts:418", "pc": [2727] }, { "teal": 2636, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2728, 2729] }, { "teal": 2637, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2730, 2731] }, { "teal": 2638, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2732] }, { "teal": 2639, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2733] }, { "teal": 2640, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2734] }, { "teal": 2641, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2735, 2736, 2737] }, { "teal": 2642, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2738] }, { "teal": 2643, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2739] }, { "teal": 2644, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2740] }, { "teal": 2645, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2741] }, { "teal": 2648, "source": "contracts/contractSupply/contract.algo.ts:419", "errorMessage": "box value does not exist: this.farmerTierBox(farmerAddr).value", "pc": [2742] }, { "teal": 2649, "source": "contracts/contractSupply/contract.algo.ts:419", "pc": [2743, 2744, 2745] }, { "teal": 2650, "source": "contracts/contractSupply/contract.algo.ts:416", "pc": [2746] }, { "teal": 2655, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2747] }, { "teal": 2658, "source": "contracts/contractSupply/contract.algo.ts:423", "pc": [2748, 2749, 2750] }, { "teal": 2659, "source": "contracts/contractSupply/contract.algo.ts:423", "pc": [2751, 2752, 2753] }, { "teal": 2662, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2754, 2755, 2756] }, { "teal": 2663, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2757] }, { "teal": 2664, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2758] }, { "teal": 2665, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2759] }, { "teal": 2666, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2760] }, { "teal": 2667, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2761] }, { "teal": 2671, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2762, 2763, 2764] }, { "teal": 2676, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2765, 2766] }, { "teal": 2677, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2767, 2768] }, { "teal": 2678, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2769] }, { "teal": 2679, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2770] }, { "teal": 2680, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2771] }, { "teal": 2681, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2772, 2773, 2774] }, { "teal": 2682, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2775] }, { "teal": 2683, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2776] }, { "teal": 2684, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2777] }, { "teal": 2685, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2778] }, { "teal": 2686, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2779] }, { "teal": 2687, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2780] }, { "teal": 2688, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2781] }, { "teal": 2689, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2782, 2783, 2784] }, { "teal": 2694, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2785] }, { "teal": 2695, "source": "contracts/contractSupply/contract.algo.ts:424", "pc": [2786] }, { "teal": 2700, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2787, 2788] }, { "teal": 2701, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2789, 2790] }, { "teal": 2702, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2791] }, { "teal": 2703, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2792] }, { "teal": 2704, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2793] }, { "teal": 2705, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2794, 2795, 2796] }, { "teal": 2706, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2797] }, { "teal": 2707, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2798] }, { "teal": 2708, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2799] }, { "teal": 2709, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2800] }, { "teal": 2712, "source": "contracts/contractSupply/contract.algo.ts:425", "errorMessage": "box value does not exist: this.farmerCarbonCreditsBox(farmerAddr).value", "pc": [2801] }, { "teal": 2713, "source": "contracts/contractSupply/contract.algo.ts:425", "pc": [2802] }, { "teal": 2714, "source": "contracts/contractSupply/contract.algo.ts:422", "pc": [2803] }, { "teal": 2719, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2804] }, { "teal": 2722, "source": "contracts/contractSupply/contract.algo.ts:429", "pc": [2805, 2806, 2807] }, { "teal": 2723, "source": "contracts/contractSupply/contract.algo.ts:429", "pc": [2808, 2809, 2810] }, { "teal": 2726, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2811, 2812, 2813] }, { "teal": 2727, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2814] }, { "teal": 2728, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2815] }, { "teal": 2729, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2816] }, { "teal": 2730, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2817] }, { "teal": 2731, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2818] }, { "teal": 2735, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2819, 2820, 2821] }, { "teal": 2740, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2822, 2823] }, { "teal": 2741, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2824, 2825] }, { "teal": 2742, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2826] }, { "teal": 2743, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2827] }, { "teal": 2744, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2828] }, { "teal": 2745, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2829, 2830, 2831] }, { "teal": 2746, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2832] }, { "teal": 2747, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2833] }, { "teal": 2748, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2834] }, { "teal": 2749, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2835] }, { "teal": 2750, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2836] }, { "teal": 2751, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2837] }, { "teal": 2752, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2838] }, { "teal": 2753, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2839, 2840, 2841] }, { "teal": 2758, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2842] }, { "teal": 2759, "source": "contracts/contractSupply/contract.algo.ts:430", "pc": [2843] }, { "teal": 2764, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2844, 2845] }, { "teal": 2765, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2846, 2847] }, { "teal": 2766, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2848] }, { "teal": 2767, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2849] }, { "teal": 2768, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2850] }, { "teal": 2769, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2851, 2852, 2853] }, { "teal": 2770, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2854] }, { "teal": 2771, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2855] }, { "teal": 2772, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2856] }, { "teal": 2773, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2857] }, { "teal": 2776, "source": "contracts/contractSupply/contract.algo.ts:431", "errorMessage": "box value does not exist: this.farmerPaymentsTotalBox(farmerAddr).value", "pc": [2858] }, { "teal": 2777, "source": "contracts/contractSupply/contract.algo.ts:431", "pc": [2859] }, { "teal": 2778, "source": "contracts/contractSupply/contract.algo.ts:428", "pc": [2860] }, { "teal": 2783, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2861] }, { "teal": 2786, "source": "contracts/contractSupply/contract.algo.ts:435", "pc": [2862, 2863, 2864] }, { "teal": 2787, "source": "contracts/contractSupply/contract.algo.ts:435", "pc": [2865, 2866, 2867] }, { "teal": 2790, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2868, 2869, 2870] }, { "teal": 2791, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2871] }, { "teal": 2792, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2872] }, { "teal": 2793, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2873] }, { "teal": 2794, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2874] }, { "teal": 2795, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2875] }, { "teal": 2799, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2876, 2877, 2878] }, { "teal": 2804, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2879, 2880] }, { "teal": 2805, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2881, 2882] }, { "teal": 2806, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2883] }, { "teal": 2807, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2884] }, { "teal": 2808, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2885] }, { "teal": 2809, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2886, 2887, 2888] }, { "teal": 2810, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2889] }, { "teal": 2811, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2890] }, { "teal": 2812, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2891] }, { "teal": 2813, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2892] }, { "teal": 2814, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2893] }, { "teal": 2815, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2894] }, { "teal": 2816, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2895] }, { "teal": 2817, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2896, 2897, 2898] }, { "teal": 2822, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2899] }, { "teal": 2823, "source": "contracts/contractSupply/contract.algo.ts:436", "pc": [2900] }, { "teal": 2828, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2901, 2902] }, { "teal": 2829, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2903, 2904] }, { "teal": 2830, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2905] }, { "teal": 2831, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2906] }, { "teal": 2832, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2907] }, { "teal": 2833, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2908, 2909, 2910] }, { "teal": 2834, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2911] }, { "teal": 2835, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2912] }, { "teal": 2836, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2913] }, { "teal": 2837, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2914] }, { "teal": 2840, "source": "contracts/contractSupply/contract.algo.ts:437", "errorMessage": "box value does not exist: this.farmerLastUpdatedBox(farmerAddr).value", "pc": [2915] }, { "teal": 2841, "source": "contracts/contractSupply/contract.algo.ts:437", "pc": [2916] }, { "teal": 2842, "source": "contracts/contractSupply/contract.algo.ts:434", "pc": [2917] }, { "teal": 2847, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2918] }, { "teal": 2850, "source": "contracts/contractSupply/contract.algo.ts:441", "pc": [2919, 2920, 2921] }, { "teal": 2851, "source": "contracts/contractSupply/contract.algo.ts:441", "pc": [2922] }, { "teal": 2854, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2923, 2924, 2925] }, { "teal": 2855, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2926] }, { "teal": 2856, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2927] }, { "teal": 2857, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2928] }, { "teal": 2858, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2929, 2930, 2931] }, { "teal": 2859, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2932] }, { "teal": 2860, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2933] }, { "teal": 2861, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2934] }, { "teal": 2862, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2935] }, { "teal": 2863, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2936] }, { "teal": 2864, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2937] }, { "teal": 2868, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2938, 2939, 2940] }, { "teal": 2873, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2941, 2942] }, { "teal": 2874, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2943, 2944] }, { "teal": 2875, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2945] }, { "teal": 2876, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2946] }, { "teal": 2877, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2947] }, { "teal": 2878, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2948] }, { "teal": 2879, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2949] }, { "teal": 2880, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2950] }, { "teal": 2881, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2951, 2952, 2953] }, { "teal": 2886, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2954] }, { "teal": 2887, "source": "contracts/contractSupply/contract.algo.ts:442", "pc": [2955] }, { "teal": 2892, "source": "contracts/contractSupply/contract.algo.ts:443", "pc": [2956, 2957] }, { "teal": 2893, "source": "contracts/contractSupply/contract.algo.ts:443", "pc": [2958, 2959] }, { "teal": 2894, "source": "contracts/contractSupply/contract.algo.ts:443", "pc": [2960] }, { "teal": 2895, "source": "contracts/contractSupply/contract.algo.ts:443", "pc": [2961] }, { "teal": 2896, "source": "contracts/contractSupply/contract.algo.ts:443", "pc": [2962] }, { "teal": 2899, "source": "contracts/contractSupply/contract.algo.ts:443", "errorMessage": "box value does not exist: this.paymentFarmerAddrBox(paymentId).value", "pc": [2963] }, { "teal": 2900, "source": "contracts/contractSupply/contract.algo.ts:443", "pc": [2964, 2965, 2966] }, { "teal": 2901, "source": "contracts/contractSupply/contract.algo.ts:440", "pc": [2967] }, { "teal": 2906, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2968] }, { "teal": 2909, "source": "contracts/contractSupply/contract.algo.ts:447", "pc": [2969, 2970, 2971] }, { "teal": 2910, "source": "contracts/contractSupply/contract.algo.ts:447", "pc": [2972] }, { "teal": 2913, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2973, 2974, 2975] }, { "teal": 2914, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2976] }, { "teal": 2915, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2977] }, { "teal": 2916, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2978] }, { "teal": 2917, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2979] }, { "teal": 2918, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2980] }, { "teal": 2922, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [2981, 2982, 2983] }, { "teal": 2927, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2984, 2985] }, { "teal": 2928, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2986, 2987] }, { "teal": 2929, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2988] }, { "teal": 2930, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2989] }, { "teal": 2931, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2990] }, { "teal": 2932, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2991] }, { "teal": 2933, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2992] }, { "teal": 2934, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2993] }, { "teal": 2935, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2994, 2995, 2996] }, { "teal": 2940, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2997] }, { "teal": 2941, "source": "contracts/contractSupply/contract.algo.ts:448", "pc": [2998] }, { "teal": 2946, "source": "contracts/contractSupply/contract.algo.ts:449", "pc": [2999, 3000] }, { "teal": 2947, "source": "contracts/contractSupply/contract.algo.ts:449", "pc": [3001, 3002] }, { "teal": 2948, "source": "contracts/contractSupply/contract.algo.ts:449", "pc": [3003] }, { "teal": 2949, "source": "contracts/contractSupply/contract.algo.ts:449", "pc": [3004] }, { "teal": 2950, "source": "contracts/contractSupply/contract.algo.ts:449", "pc": [3005] }, { "teal": 2953, "source": "contracts/contractSupply/contract.algo.ts:449", "errorMessage": "box value does not exist: this.paymentBatchIdBox(paymentId).value", "pc": [3006] }, { "teal": 2954, "source": "contracts/contractSupply/contract.algo.ts:449", "pc": [3007] }, { "teal": 2955, "source": "contracts/contractSupply/contract.algo.ts:446", "pc": [3008] }, { "teal": 2960, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3009] }, { "teal": 2963, "source": "contracts/contractSupply/contract.algo.ts:453", "pc": [3010, 3011, 3012] }, { "teal": 2964, "source": "contracts/contractSupply/contract.algo.ts:453", "pc": [3013] }, { "teal": 2967, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3014, 3015, 3016] }, { "teal": 2968, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3017] }, { "teal": 2969, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3018] }, { "teal": 2970, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3019] }, { "teal": 2971, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3020] }, { "teal": 2972, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3021] }, { "teal": 2976, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3022, 3023, 3024] }, { "teal": 2981, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3025, 3026] }, { "teal": 2982, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3027, 3028] }, { "teal": 2983, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3029] }, { "teal": 2984, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3030] }, { "teal": 2985, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3031] }, { "teal": 2986, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3032] }, { "teal": 2987, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3033] }, { "teal": 2988, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3034] }, { "teal": 2989, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3035, 3036, 3037] }, { "teal": 2994, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3038] }, { "teal": 2995, "source": "contracts/contractSupply/contract.algo.ts:454", "pc": [3039] }, { "teal": 3000, "source": "contracts/contractSupply/contract.algo.ts:455", "pc": [3040, 3041] }, { "teal": 3001, "source": "contracts/contractSupply/contract.algo.ts:455", "pc": [3042, 3043] }, { "teal": 3002, "source": "contracts/contractSupply/contract.algo.ts:455", "pc": [3044] }, { "teal": 3003, "source": "contracts/contractSupply/contract.algo.ts:455", "pc": [3045] }, { "teal": 3004, "source": "contracts/contractSupply/contract.algo.ts:455", "pc": [3046] }, { "teal": 3007, "source": "contracts/contractSupply/contract.algo.ts:455", "errorMessage": "box value does not exist: this.paymentAmountBox(paymentId).value", "pc": [3047] }, { "teal": 3008, "source": "contracts/contractSupply/contract.algo.ts:455", "pc": [3048] }, { "teal": 3009, "source": "contracts/contractSupply/contract.algo.ts:452", "pc": [3049] }, { "teal": 3014, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3050] }, { "teal": 3017, "source": "contracts/contractSupply/contract.algo.ts:459", "pc": [3051, 3052, 3053] }, { "teal": 3018, "source": "contracts/contractSupply/contract.algo.ts:459", "pc": [3054] }, { "teal": 3021, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3055, 3056, 3057] }, { "teal": 3022, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3058] }, { "teal": 3023, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3059] }, { "teal": 3024, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3060] }, { "teal": 3025, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3061, 3062, 3063] }, { "teal": 3026, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3064] }, { "teal": 3027, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3065] }, { "teal": 3028, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3066] }, { "teal": 3029, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3067] }, { "teal": 3030, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3068] }, { "teal": 3031, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3069] }, { "teal": 3035, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3070, 3071, 3072] }, { "teal": 3040, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3073, 3074] }, { "teal": 3041, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3075, 3076] }, { "teal": 3042, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3077] }, { "teal": 3043, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3078] }, { "teal": 3044, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3079] }, { "teal": 3045, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3080] }, { "teal": 3046, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3081] }, { "teal": 3047, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3082] }, { "teal": 3048, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3083, 3084, 3085] }, { "teal": 3053, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3086] }, { "teal": 3054, "source": "contracts/contractSupply/contract.algo.ts:460", "pc": [3087] }, { "teal": 3059, "source": "contracts/contractSupply/contract.algo.ts:461", "pc": [3088, 3089] }, { "teal": 3060, "source": "contracts/contractSupply/contract.algo.ts:461", "pc": [3090, 3091] }, { "teal": 3061, "source": "contracts/contractSupply/contract.algo.ts:461", "pc": [3092] }, { "teal": 3062, "source": "contracts/contractSupply/contract.algo.ts:461", "pc": [3093] }, { "teal": 3063, "source": "contracts/contractSupply/contract.algo.ts:461", "pc": [3094] }, { "teal": 3066, "source": "contracts/contractSupply/contract.algo.ts:461", "errorMessage": "box value does not exist: this.paymentCurrencyBox(paymentId).value", "pc": [3095] }, { "teal": 3067, "source": "contracts/contractSupply/contract.algo.ts:461", "pc": [3096, 3097, 3098] }, { "teal": 3068, "source": "contracts/contractSupply/contract.algo.ts:458", "pc": [3099] }, { "teal": 3073, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3100] }, { "teal": 3076, "source": "contracts/contractSupply/contract.algo.ts:465", "pc": [3101, 3102, 3103] }, { "teal": 3077, "source": "contracts/contractSupply/contract.algo.ts:465", "pc": [3104] }, { "teal": 3080, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3105, 3106, 3107] }, { "teal": 3081, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3108] }, { "teal": 3082, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3109] }, { "teal": 3083, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3110] }, { "teal": 3084, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3111, 3112, 3113] }, { "teal": 3085, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3114] }, { "teal": 3086, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3115] }, { "teal": 3087, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3116] }, { "teal": 3088, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3117] }, { "teal": 3089, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3118] }, { "teal": 3090, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3119] }, { "teal": 3094, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3120, 3121, 3122] }, { "teal": 3099, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3123, 3124] }, { "teal": 3100, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3125, 3126] }, { "teal": 3101, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3127] }, { "teal": 3102, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3128] }, { "teal": 3103, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3129] }, { "teal": 3104, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3130] }, { "teal": 3105, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3131] }, { "teal": 3106, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3132] }, { "teal": 3107, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3133, 3134, 3135] }, { "teal": 3112, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3136] }, { "teal": 3113, "source": "contracts/contractSupply/contract.algo.ts:466", "pc": [3137] }, { "teal": 3118, "source": "contracts/contractSupply/contract.algo.ts:467", "pc": [3138, 3139] }, { "teal": 3119, "source": "contracts/contractSupply/contract.algo.ts:467", "pc": [3140, 3141] }, { "teal": 3120, "source": "contracts/contractSupply/contract.algo.ts:467", "pc": [3142] }, { "teal": 3121, "source": "contracts/contractSupply/contract.algo.ts:467", "pc": [3143] }, { "teal": 3122, "source": "contracts/contractSupply/contract.algo.ts:467", "pc": [3144] }, { "teal": 3125, "source": "contracts/contractSupply/contract.algo.ts:467", "errorMessage": "box value does not exist: this.paymentTxBox(paymentId).value", "pc": [3145] }, { "teal": 3126, "source": "contracts/contractSupply/contract.algo.ts:467", "pc": [3146, 3147, 3148] }, { "teal": 3127, "source": "contracts/contractSupply/contract.algo.ts:464", "pc": [3149] }, { "teal": 3132, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3150] }, { "teal": 3135, "source": "contracts/contractSupply/contract.algo.ts:471", "pc": [3151, 3152, 3153] }, { "teal": 3136, "source": "contracts/contractSupply/contract.algo.ts:471", "pc": [3154] }, { "teal": 3139, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3155, 3156, 3157] }, { "teal": 3140, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3158] }, { "teal": 3141, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3159] }, { "teal": 3142, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3160] }, { "teal": 3143, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3161] }, { "teal": 3144, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3162] }, { "teal": 3148, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3163, 3164, 3165] }, { "teal": 3153, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3166, 3167] }, { "teal": 3154, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3168, 3169] }, { "teal": 3155, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3170] }, { "teal": 3156, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3171] }, { "teal": 3157, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3172] }, { "teal": 3158, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3173] }, { "teal": 3159, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3174] }, { "teal": 3160, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3175] }, { "teal": 3161, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3176, 3177, 3178] }, { "teal": 3166, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3179] }, { "teal": 3167, "source": "contracts/contractSupply/contract.algo.ts:472", "pc": [3180] }, { "teal": 3172, "source": "contracts/contractSupply/contract.algo.ts:473", "pc": [3181, 3182] }, { "teal": 3173, "source": "contracts/contractSupply/contract.algo.ts:473", "pc": [3183, 3184] }, { "teal": 3174, "source": "contracts/contractSupply/contract.algo.ts:473", "pc": [3185] }, { "teal": 3175, "source": "contracts/contractSupply/contract.algo.ts:473", "pc": [3186] }, { "teal": 3176, "source": "contracts/contractSupply/contract.algo.ts:473", "pc": [3187] }, { "teal": 3179, "source": "contracts/contractSupply/contract.algo.ts:473", "errorMessage": "box value does not exist: this.paymentTimestampBox(paymentId).value", "pc": [3188] }, { "teal": 3180, "source": "contracts/contractSupply/contract.algo.ts:473", "pc": [3189] }, { "teal": 3181, "source": "contracts/contractSupply/contract.algo.ts:470", "pc": [3190] }, { "teal": 3186, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3191] }, { "teal": 3189, "source": "contracts/contractSupply/contract.algo.ts:477", "pc": [3192, 3193, 3194] }, { "teal": 3190, "source": "contracts/contractSupply/contract.algo.ts:477", "pc": [3195] }, { "teal": 3193, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3196, 3197, 3198] }, { "teal": 3194, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3199] }, { "teal": 3195, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3200] }, { "teal": 3196, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3201] }, { "teal": 3197, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3202, 3203, 3204] }, { "teal": 3198, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3205] }, { "teal": 3199, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3206] }, { "teal": 3200, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3207] }, { "teal": 3201, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3208] }, { "teal": 3202, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3209] }, { "teal": 3203, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3210] }, { "teal": 3207, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3211, 3212, 3213] }, { "teal": 3211, "source": "contracts/contractSupply/contract.algo.ts:478", "pc": [3214, 3215] }, { "teal": 3212, "source": "contracts/contractSupply/contract.algo.ts:478", "pc": [3216, 3217, 3218] }, { "teal": 3219, "source": "contracts/contractSupply/contract.algo.ts:479", "pc": [3219, 3220] }, { "teal": 3220, "source": "contracts/contractSupply/contract.algo.ts:479", "pc": [3221, 3222] }, { "teal": 3221, "source": "contracts/contractSupply/contract.algo.ts:479", "pc": [3223] }, { "teal": 3222, "source": "contracts/contractSupply/contract.algo.ts:479", "pc": [3224] }, { "teal": 3223, "source": "contracts/contractSupply/contract.algo.ts:479", "pc": [3225] }, { "teal": 3226, "source": "contracts/contractSupply/contract.algo.ts:479", "errorMessage": "box value does not exist: this.batchCropTypeBox(batchAsaId).value", "pc": [3226] }, { "teal": 3227, "source": "contracts/contractSupply/contract.algo.ts:479", "pc": [3227, 3228, 3229] }, { "teal": 3228, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3230] }, { "teal": 3229, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3231] }, { "teal": 3230, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3232, 3233] }, { "teal": 3231, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3234, 3235] }, { "teal": 3232, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3236] }, { "teal": 3233, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3237] }, { "teal": 3234, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3238] }, { "teal": 3237, "source": "contracts/contractSupply/contract.algo.ts:480", "errorMessage": "box value does not exist: this.batchFarmGpsBox(batchAsaId).value", "pc": [3239] }, { "teal": 3238, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3240, 3241, 3242] }, { "teal": 3239, "source": "contracts/contractSupply/contract.algo.ts:480", "pc": [3243] }, { "teal": 3240, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3244] }, { "teal": 3241, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3245] }, { "teal": 3242, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3246, 3247] }, { "teal": 3243, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3248, 3249] }, { "teal": 3244, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3250] }, { "teal": 3245, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3251] }, { "teal": 3246, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3252] }, { "teal": 3249, "source": "contracts/contractSupply/contract.algo.ts:481", "errorMessage": "box value does not exist: this.batchOrganicCertIdBox(batchAsaId).value", "pc": [3253] }, { "teal": 3250, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3254, 3255, 3256] }, { "teal": 3251, "source": "contracts/contractSupply/contract.algo.ts:481", "pc": [3257] }, { "teal": 3252, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3258] }, { "teal": 3253, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3259] }, { "teal": 3254, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3260, 3261] }, { "teal": 3255, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3262, 3263] }, { "teal": 3256, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3264] }, { "teal": 3257, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3265] }, { "teal": 3258, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3266] }, { "teal": 3261, "source": "contracts/contractSupply/contract.algo.ts:482", "errorMessage": "box value does not exist: this.batchFarmerAddrBox(batchAsaId).value", "pc": [3267] }, { "teal": 3262, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3268, 3269, 3270] }, { "teal": 3263, "source": "contracts/contractSupply/contract.algo.ts:482", "pc": [3271] }, { "teal": 3264, "source": "contracts/contractSupply/contract.algo.ts:476", "pc": [3272] }, { "teal": 3269, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3273] }, { "teal": 3272, "source": "contracts/contractSupply/contract.algo.ts:486", "pc": [3274, 3275, 3276] }, { "teal": 3273, "source": "contracts/contractSupply/contract.algo.ts:486", "pc": [3277] }, { "teal": 3276, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3278, 3279, 3280] }, { "teal": 3277, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3281, 3282] }, { "teal": 3278, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3283] }, { "teal": 3279, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3284, 3285] }, { "teal": 3280, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3286] }, { "teal": 3281, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3287] }, { "teal": 3282, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3288] }, { "teal": 3283, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3289] }, { "teal": 3284, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3290] }, { "teal": 3288, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3291, 3292, 3293] }, { "teal": 3292, "source": "contracts/contractSupply/contract.algo.ts:487", "pc": [3294, 3295] }, { "teal": 3293, "source": "contracts/contractSupply/contract.algo.ts:487", "pc": [3296, 3297] }, { "teal": 3294, "source": "contracts/contractSupply/contract.algo.ts:487", "pc": [3298] }, { "teal": 3295, "source": "contracts/contractSupply/contract.algo.ts:487", "pc": [3299] }, { "teal": 3296, "source": "contracts/contractSupply/contract.algo.ts:487", "pc": [3300] }, { "teal": 3297, "source": "contracts/contractSupply/contract.algo.ts:487", "pc": [3301] }, { "teal": 3298, "source": "contracts/contractSupply/contract.algo.ts:487", "pc": [3302] }, { "teal": 3299, "source": "contracts/contractSupply/contract.algo.ts:485", "pc": [3303] }, { "teal": 3304, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3304] }, { "teal": 3307, "source": "contracts/contractSupply/contract.algo.ts:491", "pc": [3305, 3306, 3307] }, { "teal": 3308, "source": "contracts/contractSupply/contract.algo.ts:491", "pc": [3308] }, { "teal": 3311, "source": "contracts/contractSupply/contract.algo.ts:491", "pc": [3309, 3310, 3311] }, { "teal": 3312, "source": "contracts/contractSupply/contract.algo.ts:491", "pc": [3312] }, { "teal": 3315, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3313, 3314, 3315] }, { "teal": 3316, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3316] }, { "teal": 3317, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3317] }, { "teal": 3318, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3318] }, { "teal": 3319, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3319, 3320, 3321] }, { "teal": 3320, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3322] }, { "teal": 3321, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3323] }, { "teal": 3322, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3324] }, { "teal": 3323, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3325] }, { "teal": 3324, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3326] }, { "teal": 3325, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3327] }, { "teal": 3329, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3328, 3329, 3330] }, { "teal": 3332, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3331] }, { "teal": 3336, "source": "contracts/contractSupply/contract.algo.ts:492", "pc": [3332, 3333] }, { "teal": 3337, "source": "contracts/contractSupply/contract.algo.ts:492", "pc": [3334, 3335, 3336] }, { "teal": 3341, "source": "contracts/contractSupply/contract.algo.ts:493", "pc": [3337, 3338] }, { "teal": 3342, "source": "contracts/contractSupply/contract.algo.ts:493", "pc": [3339, 3340] }, { "teal": 3343, "source": "contracts/contractSupply/contract.algo.ts:493", "pc": [3341, 3342, 3343] }, { "teal": 3347, "source": "contracts/contractSupply/contract.algo.ts:494", "pc": [3344, 3345] }, { "teal": 3348, "source": "contracts/contractSupply/contract.algo.ts:494", "pc": [3346] }, { "teal": 3349, "source": "contracts/contractSupply/contract.algo.ts:494", "pc": [3347] }, { "teal": 3350, "source": "contracts/contractSupply/contract.algo.ts:494", "pc": [3348, 3349] }, { "teal": 3351, "source": "contracts/contractSupply/contract.algo.ts:494", "pc": [3350] }, { "teal": 3352, "source": "contracts/contractSupply/contract.algo.ts:494", "pc": [3351, 3352] }, { "teal": 3359, "source": "contracts/contractSupply/contract.algo.ts:495", "pc": [3353, 3354] }, { "teal": 3360, "source": "contracts/contractSupply/contract.algo.ts:495", "pc": [3355, 3356] }, { "teal": 3361, "source": "contracts/contractSupply/contract.algo.ts:495", "pc": [3357] }, { "teal": 3362, "source": "contracts/contractSupply/contract.algo.ts:495", "pc": [3358] }, { "teal": 3363, "source": "contracts/contractSupply/contract.algo.ts:495", "pc": [3359] }, { "teal": 3366, "source": "contracts/contractSupply/contract.algo.ts:495", "errorMessage": "box value does not exist: this.checkpointGpsBox(pk).value", "pc": [3360] }, { "teal": 3367, "source": "contracts/contractSupply/contract.algo.ts:495", "pc": [3361, 3362, 3363] }, { "teal": 3368, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3364] }, { "teal": 3369, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3365] }, { "teal": 3370, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3366, 3367] }, { "teal": 3371, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3368, 3369] }, { "teal": 3372, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3370] }, { "teal": 3373, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3371] }, { "teal": 3374, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3372] }, { "teal": 3377, "source": "contracts/contractSupply/contract.algo.ts:496", "errorMessage": "box value does not exist: this.checkpointHandlerTypeBox(pk).value", "pc": [3373] }, { "teal": 3378, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3374, 3375, 3376] }, { "teal": 3379, "source": "contracts/contractSupply/contract.algo.ts:496", "pc": [3377] }, { "teal": 3380, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3378] }, { "teal": 3381, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3379] }, { "teal": 3382, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3380, 3381] }, { "teal": 3383, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3382, 3383] }, { "teal": 3384, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3384] }, { "teal": 3385, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3385] }, { "teal": 3386, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3386] }, { "teal": 3389, "source": "contracts/contractSupply/contract.algo.ts:497", "errorMessage": "box value does not exist: this.checkpointNotesBox(pk).value", "pc": [3387] }, { "teal": 3390, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3388, 3389, 3390] }, { "teal": 3391, "source": "contracts/contractSupply/contract.algo.ts:497", "pc": [3391] }, { "teal": 3392, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3392] }, { "teal": 3393, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3393] }, { "teal": 3394, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3394, 3395] }, { "teal": 3395, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3396, 3397] }, { "teal": 3396, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3398] }, { "teal": 3397, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3399] }, { "teal": 3398, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3400] }, { "teal": 3401, "source": "contracts/contractSupply/contract.algo.ts:498", "errorMessage": "box value does not exist: this.checkpointPhotoHashBox(pk).value", "pc": [3401] }, { "teal": 3402, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3402, 3403, 3404] }, { "teal": 3403, "source": "contracts/contractSupply/contract.algo.ts:498", "pc": [3405] }, { "teal": 3406, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3406, 3407] }, { "teal": 3407, "source": "contracts/contractSupply/contract.algo.ts:490", "pc": [3408] }, { "teal": 3412, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3409] }, { "teal": 3415, "source": "contracts/contractSupply/contract.algo.ts:502", "pc": [3410, 3411, 3412] }, { "teal": 3416, "source": "contracts/contractSupply/contract.algo.ts:502", "pc": [3413] }, { "teal": 3419, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3414, 3415, 3416] }, { "teal": 3420, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3417] }, { "teal": 3421, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3418] }, { "teal": 3422, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3419] }, { "teal": 3423, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3420] }, { "teal": 3424, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3421] }, { "teal": 3428, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3422, 3423, 3424] }, { "teal": 3433, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3425, 3426] }, { "teal": 3434, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3427, 3428] }, { "teal": 3435, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3429] }, { "teal": 3436, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3430] }, { "teal": 3437, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3431] }, { "teal": 3438, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3432] }, { "teal": 3439, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3433] }, { "teal": 3440, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3434] }, { "teal": 3441, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3435, 3436, 3437] }, { "teal": 3446, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3438] }, { "teal": 3447, "source": "contracts/contractSupply/contract.algo.ts:503", "pc": [3439] }, { "teal": 3452, "source": "contracts/contractSupply/contract.algo.ts:504", "pc": [3440, 3441] }, { "teal": 3453, "source": "contracts/contractSupply/contract.algo.ts:504", "pc": [3442, 3443] }, { "teal": 3454, "source": "contracts/contractSupply/contract.algo.ts:504", "pc": [3444] }, { "teal": 3455, "source": "contracts/contractSupply/contract.algo.ts:504", "pc": [3445] }, { "teal": 3456, "source": "contracts/contractSupply/contract.algo.ts:504", "pc": [3446] }, { "teal": 3459, "source": "contracts/contractSupply/contract.algo.ts:504", "errorMessage": "box value does not exist: this.checkpointCountBox(batchAsaId).value", "pc": [3447] }, { "teal": 3460, "source": "contracts/contractSupply/contract.algo.ts:504", "pc": [3448] }, { "teal": 3461, "source": "contracts/contractSupply/contract.algo.ts:501", "pc": [3449] }, { "teal": 3466, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3450] }, { "teal": 3469, "source": "contracts/contractSupply/contract.algo.ts:508", "pc": [3451, 3452, 3453] }, { "teal": 3470, "source": "contracts/contractSupply/contract.algo.ts:508", "pc": [3454] }, { "teal": 3473, "source": "contracts/contractSupply/contract.algo.ts:508", "pc": [3455, 3456, 3457] }, { "teal": 3474, "source": "contracts/contractSupply/contract.algo.ts:508", "pc": [3458] }, { "teal": 3477, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3459, 3460, 3461] }, { "teal": 3478, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3462] }, { "teal": 3479, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3463] }, { "teal": 3480, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3464] }, { "teal": 3481, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3465, 3466, 3467] }, { "teal": 3482, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3468] }, { "teal": 3483, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3469] }, { "teal": 3484, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3470] }, { "teal": 3485, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3471] }, { "teal": 3486, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3472] }, { "teal": 3487, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3473] }, { "teal": 3491, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3474, 3475, 3476] }, { "teal": 3494, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3477] }, { "teal": 3498, "source": "contracts/contractSupply/contract.algo.ts:509", "pc": [3478, 3479] }, { "teal": 3499, "source": "contracts/contractSupply/contract.algo.ts:509", "pc": [3480, 3481, 3482] }, { "teal": 3503, "source": "contracts/contractSupply/contract.algo.ts:510", "pc": [3483, 3484] }, { "teal": 3504, "source": "contracts/contractSupply/contract.algo.ts:510", "pc": [3485, 3486] }, { "teal": 3505, "source": "contracts/contractSupply/contract.algo.ts:510", "pc": [3487, 3488, 3489] }, { "teal": 3509, "source": "contracts/contractSupply/contract.algo.ts:511", "pc": [3490, 3491] }, { "teal": 3510, "source": "contracts/contractSupply/contract.algo.ts:511", "pc": [3492] }, { "teal": 3511, "source": "contracts/contractSupply/contract.algo.ts:511", "pc": [3493] }, { "teal": 3512, "source": "contracts/contractSupply/contract.algo.ts:511", "pc": [3494, 3495] }, { "teal": 3513, "source": "contracts/contractSupply/contract.algo.ts:511", "pc": [3496] }, { "teal": 3514, "source": "contracts/contractSupply/contract.algo.ts:511", "pc": [3497, 3498] }, { "teal": 3521, "source": "contracts/contractSupply/contract.algo.ts:512", "pc": [3499, 3500] }, { "teal": 3522, "source": "contracts/contractSupply/contract.algo.ts:512", "pc": [3501, 3502] }, { "teal": 3523, "source": "contracts/contractSupply/contract.algo.ts:512", "pc": [3503] }, { "teal": 3524, "source": "contracts/contractSupply/contract.algo.ts:512", "pc": [3504] }, { "teal": 3525, "source": "contracts/contractSupply/contract.algo.ts:512", "pc": [3505] }, { "teal": 3528, "source": "contracts/contractSupply/contract.algo.ts:512", "errorMessage": "box value does not exist: this.handoffFromAddrBox(pk).value", "pc": [3506] }, { "teal": 3529, "source": "contracts/contractSupply/contract.algo.ts:512", "pc": [3507, 3508, 3509] }, { "teal": 3530, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3510] }, { "teal": 3531, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3511] }, { "teal": 3532, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3512, 3513] }, { "teal": 3533, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3514, 3515] }, { "teal": 3534, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3516] }, { "teal": 3535, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3517] }, { "teal": 3536, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3518] }, { "teal": 3539, "source": "contracts/contractSupply/contract.algo.ts:513", "errorMessage": "box value does not exist: this.handoffToAddrBox(pk).value", "pc": [3519] }, { "teal": 3540, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3520, 3521, 3522] }, { "teal": 3541, "source": "contracts/contractSupply/contract.algo.ts:513", "pc": [3523] }, { "teal": 3542, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3524] }, { "teal": 3543, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3525] }, { "teal": 3544, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3526, 3527] }, { "teal": 3545, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3528, 3529] }, { "teal": 3546, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3530] }, { "teal": 3547, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3531] }, { "teal": 3548, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3532] }, { "teal": 3551, "source": "contracts/contractSupply/contract.algo.ts:514", "errorMessage": "box value does not exist: this.handoffTypeBox(pk).value", "pc": [3533] }, { "teal": 3552, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3534, 3535, 3536] }, { "teal": 3553, "source": "contracts/contractSupply/contract.algo.ts:514", "pc": [3537] }, { "teal": 3554, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3538] }, { "teal": 3555, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3539] }, { "teal": 3556, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3540, 3541] }, { "teal": 3557, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3542, 3543] }, { "teal": 3558, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3544] }, { "teal": 3559, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3545] }, { "teal": 3560, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3546] }, { "teal": 3563, "source": "contracts/contractSupply/contract.algo.ts:515", "errorMessage": "box value does not exist: this.handoffStatusBox(pk).value", "pc": [3547] }, { "teal": 3564, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3548, 3549, 3550] }, { "teal": 3565, "source": "contracts/contractSupply/contract.algo.ts:515", "pc": [3551] }, { "teal": 3568, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3552, 3553] }, { "teal": 3569, "source": "contracts/contractSupply/contract.algo.ts:507", "pc": [3554] }, { "teal": 3574, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3555] }, { "teal": 3577, "source": "contracts/contractSupply/contract.algo.ts:519", "pc": [3556, 3557, 3558] }, { "teal": 3578, "source": "contracts/contractSupply/contract.algo.ts:519", "pc": [3559] }, { "teal": 3581, "source": "contracts/contractSupply/contract.algo.ts:519", "pc": [3560, 3561, 3562] }, { "teal": 3582, "source": "contracts/contractSupply/contract.algo.ts:519", "pc": [3563] }, { "teal": 3585, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3564, 3565, 3566] }, { "teal": 3586, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3567, 3568] }, { "teal": 3587, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3569] }, { "teal": 3588, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3570, 3571] }, { "teal": 3589, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3572] }, { "teal": 3590, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3573] }, { "teal": 3591, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3574] }, { "teal": 3592, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3575] }, { "teal": 3593, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3576] }, { "teal": 3597, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3577, 3578, 3579] }, { "teal": 3600, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3580] }, { "teal": 3605, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3581] }, { "teal": 3606, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3582, 3583] }, { "teal": 3607, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3584] }, { "teal": 3608, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3585] }, { "teal": 3609, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3586] }, { "teal": 3610, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3587] }, { "teal": 3611, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3588] }, { "teal": 3612, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3589] }, { "teal": 3613, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3590, 3591, 3592] }, { "teal": 3618, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3593] }, { "teal": 3619, "source": "contracts/contractSupply/contract.algo.ts:520", "pc": [3594, 3595, 3596] }, { "teal": 3624, "source": "contracts/contractSupply/contract.algo.ts:521", "pc": [3597] }, { "teal": 3625, "source": "contracts/contractSupply/contract.algo.ts:521", "pc": [3598, 3599] }, { "teal": 3626, "source": "contracts/contractSupply/contract.algo.ts:521", "pc": [3600] }, { "teal": 3627, "source": "contracts/contractSupply/contract.algo.ts:521", "pc": [3601] }, { "teal": 3628, "source": "contracts/contractSupply/contract.algo.ts:521", "pc": [3602] }, { "teal": 3631, "source": "contracts/contractSupply/contract.algo.ts:521", "errorMessage": "box value does not exist: this.handoffCountBox(batchAsaId).value", "pc": [3603] }, { "teal": 3632, "source": "contracts/contractSupply/contract.algo.ts:521", "pc": [3604] }, { "teal": 3633, "source": "contracts/contractSupply/contract.algo.ts:521", "pc": [3605, 3606] }, { "teal": 3638, "source": "contracts/contractSupply/contract.algo.ts:522", "pc": [3607, 3608] }, { "teal": 3639, "source": "contracts/contractSupply/contract.algo.ts:522", "pc": [3609, 3610] }, { "teal": 3640, "source": "contracts/contractSupply/contract.algo.ts:522", "pc": [3611] }, { "teal": 3641, "source": "contracts/contractSupply/contract.algo.ts:522", "pc": [3612, 3613, 3614] }, { "teal": 3646, "source": "contracts/contractSupply/contract.algo.ts:522", "pc": [3615] }, { "teal": 3647, "source": "contracts/contractSupply/contract.algo.ts:522", "pc": [3616, 3617, 3618] }, { "teal": 3653, "source": "contracts/contractSupply/contract.algo.ts:523", "pc": [3619, 3620] }, { "teal": 3654, "source": "contracts/contractSupply/contract.algo.ts:523", "pc": [3621] }, { "teal": 3655, "source": "contracts/contractSupply/contract.algo.ts:523", "pc": [3622] }, { "teal": 3656, "source": "contracts/contractSupply/contract.algo.ts:523", "pc": [3623, 3624, 3625] }, { "teal": 3661, "source": "contracts/contractSupply/contract.algo.ts:523", "pc": [3626] }, { "teal": 3662, "source": "contracts/contractSupply/contract.algo.ts:523", "pc": [3627, 3628, 3629] }, { "teal": 3667, "source": "contracts/contractSupply/contract.algo.ts:524", "pc": [3630] }, { "teal": 3671, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3631, 3632] }, { "teal": 3672, "source": "contracts/contractSupply/contract.algo.ts:518", "pc": [3633] }, { "teal": 3677, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3634] }, { "teal": 3680, "source": "contracts/contractSupply/contract.algo.ts:528", "pc": [3635, 3636, 3637] }, { "teal": 3681, "source": "contracts/contractSupply/contract.algo.ts:528", "pc": [3638] }, { "teal": 3684, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3639, 3640, 3641] }, { "teal": 3685, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3642] }, { "teal": 3686, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3643] }, { "teal": 3687, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3644] }, { "teal": 3688, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3645] }, { "teal": 3689, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3646] }, { "teal": 3693, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3647, 3648, 3649] }, { "teal": 3698, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3650] }, { "teal": 3699, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3651, 3652] }, { "teal": 3700, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3653] }, { "teal": 3701, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3654] }, { "teal": 3702, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3655] }, { "teal": 3703, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3656] }, { "teal": 3704, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3657] }, { "teal": 3705, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3658] }, { "teal": 3706, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3659, 3660, 3661] }, { "teal": 3711, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3662] }, { "teal": 3712, "source": "contracts/contractSupply/contract.algo.ts:529", "pc": [3663] }, { "teal": 3717, "source": "contracts/contractSupply/contract.algo.ts:530", "pc": [3664] }, { "teal": 3718, "source": "contracts/contractSupply/contract.algo.ts:530", "pc": [3665, 3666] }, { "teal": 3719, "source": "contracts/contractSupply/contract.algo.ts:530", "pc": [3667] }, { "teal": 3720, "source": "contracts/contractSupply/contract.algo.ts:530", "pc": [3668] }, { "teal": 3721, "source": "contracts/contractSupply/contract.algo.ts:530", "pc": [3669] }, { "teal": 3724, "source": "contracts/contractSupply/contract.algo.ts:530", "errorMessage": "box value does not exist: this.handoffCountBox(batchAsaId).value", "pc": [3670] }, { "teal": 3725, "source": "contracts/contractSupply/contract.algo.ts:530", "pc": [3671] }, { "teal": 3726, "source": "contracts/contractSupply/contract.algo.ts:527", "pc": [3672] }, { "teal": 3731, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3673] }, { "teal": 3734, "source": "contracts/contractSupply/contract.algo.ts:534", "pc": [3674, 3675, 3676] }, { "teal": 3735, "source": "contracts/contractSupply/contract.algo.ts:534", "pc": [3677] }, { "teal": 3738, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3678, 3679, 3680] }, { "teal": 3739, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3681] }, { "teal": 3740, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3682] }, { "teal": 3741, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3683] }, { "teal": 3742, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3684] }, { "teal": 3743, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3685] }, { "teal": 3747, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3686, 3687, 3688] }, { "teal": 3751, "source": "contracts/contractSupply/contract.algo.ts:535", "pc": [3689, 3690] }, { "teal": 3752, "source": "contracts/contractSupply/contract.algo.ts:535", "pc": [3691, 3692, 3693] }, { "teal": 3756, "source": "contracts/contractSupply/contract.algo.ts:536", "pc": [3694, 3695] }, { "teal": 3757, "source": "contracts/contractSupply/contract.algo.ts:536", "pc": [3696, 3697] }, { "teal": 3758, "source": "contracts/contractSupply/contract.algo.ts:536", "pc": [3698] }, { "teal": 3759, "source": "contracts/contractSupply/contract.algo.ts:536", "pc": [3699] }, { "teal": 3760, "source": "contracts/contractSupply/contract.algo.ts:536", "pc": [3700] }, { "teal": 3763, "source": "contracts/contractSupply/contract.algo.ts:536", "errorMessage": "box value does not exist: this.batchWeightBox(batchAsaId).value", "pc": [3701] }, { "teal": 3764, "source": "contracts/contractSupply/contract.algo.ts:536", "pc": [3702] }, { "teal": 3765, "source": "contracts/contractSupply/contract.algo.ts:533", "pc": [3703] }, { "teal": 3770, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3704] }, { "teal": 3773, "source": "contracts/contractSupply/contract.algo.ts:540", "pc": [3705, 3706, 3707] }, { "teal": 3774, "source": "contracts/contractSupply/contract.algo.ts:540", "pc": [3708] }, { "teal": 3777, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3709, 3710, 3711] }, { "teal": 3778, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3712] }, { "teal": 3779, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3713] }, { "teal": 3780, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3714] }, { "teal": 3781, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3715, 3716, 3717] }, { "teal": 3782, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3718] }, { "teal": 3783, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3719] }, { "teal": 3784, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3720] }, { "teal": 3785, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3721] }, { "teal": 3786, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3722] }, { "teal": 3787, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3723] }, { "teal": 3791, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3724, 3725, 3726] }, { "teal": 3795, "source": "contracts/contractSupply/contract.algo.ts:541", "pc": [3727, 3728] }, { "teal": 3796, "source": "contracts/contractSupply/contract.algo.ts:541", "pc": [3729, 3730, 3731] }, { "teal": 3800, "source": "contracts/contractSupply/contract.algo.ts:542", "pc": [3732, 3733] }, { "teal": 3801, "source": "contracts/contractSupply/contract.algo.ts:542", "pc": [3734, 3735] }, { "teal": 3802, "source": "contracts/contractSupply/contract.algo.ts:542", "pc": [3736] }, { "teal": 3803, "source": "contracts/contractSupply/contract.algo.ts:542", "pc": [3737] }, { "teal": 3804, "source": "contracts/contractSupply/contract.algo.ts:542", "pc": [3738] }, { "teal": 3807, "source": "contracts/contractSupply/contract.algo.ts:542", "errorMessage": "box value does not exist: this.batchCropTypeBox(batchAsaId).value", "pc": [3739] }, { "teal": 3808, "source": "contracts/contractSupply/contract.algo.ts:542", "pc": [3740, 3741, 3742] }, { "teal": 3809, "source": "contracts/contractSupply/contract.algo.ts:539", "pc": [3743] }, { "teal": 3814, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3744] }, { "teal": 3817, "source": "contracts/contractSupply/contract.algo.ts:546", "pc": [3745, 3746, 3747] }, { "teal": 3818, "source": "contracts/contractSupply/contract.algo.ts:546", "pc": [3748] }, { "teal": 3821, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3749, 3750, 3751] }, { "teal": 3822, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3752] }, { "teal": 3823, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3753] }, { "teal": 3824, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3754] }, { "teal": 3825, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3755, 3756, 3757] }, { "teal": 3826, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3758] }, { "teal": 3827, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3759] }, { "teal": 3828, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3760] }, { "teal": 3829, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3761] }, { "teal": 3830, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3762] }, { "teal": 3831, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3763] }, { "teal": 3835, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3764, 3765, 3766] }, { "teal": 3839, "source": "contracts/contractSupply/contract.algo.ts:547", "pc": [3767, 3768] }, { "teal": 3840, "source": "contracts/contractSupply/contract.algo.ts:547", "pc": [3769, 3770, 3771] }, { "teal": 3844, "source": "contracts/contractSupply/contract.algo.ts:548", "pc": [3772, 3773] }, { "teal": 3845, "source": "contracts/contractSupply/contract.algo.ts:548", "pc": [3774, 3775] }, { "teal": 3846, "source": "contracts/contractSupply/contract.algo.ts:548", "pc": [3776] }, { "teal": 3847, "source": "contracts/contractSupply/contract.algo.ts:548", "pc": [3777] }, { "teal": 3848, "source": "contracts/contractSupply/contract.algo.ts:548", "pc": [3778] }, { "teal": 3851, "source": "contracts/contractSupply/contract.algo.ts:548", "errorMessage": "box value does not exist: this.batchFarmGpsBox(batchAsaId).value", "pc": [3779] }, { "teal": 3852, "source": "contracts/contractSupply/contract.algo.ts:548", "pc": [3780, 3781, 3782] }, { "teal": 3853, "source": "contracts/contractSupply/contract.algo.ts:545", "pc": [3783] }, { "teal": 3858, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3784] }, { "teal": 3861, "source": "contracts/contractSupply/contract.algo.ts:552", "pc": [3785, 3786, 3787] }, { "teal": 3862, "source": "contracts/contractSupply/contract.algo.ts:552", "pc": [3788] }, { "teal": 3865, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3789, 3790, 3791] }, { "teal": 3866, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3792] }, { "teal": 3867, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3793] }, { "teal": 3868, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3794] }, { "teal": 3869, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3795, 3796, 3797] }, { "teal": 3870, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3798] }, { "teal": 3871, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3799] }, { "teal": 3872, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3800] }, { "teal": 3873, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3801] }, { "teal": 3874, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3802] }, { "teal": 3875, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3803] }, { "teal": 3879, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3804, 3805, 3806] }, { "teal": 3883, "source": "contracts/contractSupply/contract.algo.ts:553", "pc": [3807, 3808] }, { "teal": 3884, "source": "contracts/contractSupply/contract.algo.ts:553", "pc": [3809, 3810, 3811] }, { "teal": 3888, "source": "contracts/contractSupply/contract.algo.ts:554", "pc": [3812, 3813] }, { "teal": 3889, "source": "contracts/contractSupply/contract.algo.ts:554", "pc": [3814, 3815] }, { "teal": 3890, "source": "contracts/contractSupply/contract.algo.ts:554", "pc": [3816] }, { "teal": 3891, "source": "contracts/contractSupply/contract.algo.ts:554", "pc": [3817] }, { "teal": 3892, "source": "contracts/contractSupply/contract.algo.ts:554", "pc": [3818] }, { "teal": 3895, "source": "contracts/contractSupply/contract.algo.ts:554", "errorMessage": "box value does not exist: this.batchFarmingPracticesBox(batchAsaId).value", "pc": [3819] }, { "teal": 3896, "source": "contracts/contractSupply/contract.algo.ts:554", "pc": [3820, 3821, 3822] }, { "teal": 3897, "source": "contracts/contractSupply/contract.algo.ts:551", "pc": [3823] }, { "teal": 3902, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3824] }, { "teal": 3905, "source": "contracts/contractSupply/contract.algo.ts:558", "pc": [3825, 3826, 3827] }, { "teal": 3906, "source": "contracts/contractSupply/contract.algo.ts:558", "pc": [3828] }, { "teal": 3909, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3829, 3830, 3831] }, { "teal": 3910, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3832] }, { "teal": 3911, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3833] }, { "teal": 3912, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3834] }, { "teal": 3913, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3835, 3836, 3837] }, { "teal": 3914, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3838] }, { "teal": 3915, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3839] }, { "teal": 3916, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3840] }, { "teal": 3917, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3841] }, { "teal": 3918, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3842] }, { "teal": 3919, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3843] }, { "teal": 3923, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3844, 3845, 3846] }, { "teal": 3927, "source": "contracts/contractSupply/contract.algo.ts:559", "pc": [3847, 3848] }, { "teal": 3928, "source": "contracts/contractSupply/contract.algo.ts:559", "pc": [3849, 3850, 3851] }, { "teal": 3932, "source": "contracts/contractSupply/contract.algo.ts:560", "pc": [3852, 3853] }, { "teal": 3933, "source": "contracts/contractSupply/contract.algo.ts:560", "pc": [3854, 3855] }, { "teal": 3934, "source": "contracts/contractSupply/contract.algo.ts:560", "pc": [3856] }, { "teal": 3935, "source": "contracts/contractSupply/contract.algo.ts:560", "pc": [3857] }, { "teal": 3936, "source": "contracts/contractSupply/contract.algo.ts:560", "pc": [3858] }, { "teal": 3939, "source": "contracts/contractSupply/contract.algo.ts:560", "errorMessage": "box value does not exist: this.batchOrganicCertIdBox(batchAsaId).value", "pc": [3859] }, { "teal": 3940, "source": "contracts/contractSupply/contract.algo.ts:560", "pc": [3860, 3861, 3862] }, { "teal": 3941, "source": "contracts/contractSupply/contract.algo.ts:557", "pc": [3863] }, { "teal": 3946, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3864] }, { "teal": 3949, "source": "contracts/contractSupply/contract.algo.ts:564", "pc": [3865, 3866, 3867] }, { "teal": 3950, "source": "contracts/contractSupply/contract.algo.ts:564", "pc": [3868] }, { "teal": 3953, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3869, 3870, 3871] }, { "teal": 3954, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3872] }, { "teal": 3955, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3873] }, { "teal": 3956, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3874] }, { "teal": 3957, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3875, 3876, 3877] }, { "teal": 3958, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3878] }, { "teal": 3959, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3879] }, { "teal": 3960, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3880] }, { "teal": 3961, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3881] }, { "teal": 3962, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3882] }, { "teal": 3963, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3883] }, { "teal": 3967, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3884, 3885, 3886] }, { "teal": 3971, "source": "contracts/contractSupply/contract.algo.ts:565", "pc": [3887, 3888] }, { "teal": 3972, "source": "contracts/contractSupply/contract.algo.ts:565", "pc": [3889, 3890, 3891] }, { "teal": 3976, "source": "contracts/contractSupply/contract.algo.ts:566", "pc": [3892, 3893] }, { "teal": 3977, "source": "contracts/contractSupply/contract.algo.ts:566", "pc": [3894, 3895] }, { "teal": 3978, "source": "contracts/contractSupply/contract.algo.ts:566", "pc": [3896] }, { "teal": 3979, "source": "contracts/contractSupply/contract.algo.ts:566", "pc": [3897] }, { "teal": 3980, "source": "contracts/contractSupply/contract.algo.ts:566", "pc": [3898] }, { "teal": 3983, "source": "contracts/contractSupply/contract.algo.ts:566", "errorMessage": "box value does not exist: this.batchFarmerAddrBox(batchAsaId).value", "pc": [3899] }, { "teal": 3984, "source": "contracts/contractSupply/contract.algo.ts:566", "pc": [3900, 3901, 3902] }, { "teal": 3985, "source": "contracts/contractSupply/contract.algo.ts:563", "pc": [3903] }, { "teal": 3990, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3904] }, { "teal": 3993, "source": "contracts/contractSupply/contract.algo.ts:570", "pc": [3905, 3906, 3907] }, { "teal": 3994, "source": "contracts/contractSupply/contract.algo.ts:570", "pc": [3908] }, { "teal": 3997, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3909, 3910, 3911] }, { "teal": 3998, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3912] }, { "teal": 3999, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3913] }, { "teal": 4000, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3914] }, { "teal": 4001, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3915] }, { "teal": 4002, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3916] }, { "teal": 4006, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3917, 3918, 3919] }, { "teal": 4010, "source": "contracts/contractSupply/contract.algo.ts:571", "pc": [3920, 3921] }, { "teal": 4011, "source": "contracts/contractSupply/contract.algo.ts:571", "pc": [3922, 3923, 3924] }, { "teal": 4015, "source": "contracts/contractSupply/contract.algo.ts:572", "pc": [3925, 3926] }, { "teal": 4016, "source": "contracts/contractSupply/contract.algo.ts:572", "pc": [3927, 3928] }, { "teal": 4017, "source": "contracts/contractSupply/contract.algo.ts:572", "pc": [3929] }, { "teal": 4018, "source": "contracts/contractSupply/contract.algo.ts:572", "pc": [3930] }, { "teal": 4019, "source": "contracts/contractSupply/contract.algo.ts:572", "pc": [3931] }, { "teal": 4022, "source": "contracts/contractSupply/contract.algo.ts:572", "errorMessage": "box value does not exist: this.batchCreatedAtBox(batchAsaId).value", "pc": [3932] }, { "teal": 4023, "source": "contracts/contractSupply/contract.algo.ts:572", "pc": [3933] }, { "teal": 4024, "source": "contracts/contractSupply/contract.algo.ts:569", "pc": [3934] }, { "teal": 4029, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3935] }, { "teal": 4032, "source": "contracts/contractSupply/contract.algo.ts:576", "pc": [3936, 3937, 3938] }, { "teal": 4033, "source": "contracts/contractSupply/contract.algo.ts:576", "pc": [3939] }, { "teal": 4036, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3940, 3941, 3942] }, { "teal": 4037, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3943] }, { "teal": 4038, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3944] }, { "teal": 4039, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3945] }, { "teal": 4040, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3946] }, { "teal": 4041, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3947] }, { "teal": 4045, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3948, 3949, 3950] }, { "teal": 4049, "source": "contracts/contractSupply/contract.algo.ts:577", "pc": [3951, 3952] }, { "teal": 4050, "source": "contracts/contractSupply/contract.algo.ts:577", "pc": [3953, 3954, 3955] }, { "teal": 4055, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3956, 3957] }, { "teal": 4056, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3958, 3959] }, { "teal": 4057, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3960] }, { "teal": 4058, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3961] }, { "teal": 4059, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3962] }, { "teal": 4060, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3963] }, { "teal": 4061, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3964] }, { "teal": 4062, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3965] }, { "teal": 4063, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3966, 3967, 3968] }, { "teal": 4068, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3969] }, { "teal": 4069, "source": "contracts/contractSupply/contract.algo.ts:578", "pc": [3970] }, { "teal": 4074, "source": "contracts/contractSupply/contract.algo.ts:579", "pc": [3971, 3972] }, { "teal": 4075, "source": "contracts/contractSupply/contract.algo.ts:579", "pc": [3973, 3974] }, { "teal": 4076, "source": "contracts/contractSupply/contract.algo.ts:579", "pc": [3975] }, { "teal": 4077, "source": "contracts/contractSupply/contract.algo.ts:579", "pc": [3976] }, { "teal": 4078, "source": "contracts/contractSupply/contract.algo.ts:579", "pc": [3977] }, { "teal": 4081, "source": "contracts/contractSupply/contract.algo.ts:579", "errorMessage": "box value does not exist: this.batchAsaIdBox(batchAsaId).value", "pc": [3978] }, { "teal": 4082, "source": "contracts/contractSupply/contract.algo.ts:579", "pc": [3979] }, { "teal": 4083, "source": "contracts/contractSupply/contract.algo.ts:575", "pc": [3980] }, { "teal": 4088, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3981] }, { "teal": 4091, "source": "contracts/contractSupply/contract.algo.ts:583", "pc": [3982, 3983, 3984] }, { "teal": 4092, "source": "contracts/contractSupply/contract.algo.ts:583", "pc": [3985] }, { "teal": 4095, "source": "contracts/contractSupply/contract.algo.ts:583", "pc": [3986, 3987, 3988] }, { "teal": 4096, "source": "contracts/contractSupply/contract.algo.ts:583", "pc": [3989] }, { "teal": 4099, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3990, 3991, 3992] }, { "teal": 4100, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3993] }, { "teal": 4101, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3994] }, { "teal": 4102, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3995] }, { "teal": 4103, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3996] }, { "teal": 4104, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3997] }, { "teal": 4108, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [3998, 3999, 4000] }, { "teal": 4111, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [4001] }, { "teal": 4115, "source": "contracts/contractSupply/contract.algo.ts:584", "pc": [4002, 4003] }, { "teal": 4116, "source": "contracts/contractSupply/contract.algo.ts:584", "pc": [4004, 4005, 4006] }, { "teal": 4120, "source": "contracts/contractSupply/contract.algo.ts:585", "pc": [4007, 4008] }, { "teal": 4121, "source": "contracts/contractSupply/contract.algo.ts:585", "pc": [4009, 4010] }, { "teal": 4122, "source": "contracts/contractSupply/contract.algo.ts:585", "pc": [4011, 4012, 4013] }, { "teal": 4126, "source": "contracts/contractSupply/contract.algo.ts:586", "pc": [4014, 4015] }, { "teal": 4127, "source": "contracts/contractSupply/contract.algo.ts:586", "pc": [4016] }, { "teal": 4128, "source": "contracts/contractSupply/contract.algo.ts:586", "pc": [4017] }, { "teal": 4129, "source": "contracts/contractSupply/contract.algo.ts:586", "pc": [4018, 4019] }, { "teal": 4130, "source": "contracts/contractSupply/contract.algo.ts:586", "pc": [4020] }, { "teal": 4131, "source": "contracts/contractSupply/contract.algo.ts:586", "pc": [4021, 4022] }, { "teal": 4135, "source": "contracts/contractSupply/contract.algo.ts:587", "pc": [4023, 4024] }, { "teal": 4136, "source": "contracts/contractSupply/contract.algo.ts:587", "pc": [4025, 4026] }, { "teal": 4137, "source": "contracts/contractSupply/contract.algo.ts:587", "pc": [4027] }, { "teal": 4138, "source": "contracts/contractSupply/contract.algo.ts:587", "pc": [4028] }, { "teal": 4139, "source": "contracts/contractSupply/contract.algo.ts:587", "pc": [4029] }, { "teal": 4142, "source": "contracts/contractSupply/contract.algo.ts:587", "errorMessage": "box value does not exist: this.checkpointTemperatureBox(pk).value", "pc": [4030] }, { "teal": 4143, "source": "contracts/contractSupply/contract.algo.ts:587", "pc": [4031] }, { "teal": 4146, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [4032, 4033] }, { "teal": 4147, "source": "contracts/contractSupply/contract.algo.ts:582", "pc": [4034] }, { "teal": 4152, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4035] }, { "teal": 4155, "source": "contracts/contractSupply/contract.algo.ts:591", "pc": [4036, 4037, 4038] }, { "teal": 4156, "source": "contracts/contractSupply/contract.algo.ts:591", "pc": [4039] }, { "teal": 4159, "source": "contracts/contractSupply/contract.algo.ts:591", "pc": [4040, 4041, 4042] }, { "teal": 4160, "source": "contracts/contractSupply/contract.algo.ts:591", "pc": [4043] }, { "teal": 4163, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4044, 4045, 4046] }, { "teal": 4164, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4047] }, { "teal": 4165, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4048] }, { "teal": 4166, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4049] }, { "teal": 4167, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4050] }, { "teal": 4168, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4051] }, { "teal": 4172, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4052, 4053, 4054] }, { "teal": 4175, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4055] }, { "teal": 4179, "source": "contracts/contractSupply/contract.algo.ts:592", "pc": [4056, 4057] }, { "teal": 4180, "source": "contracts/contractSupply/contract.algo.ts:592", "pc": [4058, 4059, 4060] }, { "teal": 4184, "source": "contracts/contractSupply/contract.algo.ts:593", "pc": [4061, 4062] }, { "teal": 4185, "source": "contracts/contractSupply/contract.algo.ts:593", "pc": [4063, 4064] }, { "teal": 4186, "source": "contracts/contractSupply/contract.algo.ts:593", "pc": [4065, 4066, 4067] }, { "teal": 4190, "source": "contracts/contractSupply/contract.algo.ts:594", "pc": [4068, 4069] }, { "teal": 4191, "source": "contracts/contractSupply/contract.algo.ts:594", "pc": [4070] }, { "teal": 4192, "source": "contracts/contractSupply/contract.algo.ts:594", "pc": [4071] }, { "teal": 4193, "source": "contracts/contractSupply/contract.algo.ts:594", "pc": [4072, 4073] }, { "teal": 4194, "source": "contracts/contractSupply/contract.algo.ts:594", "pc": [4074] }, { "teal": 4195, "source": "contracts/contractSupply/contract.algo.ts:594", "pc": [4075, 4076] }, { "teal": 4199, "source": "contracts/contractSupply/contract.algo.ts:595", "pc": [4077, 4078] }, { "teal": 4200, "source": "contracts/contractSupply/contract.algo.ts:595", "pc": [4079, 4080] }, { "teal": 4201, "source": "contracts/contractSupply/contract.algo.ts:595", "pc": [4081] }, { "teal": 4202, "source": "contracts/contractSupply/contract.algo.ts:595", "pc": [4082] }, { "teal": 4203, "source": "contracts/contractSupply/contract.algo.ts:595", "pc": [4083] }, { "teal": 4206, "source": "contracts/contractSupply/contract.algo.ts:595", "errorMessage": "box value does not exist: this.checkpointHumidityBox(pk).value", "pc": [4084] }, { "teal": 4207, "source": "contracts/contractSupply/contract.algo.ts:595", "pc": [4085] }, { "teal": 4210, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4086, 4087] }, { "teal": 4211, "source": "contracts/contractSupply/contract.algo.ts:590", "pc": [4088] }, { "teal": 4216, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4089] }, { "teal": 4219, "source": "contracts/contractSupply/contract.algo.ts:599", "pc": [4090, 4091, 4092] }, { "teal": 4220, "source": "contracts/contractSupply/contract.algo.ts:599", "pc": [4093] }, { "teal": 4223, "source": "contracts/contractSupply/contract.algo.ts:599", "pc": [4094, 4095, 4096] }, { "teal": 4224, "source": "contracts/contractSupply/contract.algo.ts:599", "pc": [4097] }, { "teal": 4227, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4098, 4099, 4100] }, { "teal": 4228, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4101] }, { "teal": 4229, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4102] }, { "teal": 4230, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4103] }, { "teal": 4231, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4104, 4105, 4106] }, { "teal": 4232, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4107] }, { "teal": 4233, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4108] }, { "teal": 4234, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4109] }, { "teal": 4235, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4110] }, { "teal": 4236, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4111] }, { "teal": 4237, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4112] }, { "teal": 4241, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4113, 4114, 4115] }, { "teal": 4244, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4116] }, { "teal": 4248, "source": "contracts/contractSupply/contract.algo.ts:600", "pc": [4117, 4118] }, { "teal": 4249, "source": "contracts/contractSupply/contract.algo.ts:600", "pc": [4119, 4120, 4121] }, { "teal": 4253, "source": "contracts/contractSupply/contract.algo.ts:601", "pc": [4122, 4123] }, { "teal": 4254, "source": "contracts/contractSupply/contract.algo.ts:601", "pc": [4124, 4125] }, { "teal": 4255, "source": "contracts/contractSupply/contract.algo.ts:601", "pc": [4126, 4127, 4128] }, { "teal": 4259, "source": "contracts/contractSupply/contract.algo.ts:602", "pc": [4129, 4130] }, { "teal": 4260, "source": "contracts/contractSupply/contract.algo.ts:602", "pc": [4131] }, { "teal": 4261, "source": "contracts/contractSupply/contract.algo.ts:602", "pc": [4132] }, { "teal": 4262, "source": "contracts/contractSupply/contract.algo.ts:602", "pc": [4133, 4134] }, { "teal": 4263, "source": "contracts/contractSupply/contract.algo.ts:602", "pc": [4135] }, { "teal": 4264, "source": "contracts/contractSupply/contract.algo.ts:602", "pc": [4136, 4137] }, { "teal": 4268, "source": "contracts/contractSupply/contract.algo.ts:603", "pc": [4138, 4139] }, { "teal": 4269, "source": "contracts/contractSupply/contract.algo.ts:603", "pc": [4140, 4141] }, { "teal": 4270, "source": "contracts/contractSupply/contract.algo.ts:603", "pc": [4142] }, { "teal": 4271, "source": "contracts/contractSupply/contract.algo.ts:603", "pc": [4143] }, { "teal": 4272, "source": "contracts/contractSupply/contract.algo.ts:603", "pc": [4144] }, { "teal": 4275, "source": "contracts/contractSupply/contract.algo.ts:603", "errorMessage": "box value does not exist: this.checkpointGpsBox(pk).value", "pc": [4145] }, { "teal": 4276, "source": "contracts/contractSupply/contract.algo.ts:603", "pc": [4146, 4147, 4148] }, { "teal": 4279, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4149, 4150] }, { "teal": 4280, "source": "contracts/contractSupply/contract.algo.ts:598", "pc": [4151] }, { "teal": 4285, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4152] }, { "teal": 4288, "source": "contracts/contractSupply/contract.algo.ts:607", "pc": [4153, 4154, 4155] }, { "teal": 4289, "source": "contracts/contractSupply/contract.algo.ts:607", "pc": [4156] }, { "teal": 4292, "source": "contracts/contractSupply/contract.algo.ts:607", "pc": [4157, 4158, 4159] }, { "teal": 4293, "source": "contracts/contractSupply/contract.algo.ts:607", "pc": [4160] }, { "teal": 4296, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4161, 4162, 4163] }, { "teal": 4297, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4164] }, { "teal": 4298, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4165] }, { "teal": 4299, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4166] }, { "teal": 4300, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4167, 4168, 4169] }, { "teal": 4301, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4170] }, { "teal": 4302, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4171] }, { "teal": 4303, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4172] }, { "teal": 4304, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4173] }, { "teal": 4305, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4174] }, { "teal": 4306, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4175] }, { "teal": 4310, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4176, 4177, 4178] }, { "teal": 4313, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4179] }, { "teal": 4317, "source": "contracts/contractSupply/contract.algo.ts:608", "pc": [4180, 4181] }, { "teal": 4318, "source": "contracts/contractSupply/contract.algo.ts:608", "pc": [4182, 4183, 4184] }, { "teal": 4322, "source": "contracts/contractSupply/contract.algo.ts:609", "pc": [4185, 4186] }, { "teal": 4323, "source": "contracts/contractSupply/contract.algo.ts:609", "pc": [4187, 4188] }, { "teal": 4324, "source": "contracts/contractSupply/contract.algo.ts:609", "pc": [4189, 4190, 4191] }, { "teal": 4328, "source": "contracts/contractSupply/contract.algo.ts:610", "pc": [4192, 4193] }, { "teal": 4329, "source": "contracts/contractSupply/contract.algo.ts:610", "pc": [4194] }, { "teal": 4330, "source": "contracts/contractSupply/contract.algo.ts:610", "pc": [4195] }, { "teal": 4331, "source": "contracts/contractSupply/contract.algo.ts:610", "pc": [4196, 4197] }, { "teal": 4332, "source": "contracts/contractSupply/contract.algo.ts:610", "pc": [4198] }, { "teal": 4333, "source": "contracts/contractSupply/contract.algo.ts:610", "pc": [4199, 4200] }, { "teal": 4337, "source": "contracts/contractSupply/contract.algo.ts:611", "pc": [4201, 4202] }, { "teal": 4338, "source": "contracts/contractSupply/contract.algo.ts:611", "pc": [4203, 4204] }, { "teal": 4339, "source": "contracts/contractSupply/contract.algo.ts:611", "pc": [4205] }, { "teal": 4340, "source": "contracts/contractSupply/contract.algo.ts:611", "pc": [4206] }, { "teal": 4341, "source": "contracts/contractSupply/contract.algo.ts:611", "pc": [4207] }, { "teal": 4344, "source": "contracts/contractSupply/contract.algo.ts:611", "errorMessage": "box value does not exist: this.checkpointHandlerTypeBox(pk).value", "pc": [4208] }, { "teal": 4345, "source": "contracts/contractSupply/contract.algo.ts:611", "pc": [4209, 4210, 4211] }, { "teal": 4348, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4212, 4213] }, { "teal": 4349, "source": "contracts/contractSupply/contract.algo.ts:606", "pc": [4214] }, { "teal": 4354, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4215] }, { "teal": 4357, "source": "contracts/contractSupply/contract.algo.ts:615", "pc": [4216, 4217, 4218] }, { "teal": 4358, "source": "contracts/contractSupply/contract.algo.ts:615", "pc": [4219] }, { "teal": 4361, "source": "contracts/contractSupply/contract.algo.ts:615", "pc": [4220, 4221, 4222] }, { "teal": 4362, "source": "contracts/contractSupply/contract.algo.ts:615", "pc": [4223] }, { "teal": 4365, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4224, 4225, 4226] }, { "teal": 4366, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4227] }, { "teal": 4367, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4228] }, { "teal": 4368, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4229] }, { "teal": 4369, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4230, 4231, 4232] }, { "teal": 4370, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4233] }, { "teal": 4371, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4234] }, { "teal": 4372, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4235] }, { "teal": 4373, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4236] }, { "teal": 4374, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4237] }, { "teal": 4375, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4238] }, { "teal": 4379, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4239, 4240, 4241] }, { "teal": 4382, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4242] }, { "teal": 4386, "source": "contracts/contractSupply/contract.algo.ts:616", "pc": [4243, 4244] }, { "teal": 4387, "source": "contracts/contractSupply/contract.algo.ts:616", "pc": [4245, 4246, 4247] }, { "teal": 4391, "source": "contracts/contractSupply/contract.algo.ts:617", "pc": [4248, 4249] }, { "teal": 4392, "source": "contracts/contractSupply/contract.algo.ts:617", "pc": [4250, 4251] }, { "teal": 4393, "source": "contracts/contractSupply/contract.algo.ts:617", "pc": [4252, 4253, 4254] }, { "teal": 4397, "source": "contracts/contractSupply/contract.algo.ts:618", "pc": [4255, 4256] }, { "teal": 4398, "source": "contracts/contractSupply/contract.algo.ts:618", "pc": [4257] }, { "teal": 4399, "source": "contracts/contractSupply/contract.algo.ts:618", "pc": [4258] }, { "teal": 4400, "source": "contracts/contractSupply/contract.algo.ts:618", "pc": [4259, 4260] }, { "teal": 4401, "source": "contracts/contractSupply/contract.algo.ts:618", "pc": [4261] }, { "teal": 4402, "source": "contracts/contractSupply/contract.algo.ts:618", "pc": [4262, 4263] }, { "teal": 4406, "source": "contracts/contractSupply/contract.algo.ts:619", "pc": [4264, 4265] }, { "teal": 4407, "source": "contracts/contractSupply/contract.algo.ts:619", "pc": [4266, 4267] }, { "teal": 4408, "source": "contracts/contractSupply/contract.algo.ts:619", "pc": [4268] }, { "teal": 4409, "source": "contracts/contractSupply/contract.algo.ts:619", "pc": [4269] }, { "teal": 4410, "source": "contracts/contractSupply/contract.algo.ts:619", "pc": [4270] }, { "teal": 4413, "source": "contracts/contractSupply/contract.algo.ts:619", "errorMessage": "box value does not exist: this.checkpointNotesBox(pk).value", "pc": [4271] }, { "teal": 4414, "source": "contracts/contractSupply/contract.algo.ts:619", "pc": [4272, 4273, 4274] }, { "teal": 4417, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4275, 4276] }, { "teal": 4418, "source": "contracts/contractSupply/contract.algo.ts:614", "pc": [4277] }, { "teal": 4423, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4278] }, { "teal": 4426, "source": "contracts/contractSupply/contract.algo.ts:623", "pc": [4279, 4280, 4281] }, { "teal": 4427, "source": "contracts/contractSupply/contract.algo.ts:623", "pc": [4282] }, { "teal": 4430, "source": "contracts/contractSupply/contract.algo.ts:623", "pc": [4283, 4284, 4285] }, { "teal": 4431, "source": "contracts/contractSupply/contract.algo.ts:623", "pc": [4286] }, { "teal": 4434, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4287, 4288, 4289] }, { "teal": 4435, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4290] }, { "teal": 4436, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4291] }, { "teal": 4437, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4292] }, { "teal": 4438, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4293, 4294, 4295] }, { "teal": 4439, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4296] }, { "teal": 4440, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4297] }, { "teal": 4441, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4298] }, { "teal": 4442, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4299] }, { "teal": 4443, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4300] }, { "teal": 4444, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4301] }, { "teal": 4448, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4302, 4303, 4304] }, { "teal": 4451, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4305] }, { "teal": 4455, "source": "contracts/contractSupply/contract.algo.ts:624", "pc": [4306, 4307] }, { "teal": 4456, "source": "contracts/contractSupply/contract.algo.ts:624", "pc": [4308, 4309, 4310] }, { "teal": 4460, "source": "contracts/contractSupply/contract.algo.ts:625", "pc": [4311, 4312] }, { "teal": 4461, "source": "contracts/contractSupply/contract.algo.ts:625", "pc": [4313, 4314] }, { "teal": 4462, "source": "contracts/contractSupply/contract.algo.ts:625", "pc": [4315, 4316, 4317] }, { "teal": 4466, "source": "contracts/contractSupply/contract.algo.ts:626", "pc": [4318, 4319] }, { "teal": 4467, "source": "contracts/contractSupply/contract.algo.ts:626", "pc": [4320] }, { "teal": 4468, "source": "contracts/contractSupply/contract.algo.ts:626", "pc": [4321] }, { "teal": 4469, "source": "contracts/contractSupply/contract.algo.ts:626", "pc": [4322, 4323] }, { "teal": 4470, "source": "contracts/contractSupply/contract.algo.ts:626", "pc": [4324] }, { "teal": 4471, "source": "contracts/contractSupply/contract.algo.ts:626", "pc": [4325, 4326] }, { "teal": 4475, "source": "contracts/contractSupply/contract.algo.ts:627", "pc": [4327, 4328] }, { "teal": 4476, "source": "contracts/contractSupply/contract.algo.ts:627", "pc": [4329, 4330] }, { "teal": 4477, "source": "contracts/contractSupply/contract.algo.ts:627", "pc": [4331] }, { "teal": 4478, "source": "contracts/contractSupply/contract.algo.ts:627", "pc": [4332] }, { "teal": 4479, "source": "contracts/contractSupply/contract.algo.ts:627", "pc": [4333] }, { "teal": 4482, "source": "contracts/contractSupply/contract.algo.ts:627", "errorMessage": "box value does not exist: this.checkpointPhotoHashBox(pk).value", "pc": [4334] }, { "teal": 4483, "source": "contracts/contractSupply/contract.algo.ts:627", "pc": [4335, 4336, 4337] }, { "teal": 4486, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4338, 4339] }, { "teal": 4487, "source": "contracts/contractSupply/contract.algo.ts:622", "pc": [4340] }, { "teal": 4492, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4341] }, { "teal": 4495, "source": "contracts/contractSupply/contract.algo.ts:631", "pc": [4342, 4343, 4344] }, { "teal": 4496, "source": "contracts/contractSupply/contract.algo.ts:631", "pc": [4345] }, { "teal": 4499, "source": "contracts/contractSupply/contract.algo.ts:631", "pc": [4346, 4347, 4348] }, { "teal": 4500, "source": "contracts/contractSupply/contract.algo.ts:631", "pc": [4349] }, { "teal": 4503, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4350, 4351, 4352] }, { "teal": 4504, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4353] }, { "teal": 4505, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4354] }, { "teal": 4506, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4355] }, { "teal": 4507, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4356] }, { "teal": 4508, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4357] }, { "teal": 4512, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4358, 4359, 4360] }, { "teal": 4515, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4361] }, { "teal": 4519, "source": "contracts/contractSupply/contract.algo.ts:632", "pc": [4362, 4363] }, { "teal": 4520, "source": "contracts/contractSupply/contract.algo.ts:632", "pc": [4364, 4365, 4366] }, { "teal": 4524, "source": "contracts/contractSupply/contract.algo.ts:633", "pc": [4367, 4368] }, { "teal": 4525, "source": "contracts/contractSupply/contract.algo.ts:633", "pc": [4369, 4370] }, { "teal": 4526, "source": "contracts/contractSupply/contract.algo.ts:633", "pc": [4371, 4372, 4373] }, { "teal": 4530, "source": "contracts/contractSupply/contract.algo.ts:634", "pc": [4374, 4375] }, { "teal": 4531, "source": "contracts/contractSupply/contract.algo.ts:634", "pc": [4376] }, { "teal": 4532, "source": "contracts/contractSupply/contract.algo.ts:634", "pc": [4377] }, { "teal": 4533, "source": "contracts/contractSupply/contract.algo.ts:634", "pc": [4378, 4379] }, { "teal": 4534, "source": "contracts/contractSupply/contract.algo.ts:634", "pc": [4380] }, { "teal": 4535, "source": "contracts/contractSupply/contract.algo.ts:634", "pc": [4381, 4382] }, { "teal": 4539, "source": "contracts/contractSupply/contract.algo.ts:635", "pc": [4383, 4384] }, { "teal": 4540, "source": "contracts/contractSupply/contract.algo.ts:635", "pc": [4385, 4386] }, { "teal": 4541, "source": "contracts/contractSupply/contract.algo.ts:635", "pc": [4387] }, { "teal": 4542, "source": "contracts/contractSupply/contract.algo.ts:635", "pc": [4388] }, { "teal": 4543, "source": "contracts/contractSupply/contract.algo.ts:635", "pc": [4389] }, { "teal": 4546, "source": "contracts/contractSupply/contract.algo.ts:635", "errorMessage": "box value does not exist: this.checkpointTimestampBox(pk).value", "pc": [4390] }, { "teal": 4547, "source": "contracts/contractSupply/contract.algo.ts:635", "pc": [4391] }, { "teal": 4550, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4392, 4393] }, { "teal": 4551, "source": "contracts/contractSupply/contract.algo.ts:630", "pc": [4394] }, { "teal": 4556, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4395] }, { "teal": 4559, "source": "contracts/contractSupply/contract.algo.ts:639", "pc": [4396, 4397, 4398] }, { "teal": 4560, "source": "contracts/contractSupply/contract.algo.ts:639", "pc": [4399] }, { "teal": 4563, "source": "contracts/contractSupply/contract.algo.ts:639", "pc": [4400, 4401, 4402] }, { "teal": 4564, "source": "contracts/contractSupply/contract.algo.ts:639", "pc": [4403] }, { "teal": 4567, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4404, 4405, 4406] }, { "teal": 4568, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4407] }, { "teal": 4569, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4408] }, { "teal": 4570, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4409] }, { "teal": 4571, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4410, 4411, 4412] }, { "teal": 4572, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4413] }, { "teal": 4573, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4414] }, { "teal": 4574, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4415] }, { "teal": 4575, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4416] }, { "teal": 4576, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4417] }, { "teal": 4577, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4418] }, { "teal": 4581, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4419, 4420, 4421] }, { "teal": 4584, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4422] }, { "teal": 4588, "source": "contracts/contractSupply/contract.algo.ts:640", "pc": [4423, 4424] }, { "teal": 4589, "source": "contracts/contractSupply/contract.algo.ts:640", "pc": [4425, 4426, 4427] }, { "teal": 4593, "source": "contracts/contractSupply/contract.algo.ts:641", "pc": [4428, 4429] }, { "teal": 4594, "source": "contracts/contractSupply/contract.algo.ts:641", "pc": [4430, 4431] }, { "teal": 4595, "source": "contracts/contractSupply/contract.algo.ts:641", "pc": [4432, 4433, 4434] }, { "teal": 4599, "source": "contracts/contractSupply/contract.algo.ts:642", "pc": [4435, 4436] }, { "teal": 4600, "source": "contracts/contractSupply/contract.algo.ts:642", "pc": [4437] }, { "teal": 4601, "source": "contracts/contractSupply/contract.algo.ts:642", "pc": [4438] }, { "teal": 4602, "source": "contracts/contractSupply/contract.algo.ts:642", "pc": [4439, 4440] }, { "teal": 4603, "source": "contracts/contractSupply/contract.algo.ts:642", "pc": [4441] }, { "teal": 4604, "source": "contracts/contractSupply/contract.algo.ts:642", "pc": [4442, 4443] }, { "teal": 4608, "source": "contracts/contractSupply/contract.algo.ts:643", "pc": [4444, 4445] }, { "teal": 4609, "source": "contracts/contractSupply/contract.algo.ts:643", "pc": [4446, 4447] }, { "teal": 4610, "source": "contracts/contractSupply/contract.algo.ts:643", "pc": [4448] }, { "teal": 4611, "source": "contracts/contractSupply/contract.algo.ts:643", "pc": [4449] }, { "teal": 4612, "source": "contracts/contractSupply/contract.algo.ts:643", "pc": [4450] }, { "teal": 4615, "source": "contracts/contractSupply/contract.algo.ts:643", "errorMessage": "box value does not exist: this.handoffFromAddrBox(pk).value", "pc": [4451] }, { "teal": 4616, "source": "contracts/contractSupply/contract.algo.ts:643", "pc": [4452, 4453, 4454] }, { "teal": 4619, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4455, 4456] }, { "teal": 4620, "source": "contracts/contractSupply/contract.algo.ts:638", "pc": [4457] }, { "teal": 4625, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4458] }, { "teal": 4628, "source": "contracts/contractSupply/contract.algo.ts:647", "pc": [4459, 4460, 4461] }, { "teal": 4629, "source": "contracts/contractSupply/contract.algo.ts:647", "pc": [4462] }, { "teal": 4632, "source": "contracts/contractSupply/contract.algo.ts:647", "pc": [4463, 4464, 4465] }, { "teal": 4633, "source": "contracts/contractSupply/contract.algo.ts:647", "pc": [4466] }, { "teal": 4636, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4467, 4468, 4469] }, { "teal": 4637, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4470] }, { "teal": 4638, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4471] }, { "teal": 4639, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4472] }, { "teal": 4640, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4473, 4474, 4475] }, { "teal": 4641, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4476] }, { "teal": 4642, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4477] }, { "teal": 4643, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4478] }, { "teal": 4644, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4479] }, { "teal": 4645, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4480] }, { "teal": 4646, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4481] }, { "teal": 4650, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4482, 4483, 4484] }, { "teal": 4653, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4485] }, { "teal": 4657, "source": "contracts/contractSupply/contract.algo.ts:648", "pc": [4486, 4487] }, { "teal": 4658, "source": "contracts/contractSupply/contract.algo.ts:648", "pc": [4488, 4489, 4490] }, { "teal": 4662, "source": "contracts/contractSupply/contract.algo.ts:649", "pc": [4491, 4492] }, { "teal": 4663, "source": "contracts/contractSupply/contract.algo.ts:649", "pc": [4493, 4494] }, { "teal": 4664, "source": "contracts/contractSupply/contract.algo.ts:649", "pc": [4495, 4496, 4497] }, { "teal": 4668, "source": "contracts/contractSupply/contract.algo.ts:650", "pc": [4498, 4499] }, { "teal": 4669, "source": "contracts/contractSupply/contract.algo.ts:650", "pc": [4500] }, { "teal": 4670, "source": "contracts/contractSupply/contract.algo.ts:650", "pc": [4501] }, { "teal": 4671, "source": "contracts/contractSupply/contract.algo.ts:650", "pc": [4502, 4503] }, { "teal": 4672, "source": "contracts/contractSupply/contract.algo.ts:650", "pc": [4504] }, { "teal": 4673, "source": "contracts/contractSupply/contract.algo.ts:650", "pc": [4505, 4506] }, { "teal": 4677, "source": "contracts/contractSupply/contract.algo.ts:651", "pc": [4507, 4508] }, { "teal": 4678, "source": "contracts/contractSupply/contract.algo.ts:651", "pc": [4509, 4510] }, { "teal": 4679, "source": "contracts/contractSupply/contract.algo.ts:651", "pc": [4511] }, { "teal": 4680, "source": "contracts/contractSupply/contract.algo.ts:651", "pc": [4512] }, { "teal": 4681, "source": "contracts/contractSupply/contract.algo.ts:651", "pc": [4513] }, { "teal": 4684, "source": "contracts/contractSupply/contract.algo.ts:651", "errorMessage": "box value does not exist: this.handoffToAddrBox(pk).value", "pc": [4514] }, { "teal": 4685, "source": "contracts/contractSupply/contract.algo.ts:651", "pc": [4515, 4516, 4517] }, { "teal": 4688, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4518, 4519] }, { "teal": 4689, "source": "contracts/contractSupply/contract.algo.ts:646", "pc": [4520] }, { "teal": 4694, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4521] }, { "teal": 4697, "source": "contracts/contractSupply/contract.algo.ts:655", "pc": [4522, 4523, 4524] }, { "teal": 4698, "source": "contracts/contractSupply/contract.algo.ts:655", "pc": [4525] }, { "teal": 4701, "source": "contracts/contractSupply/contract.algo.ts:655", "pc": [4526, 4527, 4528] }, { "teal": 4702, "source": "contracts/contractSupply/contract.algo.ts:655", "pc": [4529] }, { "teal": 4705, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4530, 4531, 4532] }, { "teal": 4706, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4533] }, { "teal": 4707, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4534] }, { "teal": 4708, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4535] }, { "teal": 4709, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4536, 4537, 4538] }, { "teal": 4710, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4539] }, { "teal": 4711, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4540] }, { "teal": 4712, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4541] }, { "teal": 4713, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4542] }, { "teal": 4714, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4543] }, { "teal": 4715, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4544] }, { "teal": 4719, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4545, 4546, 4547] }, { "teal": 4722, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4548] }, { "teal": 4726, "source": "contracts/contractSupply/contract.algo.ts:656", "pc": [4549, 4550] }, { "teal": 4727, "source": "contracts/contractSupply/contract.algo.ts:656", "pc": [4551, 4552, 4553] }, { "teal": 4731, "source": "contracts/contractSupply/contract.algo.ts:657", "pc": [4554, 4555] }, { "teal": 4732, "source": "contracts/contractSupply/contract.algo.ts:657", "pc": [4556, 4557] }, { "teal": 4733, "source": "contracts/contractSupply/contract.algo.ts:657", "pc": [4558, 4559, 4560] }, { "teal": 4737, "source": "contracts/contractSupply/contract.algo.ts:658", "pc": [4561, 4562] }, { "teal": 4738, "source": "contracts/contractSupply/contract.algo.ts:658", "pc": [4563] }, { "teal": 4739, "source": "contracts/contractSupply/contract.algo.ts:658", "pc": [4564] }, { "teal": 4740, "source": "contracts/contractSupply/contract.algo.ts:658", "pc": [4565, 4566] }, { "teal": 4741, "source": "contracts/contractSupply/contract.algo.ts:658", "pc": [4567] }, { "teal": 4742, "source": "contracts/contractSupply/contract.algo.ts:658", "pc": [4568, 4569] }, { "teal": 4746, "source": "contracts/contractSupply/contract.algo.ts:659", "pc": [4570, 4571] }, { "teal": 4747, "source": "contracts/contractSupply/contract.algo.ts:659", "pc": [4572, 4573] }, { "teal": 4748, "source": "contracts/contractSupply/contract.algo.ts:659", "pc": [4574] }, { "teal": 4749, "source": "contracts/contractSupply/contract.algo.ts:659", "pc": [4575] }, { "teal": 4750, "source": "contracts/contractSupply/contract.algo.ts:659", "pc": [4576] }, { "teal": 4753, "source": "contracts/contractSupply/contract.algo.ts:659", "errorMessage": "box value does not exist: this.handoffTypeBox(pk).value", "pc": [4577] }, { "teal": 4754, "source": "contracts/contractSupply/contract.algo.ts:659", "pc": [4578, 4579, 4580] }, { "teal": 4757, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4581, 4582] }, { "teal": 4758, "source": "contracts/contractSupply/contract.algo.ts:654", "pc": [4583] }, { "teal": 4763, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4584] }, { "teal": 4766, "source": "contracts/contractSupply/contract.algo.ts:663", "pc": [4585, 4586, 4587] }, { "teal": 4767, "source": "contracts/contractSupply/contract.algo.ts:663", "pc": [4588] }, { "teal": 4770, "source": "contracts/contractSupply/contract.algo.ts:663", "pc": [4589, 4590, 4591] }, { "teal": 4771, "source": "contracts/contractSupply/contract.algo.ts:663", "pc": [4592] }, { "teal": 4774, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4593, 4594, 4595] }, { "teal": 4775, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4596] }, { "teal": 4776, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4597] }, { "teal": 4777, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4598] }, { "teal": 4778, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4599, 4600, 4601] }, { "teal": 4779, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4602] }, { "teal": 4780, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4603] }, { "teal": 4781, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4604] }, { "teal": 4782, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4605] }, { "teal": 4783, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4606] }, { "teal": 4784, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4607] }, { "teal": 4788, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4608, 4609, 4610] }, { "teal": 4791, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4611] }, { "teal": 4795, "source": "contracts/contractSupply/contract.algo.ts:664", "pc": [4612, 4613] }, { "teal": 4796, "source": "contracts/contractSupply/contract.algo.ts:664", "pc": [4614, 4615, 4616] }, { "teal": 4800, "source": "contracts/contractSupply/contract.algo.ts:665", "pc": [4617, 4618] }, { "teal": 4801, "source": "contracts/contractSupply/contract.algo.ts:665", "pc": [4619, 4620] }, { "teal": 4802, "source": "contracts/contractSupply/contract.algo.ts:665", "pc": [4621, 4622, 4623] }, { "teal": 4806, "source": "contracts/contractSupply/contract.algo.ts:666", "pc": [4624, 4625] }, { "teal": 4807, "source": "contracts/contractSupply/contract.algo.ts:666", "pc": [4626] }, { "teal": 4808, "source": "contracts/contractSupply/contract.algo.ts:666", "pc": [4627] }, { "teal": 4809, "source": "contracts/contractSupply/contract.algo.ts:666", "pc": [4628, 4629] }, { "teal": 4810, "source": "contracts/contractSupply/contract.algo.ts:666", "pc": [4630] }, { "teal": 4811, "source": "contracts/contractSupply/contract.algo.ts:666", "pc": [4631, 4632] }, { "teal": 4815, "source": "contracts/contractSupply/contract.algo.ts:667", "pc": [4633, 4634] }, { "teal": 4816, "source": "contracts/contractSupply/contract.algo.ts:667", "pc": [4635, 4636] }, { "teal": 4817, "source": "contracts/contractSupply/contract.algo.ts:667", "pc": [4637] }, { "teal": 4818, "source": "contracts/contractSupply/contract.algo.ts:667", "pc": [4638] }, { "teal": 4819, "source": "contracts/contractSupply/contract.algo.ts:667", "pc": [4639] }, { "teal": 4822, "source": "contracts/contractSupply/contract.algo.ts:667", "errorMessage": "box value does not exist: this.handoffStatusBox(pk).value", "pc": [4640] }, { "teal": 4823, "source": "contracts/contractSupply/contract.algo.ts:667", "pc": [4641, 4642, 4643] }, { "teal": 4826, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4644, 4645] }, { "teal": 4827, "source": "contracts/contractSupply/contract.algo.ts:662", "pc": [4646] }, { "teal": 4832, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4647] }, { "teal": 4835, "source": "contracts/contractSupply/contract.algo.ts:671", "pc": [4648, 4649, 4650] }, { "teal": 4836, "source": "contracts/contractSupply/contract.algo.ts:671", "pc": [4651] }, { "teal": 4839, "source": "contracts/contractSupply/contract.algo.ts:671", "pc": [4652, 4653, 4654] }, { "teal": 4840, "source": "contracts/contractSupply/contract.algo.ts:671", "pc": [4655] }, { "teal": 4843, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4656, 4657, 4658] }, { "teal": 4844, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4659] }, { "teal": 4845, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4660] }, { "teal": 4846, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4661] }, { "teal": 4847, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4662] }, { "teal": 4848, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4663] }, { "teal": 4852, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4664, 4665, 4666] }, { "teal": 4855, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4667] }, { "teal": 4859, "source": "contracts/contractSupply/contract.algo.ts:672", "pc": [4668, 4669] }, { "teal": 4860, "source": "contracts/contractSupply/contract.algo.ts:672", "pc": [4670, 4671, 4672] }, { "teal": 4864, "source": "contracts/contractSupply/contract.algo.ts:673", "pc": [4673, 4674] }, { "teal": 4865, "source": "contracts/contractSupply/contract.algo.ts:673", "pc": [4675, 4676] }, { "teal": 4866, "source": "contracts/contractSupply/contract.algo.ts:673", "pc": [4677, 4678, 4679] }, { "teal": 4870, "source": "contracts/contractSupply/contract.algo.ts:674", "pc": [4680, 4681] }, { "teal": 4871, "source": "contracts/contractSupply/contract.algo.ts:674", "pc": [4682] }, { "teal": 4872, "source": "contracts/contractSupply/contract.algo.ts:674", "pc": [4683] }, { "teal": 4873, "source": "contracts/contractSupply/contract.algo.ts:674", "pc": [4684, 4685] }, { "teal": 4874, "source": "contracts/contractSupply/contract.algo.ts:674", "pc": [4686] }, { "teal": 4875, "source": "contracts/contractSupply/contract.algo.ts:674", "pc": [4687, 4688] }, { "teal": 4879, "source": "contracts/contractSupply/contract.algo.ts:675", "pc": [4689, 4690] }, { "teal": 4880, "source": "contracts/contractSupply/contract.algo.ts:675", "pc": [4691, 4692] }, { "teal": 4881, "source": "contracts/contractSupply/contract.algo.ts:675", "pc": [4693] }, { "teal": 4882, "source": "contracts/contractSupply/contract.algo.ts:675", "pc": [4694] }, { "teal": 4883, "source": "contracts/contractSupply/contract.algo.ts:675", "pc": [4695] }, { "teal": 4886, "source": "contracts/contractSupply/contract.algo.ts:675", "errorMessage": "box value does not exist: this.handoffConfirmedAtBox(pk).value", "pc": [4696] }, { "teal": 4887, "source": "contracts/contractSupply/contract.algo.ts:675", "pc": [4697] }, { "teal": 4890, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4698, 4699] }, { "teal": 4891, "source": "contracts/contractSupply/contract.algo.ts:670", "pc": [4700] }, { "teal": 4896, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4701] }, { "teal": 4899, "source": "contracts/contractSupply/contract.algo.ts:679", "pc": [4702, 4703, 4704] }, { "teal": 4900, "source": "contracts/contractSupply/contract.algo.ts:679", "pc": [4705] }, { "teal": 4903, "source": "contracts/contractSupply/contract.algo.ts:679", "pc": [4706, 4707, 4708] }, { "teal": 4904, "source": "contracts/contractSupply/contract.algo.ts:679", "pc": [4709] }, { "teal": 4907, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4710, 4711, 4712] }, { "teal": 4908, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4713] }, { "teal": 4909, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4714] }, { "teal": 4910, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4715] }, { "teal": 4911, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4716, 4717, 4718] }, { "teal": 4912, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4719] }, { "teal": 4913, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4720] }, { "teal": 4914, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4721] }, { "teal": 4915, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4722] }, { "teal": 4916, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4723] }, { "teal": 4917, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4724] }, { "teal": 4921, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4725, 4726, 4727] }, { "teal": 4924, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4728] }, { "teal": 4928, "source": "contracts/contractSupply/contract.algo.ts:680", "pc": [4729, 4730] }, { "teal": 4929, "source": "contracts/contractSupply/contract.algo.ts:680", "pc": [4731, 4732, 4733] }, { "teal": 4933, "source": "contracts/contractSupply/contract.algo.ts:681", "pc": [4734, 4735] }, { "teal": 4934, "source": "contracts/contractSupply/contract.algo.ts:681", "pc": [4736, 4737] }, { "teal": 4935, "source": "contracts/contractSupply/contract.algo.ts:681", "pc": [4738, 4739, 4740] }, { "teal": 4939, "source": "contracts/contractSupply/contract.algo.ts:682", "pc": [4741, 4742] }, { "teal": 4940, "source": "contracts/contractSupply/contract.algo.ts:682", "pc": [4743] }, { "teal": 4941, "source": "contracts/contractSupply/contract.algo.ts:682", "pc": [4744] }, { "teal": 4942, "source": "contracts/contractSupply/contract.algo.ts:682", "pc": [4745, 4746] }, { "teal": 4943, "source": "contracts/contractSupply/contract.algo.ts:682", "pc": [4747] }, { "teal": 4944, "source": "contracts/contractSupply/contract.algo.ts:682", "pc": [4748, 4749] }, { "teal": 4948, "source": "contracts/contractSupply/contract.algo.ts:683", "pc": [4750, 4751] }, { "teal": 4949, "source": "contracts/contractSupply/contract.algo.ts:683", "pc": [4752, 4753] }, { "teal": 4950, "source": "contracts/contractSupply/contract.algo.ts:683", "pc": [4754] }, { "teal": 4951, "source": "contracts/contractSupply/contract.algo.ts:683", "pc": [4755] }, { "teal": 4952, "source": "contracts/contractSupply/contract.algo.ts:683", "pc": [4756] }, { "teal": 4955, "source": "contracts/contractSupply/contract.algo.ts:683", "errorMessage": "box value does not exist: this.handoffPhotoHashesBox(pk).value", "pc": [4757] }, { "teal": 4956, "source": "contracts/contractSupply/contract.algo.ts:683", "pc": [4758, 4759, 4760] }, { "teal": 4959, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4761, 4762] }, { "teal": 4960, "source": "contracts/contractSupply/contract.algo.ts:678", "pc": [4763] }, { "teal": 4963, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4764, 4765, 4766, 4767, 4768, 4769] }, { "teal": 4964, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4770, 4771, 4772] }, { "teal": 4965, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4773, 4774, 4775, 4776] }, { "teal": 4968, "source": "contracts/contractSupply/contract.algo.ts:6", "errorMessage": "this contract does not implement the given ABI method for create NoOp", "pc": [4777] }, { "teal": 4971, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4778, 4779, 4780, 4781, 4782, 4783] }, { "teal": 4972, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4784, 4785, 4786, 4787, 4788, 4789] }, { "teal": 4973, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4790, 4791, 4792, 4793, 4794, 4795] }, { "teal": 4974, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4796, 4797, 4798, 4799, 4800, 4801] }, { "teal": 4975, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4802, 4803, 4804, 4805, 4806, 4807] }, { "teal": 4976, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4808, 4809, 4810, 4811, 4812, 4813] }, { "teal": 4977, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4814, 4815, 4816, 4817, 4818, 4819] }, { "teal": 4978, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4820, 4821, 4822, 4823, 4824, 4825] }, { "teal": 4979, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4826, 4827, 4828, 4829, 4830, 4831] }, { "teal": 4980, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4832, 4833, 4834, 4835, 4836, 4837] }, { "teal": 4981, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4838, 4839, 4840, 4841, 4842, 4843] }, { "teal": 4982, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4844, 4845, 4846, 4847, 4848, 4849] }, { "teal": 4983, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4850, 4851, 4852, 4853, 4854, 4855] }, { "teal": 4984, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4856, 4857, 4858, 4859, 4860, 4861] }, { "teal": 4985, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4862, 4863, 4864, 4865, 4866, 4867] }, { "teal": 4986, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4868, 4869, 4870, 4871, 4872, 4873] }, { "teal": 4987, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4874, 4875, 4876, 4877, 4878, 4879] }, { "teal": 4988, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4880, 4881, 4882, 4883, 4884, 4885] }, { "teal": 4989, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4886, 4887, 4888, 4889, 4890, 4891] }, { "teal": 4990, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4892, 4893, 4894, 4895, 4896, 4897] }, { "teal": 4991, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4898, 4899, 4900, 4901, 4902, 4903] }, { "teal": 4992, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4904, 4905, 4906, 4907, 4908, 4909] }, { "teal": 4993, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4910, 4911, 4912, 4913, 4914, 4915] }, { "teal": 4994, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4916, 4917, 4918, 4919, 4920, 4921] }, { "teal": 4995, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4922, 4923, 4924, 4925, 4926, 4927] }, { "teal": 4996, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4928, 4929, 4930, 4931, 4932, 4933] }, { "teal": 4997, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4934, 4935, 4936, 4937, 4938, 4939] }, { "teal": 4998, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4940, 4941, 4942, 4943, 4944, 4945] }, { "teal": 4999, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4946, 4947, 4948, 4949, 4950, 4951] }, { "teal": 5000, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4952, 4953, 4954, 4955, 4956, 4957] }, { "teal": 5001, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4958, 4959, 4960, 4961, 4962, 4963] }, { "teal": 5002, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4964, 4965, 4966, 4967, 4968, 4969] }, { "teal": 5003, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4970, 4971, 4972, 4973, 4974, 4975] }, { "teal": 5004, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4976, 4977, 4978, 4979, 4980, 4981] }, { "teal": 5005, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4982, 4983, 4984, 4985, 4986, 4987] }, { "teal": 5006, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4988, 4989, 4990, 4991, 4992, 4993] }, { "teal": 5007, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [4994, 4995, 4996, 4997, 4998, 4999] }, { "teal": 5008, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5000, 5001, 5002, 5003, 5004, 5005] }, { "teal": 5009, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5006, 5007, 5008, 5009, 5010, 5011] }, { "teal": 5010, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5012, 5013, 5014, 5015, 5016, 5017] }, { "teal": 5011, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5018, 5019, 5020, 5021, 5022, 5023] }, { "teal": 5012, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5024, 5025, 5026, 5027, 5028, 5029] }, { "teal": 5013, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5030, 5031, 5032, 5033, 5034, 5035] }, { "teal": 5014, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5036, 5037, 5038, 5039, 5040, 5041] }, { "teal": 5015, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5042, 5043, 5044, 5045, 5046, 5047] }, { "teal": 5016, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5048, 5049, 5050, 5051, 5052, 5053] }, { "teal": 5017, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5054, 5055, 5056, 5057, 5058, 5059] }, { "teal": 5018, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5060, 5061, 5062, 5063, 5064, 5065] }, { "teal": 5019, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5066, 5067, 5068, 5069, 5070, 5071] }, { "teal": 5020, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5072, 5073, 5074, 5075, 5076, 5077] }, { "teal": 5021, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5078, 5079, 5080, 5081, 5082, 5083] }, { "teal": 5022, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5084, 5085, 5086, 5087, 5088, 5089] }, { "teal": 5023, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5090, 5091, 5092, 5093, 5094, 5095] }, { "teal": 5024, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5096, 5097, 5098, 5099, 5100, 5101] }, { "teal": 5025, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5102, 5103, 5104, 5105, 5106, 5107] }, { "teal": 5026, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5108, 5109, 5110, 5111, 5112, 5113] }, { "teal": 5027, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5114, 5115, 5116, 5117, 5118, 5119] }, { "teal": 5028, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5120, 5121, 5122, 5123, 5124, 5125] }, { "teal": 5029, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5126, 5127, 5128, 5129, 5130, 5131] }, { "teal": 5030, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5132, 5133, 5134, 5135, 5136, 5137] }, { "teal": 5031, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5138, 5139, 5140, 5141, 5142, 5143] }, { "teal": 5032, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5144, 5145, 5146, 5147, 5148, 5149] }, { "teal": 5033, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5150, 5151, 5152, 5153, 5154, 5155] }, { "teal": 5034, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5156, 5157, 5158, 5159, 5160, 5161] }, { "teal": 5035, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5162, 5163, 5164] }, { "teal": 5036, "source": "contracts/contractSupply/contract.algo.ts:6", "pc": [5165, 5166, 5167, 5168, 5169, 5170, 5171, 5172, 5173, 5174, 5175, 5176, 5177, 5178, 5179, 5180, 5181, 5182, 5183, 5184, 5185, 5186, 5187, 5188, 5189, 5190, 5191, 5192, 5193, 5194, 5195, 5196, 5197, 5198, 5199, 5200, 5201, 5202, 5203, 5204, 5205, 5206, 5207, 5208, 5209, 5210, 5211, 5212, 5213, 5214, 5215, 5216, 5217, 5218, 5219, 5220, 5221, 5222, 5223, 5224, 5225, 5226, 5227, 5228, 5229, 5230, 5231, 5232, 5233, 5234, 5235, 5236, 5237, 5238, 5239, 5240, 5241, 5242, 5243, 5244, 5245, 5246, 5247, 5248, 5249, 5250, 5251, 5252, 5253, 5254, 5255, 5256, 5257, 5258, 5259, 5260, 5261, 5262, 5263, 5264, 5265, 5266, 5267, 5268, 5269, 5270, 5271, 5272, 5273, 5274, 5275, 5276, 5277, 5278, 5279, 5280, 5281, 5282, 5283, 5284, 5285, 5286, 5287, 5288, 5289, 5290, 5291, 5292, 5293, 5294] }, { "teal": 5039, "source": "contracts/contractSupply/contract.algo.ts:6", "errorMessage": "this contract does not implement the given ABI method for call NoOp", "pc": [5295] }], "pcOffsetMethod": "none" }, "clear": { "sourceInfo": [], "pcOffsetMethod": "none" } }, "source": { "approval": "I3ByYWdtYSB2ZXJzaW9uIDEwCmludGNibG9jayAxIDAgMTAwMDAKYnl0ZWNibG9jayAweDE1MWY3Yzc1IDB4IDB4N2MgMHg2ODZmNmUgMHg3NDZmNzQ2MTZjNDI2MTc0NjM2ODY1NzMgMHg2MzcwNmUgMHg3NDZmNzQ2MTZjNTY2NTcyNjk2NjY5NjM2MTc0Njk2ZjZlNzMgMHg3NDZmNzQ2MTZjNTA2MTc5NmQ2NTZlNzQ3MyAweDYxNjQ2ZDY5NmUgMHg3NjcyNzMgMHg2MjYzNzQgMHg2ODZmNzMgMHg2MjYxNzMgMHg2MzcwNjg2ZSAweDYzNzA2ZTZmIDB4NjI2NjY3IDB4NjI2ZjYzIDB4NjI2NjYxIDB4NjM3MDY3IDB4NjM3MDcwIDB4Njg2ZjY2IDB4Njg2Zjc0IDB4Njg2Zjc5IDB4Njg2MzYxIDB4NjM2MzczIDB4NjM2MzYzIDB4NjM2MzY0IDB4NjM2Mzc0IDB4NjM2MzYxIDB4NjY3MjYyIDB4NjY3Mjc2IDB4NjY3MjY2IDB4NjY3Mjc0IDB4NjY3MjYzIDB4NjY3MjcwIDB4NjY3Mjc1IDB4NzA3NDczIDB4NzA2NiAweDcwNjIgMHg3MDYxIDB4NzA2MyAweDcwNzQgMHg2MzcwNzQ3MyAweDYyNjY3MCAweDYyNjM2MSAweDYzNzA3NCAweDYzNzA2OCAweDY4NzA2OCAweDc2NzI2MyAweDc2NzI3MiAweDc2NzI3NiAweDc2NzI3NCAweDYyNzcgMHgwMAoKLy8gVGhpcyBURUFMIHdhcyBnZW5lcmF0ZWQgYnkgVEVBTFNjcmlwdCB2MC4xMDcuMgovLyBodHRwczovL2dpdGh1Yi5jb20vYWxnb3JhbmRmb3VuZGF0aW9uL1RFQUxTY3JpcHQKCi8vIFRoaXMgY29udHJhY3QgaXMgY29tcGxpYW50IHdpdGggYW5kL29yIGltcGxlbWVudHMgdGhlIGZvbGxvd2luZyBBUkNzOiBbIEFSQzQgXQoKLy8gVGhlIGZvbGxvd2luZyB0ZW4gbGluZXMgb2YgVEVBTCBoYW5kbGUgaW5pdGlhbCBwcm9ncmFtIGZsb3cKLy8gVGhpcyBwYXR0ZXJuIGlzIHVzZWQgdG8gbWFrZSBpdCBlYXN5IGZvciBhbnlvbmUgdG8gcGFyc2UgdGhlIHN0YXJ0IG9mIHRoZSBwcm9ncmFtIGFuZCBkZXRlcm1pbmUgaWYgYSBzcGVjaWZpYyBhY3Rpb24gaXMgYWxsb3dlZAovLyBIZXJlLCBhY3Rpb24gcmVmZXJzIHRvIHRoZSBPbkNvbXBsZXRlIGluIGNvbWJpbmF0aW9uIHdpdGggd2hldGhlciB0aGUgYXBwIGlzIGJlaW5nIGNyZWF0ZWQgb3IgY2FsbGVkCi8vIEV2ZXJ5IHBvc3NpYmxlIGFjdGlvbiBmb3IgdGhpcyBjb250cmFjdCBpcyByZXByZXNlbnRlZCBpbiB0aGUgc3dpdGNoIHN0YXRlbWVudAovLyBJZiB0aGUgYWN0aW9uIGlzIG5vdCBpbXBsZW1lbnRlZCBpbiB0aGUgY29udHJhY3QsIGl0cyByZXNwZWN0aXZlIGJyYW5jaCB3aWxsIGJlICIqTk9UX0lNUExFTUVOVEVEIiB3aGljaCBqdXN0IGNvbnRhaW5zICJlcnIiCnR4biBBcHBsaWNhdGlvbklECiEKcHVzaGludCA2CioKdHhuIE9uQ29tcGxldGlvbgorCnN3aXRjaCAqY2FsbF9Ob09wICpOT1RfSU1QTEVNRU5URUQgKk5PVF9JTVBMRU1FTlRFRCAqTk9UX0lNUExFTUVOVEVEICpOT1RfSU1QTEVNRU5URUQgKk5PVF9JTVBMRU1FTlRFRCAqY3JlYXRlX05vT3AgKk5PVF9JTVBMRU1FTlRFRCAqTk9UX0lNUExFTUVOVEVEICpOT1RfSU1QTEVNRU5URUQgKk5PVF9JTVBMRU1FTlRFRCAqTk9UX0lNUExFTUVOVEVECgoqTk9UX0lNUExFTUVOVEVEOgoJLy8gVGhlIHJlcXVlc3RlZCBhY3Rpb24gaXMgbm90IGltcGxlbWVudGVkIGluIHRoaXMgY29udHJhY3QuIEFyZSB5b3UgdXNpbmcgdGhlIGNvcnJlY3QgT25Db21wbGV0ZT8gRGlkIHlvdSBzZXQgeW91ciBhcHAgSUQ/CgllcnIKCi8vIGFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB2b2lkCmFzc2VydEJhdGNoRXhpc3RzOgoJcHJvdG8gMSAwCgoJLy8gUHVzaCBlbXB0eSBieXRlcyBhZnRlciB0aGUgZnJhbWUgcG9pbnRlciB0byByZXNlcnZlIHNwYWNlIGZvciBsb2NhbCB2YXJpYWJsZXMKCWJ5dGVjIDEgLy8gMHgKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NQoJLy8gbWF4QmF0Y2hJZCA9IHRoaXMudG90YWxCYXRjaGVzLmV4aXN0cyA/IHRoaXMudG90YWxCYXRjaGVzLnZhbHVlIDogMAoJdHhuYSBBcHBsaWNhdGlvbnMgMAoJYnl0ZWMgNCAvLyAgInRvdGFsQmF0Y2hlcyIKCWFwcF9nbG9iYWxfZ2V0X2V4Cglzd2FwCglwb3AKCWJ6ICp0ZXJuYXJ5MF9mYWxzZQoJYnl0ZWMgNCAvLyAgInRvdGFsQmF0Y2hlcyIKCWFwcF9nbG9iYWxfZ2V0CgliICp0ZXJuYXJ5MF9lbmQKCip0ZXJuYXJ5MF9mYWxzZToKCWludGMgMSAvLyAwCgoqdGVybmFyeTBfZW5kOgoJZnJhbWVfYnVyeSAwIC8vIG1heEJhdGNoSWQ6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY2CgkvLyBhc3NlcnQoYmF0Y2hBc2FJZCA+IDAgJiYgYmF0Y2hBc2FJZCA8PSBtYXhCYXRjaElkLCAiQmF0Y2ggbm90IGZvdW5kIikKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpbnRjIDEgLy8gMAoJPgoJZHVwCglieiAqc2tpcF9hbmQwCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJZnJhbWVfZGlnIDAgLy8gbWF4QmF0Y2hJZDogdWludDY0Cgk8PQoJJiYKCipza2lwX2FuZDA6CgkvLyBCYXRjaCBub3QgZm91bmQKCWFzc2VydAoJcmV0c3ViCgovLyBhc3NlcnRBZG1pbigpOiB2b2lkCi8vCi8vIEFjY2VzcyBjb250cm9sOiBvbmx5IHRoZSBhZG1pbiAoY29udHJhY3QgY3JlYXRvcikgY2FuIGNhbGwgd3JpdGUgbWV0aG9kcy4KLy8gQWRtaW4gaXMgc2V0IG9uIGNyZWF0ZUFwcGxpY2F0aW9uIGFuZCBjYW4gYmUgdHJhbnNmZXJyZWQgdmlhIHNldEFkbWluLgphc3NlcnRBZG1pbjoKCXByb3RvIDAgMAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjc0CgkvLyBhc3NlcnQoCgkvLyAgICAgICAgICAgICB0aGlzLmFkbWluLmV4aXN0cyAmJiB0aGlzLnR4bi5zZW5kZXIgPT09IHRoaXMuYWRtaW4udmFsdWUsCgkvLyAgICAgICAgICAgICAiT25seSBhZG1pbiBjYW4gcGVyZm9ybSB0aGlzIGFjdGlvbiIKCS8vICAgICAgICAgKQoJdHhuYSBBcHBsaWNhdGlvbnMgMAoJYnl0ZWMgOCAvLyAgImFkbWluIgoJYXBwX2dsb2JhbF9nZXRfZXgKCXN3YXAKCXBvcAoJZHVwCglieiAqc2tpcF9hbmQxCgl0eG4gU2VuZGVyCglieXRlYyA4IC8vICAiYWRtaW4iCglhcHBfZ2xvYmFsX2dldAoJPT0KCSYmCgoqc2tpcF9hbmQxOgoJLy8gT25seSBhZG1pbiBjYW4gcGVyZm9ybSB0aGlzIGFjdGlvbgoJYXNzZXJ0CglyZXRzdWIKCi8vIGNyZWF0ZUFwcGxpY2F0aW9uKCl2b2lkCiphYmlfcm91dGVfY3JlYXRlQXBwbGljYXRpb246CgkvLyBleGVjdXRlIGNyZWF0ZUFwcGxpY2F0aW9uKCl2b2lkCgljYWxsc3ViIGNyZWF0ZUFwcGxpY2F0aW9uCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBjcmVhdGVBcHBsaWNhdGlvbigpOiB2b2lkCi8vCi8vIENhbGxlZCBvbmNlIHdoZW4gdGhlIGFwcGxpY2F0aW9uIGlzIGNyZWF0ZWQuIFNldHMgdGhlIGRlcGxveWVyIGFzIGFkbWluLgpjcmVhdGVBcHBsaWNhdGlvbjoKCXByb3RvIDAgMAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjg0CgkvLyB0aGlzLmFkbWluLnZhbHVlID0gdGhpcy50eG4uc2VuZGVyCglieXRlYyA4IC8vICAiYWRtaW4iCgl0eG4gU2VuZGVyCglhcHBfZ2xvYmFsX3B1dAoJcmV0c3ViCgovLyBzZXRBZG1pbihhZGRyZXNzKXZvaWQKKmFiaV9yb3V0ZV9zZXRBZG1pbjoKCS8vIG5ld0FkbWluOiBhZGRyZXNzCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglkdXAKCWxlbgoJcHVzaGludCAzMgoJPT0KCgkvLyBhcmd1bWVudCAwIChuZXdBZG1pbikgZm9yIHNldEFkbWluIG11c3QgYmUgYSBhZGRyZXNzCglhc3NlcnQKCgkvLyBleGVjdXRlIHNldEFkbWluKGFkZHJlc3Mpdm9pZAoJY2FsbHN1YiBzZXRBZG1pbgoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gc2V0QWRtaW4obmV3QWRtaW46IEFkZHJlc3MpOiB2b2lkCi8vCi8vIFRyYW5zZmVyIGFkbWluIHJpZ2h0cyB0byBhIG5ldyBhZGRyZXNzLiBPbmx5IGN1cnJlbnQgYWRtaW4gY2FuIGNhbGwuCnNldEFkbWluOgoJcHJvdG8gMSAwCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6OTEKCS8vIHRoaXMuYXNzZXJ0QWRtaW4oKQoJY2FsbHN1YiBhc3NlcnRBZG1pbgoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjkyCgkvLyB0aGlzLmFkbWluLnZhbHVlID0gbmV3QWRtaW4KCWJ5dGVjIDggLy8gICJhZG1pbiIKCWZyYW1lX2RpZyAtMSAvLyBuZXdBZG1pbjogQWRkcmVzcwoJYXBwX2dsb2JhbF9wdXQKCXJldHN1YgoKLy8gYXNzZXJ0VmVyaWZpY2F0aW9uRXhpc3RzKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB2b2lkCmFzc2VydFZlcmlmaWNhdGlvbkV4aXN0czoKCXByb3RvIDEgMAoKCS8vICppZjBfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo5NgoJLy8gIXRoaXMudmVyaWZpY2F0aW9uUmVzdWx0Qm94KGJhdGNoQXNhSWQpLmV4aXN0cwoJYnl0ZWMgOSAvLyAgInZycyIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJIQoJYnogKmlmMF9lbmQKCgkvLyAqaWYwX2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjk3CgkvLyBhc3NlcnQoZmFsc2UsICJWZXJpZmljYXRpb24gbm90IGZvdW5kIikKCWludGMgMSAvLyAwCgoJLy8gVmVyaWZpY2F0aW9uIG5vdCBmb3VuZAoJYXNzZXJ0CgoqaWYwX2VuZDoKCXJldHN1YgoKLy8gYXNzZXJ0Q2hlY2twb2ludEluZGV4KGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGluZGV4OiB1aW50NjQpOiB2b2lkCmFzc2VydENoZWNrcG9pbnRJbmRleDoKCXByb3RvIDIgMAoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTAyCgkvLyBhc3NlcnQoaW5kZXggPiAwLCAiQ2hlY2twb2ludCBpbmRleCBtdXN0IGJlID4gMCIpCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJaW50YyAxIC8vIDAKCT4KCgkvLyBDaGVja3BvaW50IGluZGV4IG11c3QgYmUgPiAwCglhc3NlcnQKCgkvLyAqaWYxX2NvbmRpdGlvbgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTAzCgkvLyAhdGhpcy5jaGVja3BvaW50Q291bnRCb3goYmF0Y2hBc2FJZCkuZXhpc3RzCglieXRlYyA1IC8vICAiY3BuIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYxX2VuZAoKCS8vICppZjFfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTAzCgkvLyBhc3NlcnQoZmFsc2UsICJDaGVja3BvaW50IG5vdCBmb3VuZCIpCglpbnRjIDEgLy8gMAoKCS8vIENoZWNrcG9pbnQgbm90IGZvdW5kCglhc3NlcnQKCippZjFfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTA0CgkvLyBjb3VudCA9IHRoaXMuY2hlY2twb2ludENvdW50Qm94KGJhdGNoQXNhSWQpLnZhbHVlCglieXRlYyA1IC8vICAiY3BuIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jaGVja3BvaW50Q291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJZnJhbWVfYnVyeSAwIC8vIGNvdW50OiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxMDUKCS8vIGFzc2VydChpbmRleCA8PSBjb3VudCwgIkNoZWNrcG9pbnQgbm90IGZvdW5kIikKCWZyYW1lX2RpZyAtMiAvLyBpbmRleDogdWludDY0CglmcmFtZV9kaWcgMCAvLyBjb3VudDogdWludDY0Cgk8PQoKCS8vIENoZWNrcG9pbnQgbm90IGZvdW5kCglhc3NlcnQKCXJldHN1YgoKLy8gYXNzZXJ0SGFuZG9mZkluZGV4KGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGluZGV4OiB1aW50NjQpOiB2b2lkCmFzc2VydEhhbmRvZmZJbmRleDoKCXByb3RvIDIgMAoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTA5CgkvLyBhc3NlcnQoaW5kZXggPiAwLCAiSGFuZG9mZiBpbmRleCBtdXN0IGJlID4gMCIpCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJaW50YyAxIC8vIDAKCT4KCgkvLyBIYW5kb2ZmIGluZGV4IG11c3QgYmUgPiAwCglhc3NlcnQKCgkvLyAqaWYyX2NvbmRpdGlvbgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTEwCgkvLyAhdGhpcy5oYW5kb2ZmQ291bnRCb3goYmF0Y2hBc2FJZCkuZXhpc3RzCglieXRlYyAzIC8vICAiaG9uIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYyX2VuZAoKCS8vICppZjJfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTEwCgkvLyBhc3NlcnQoZmFsc2UsICJIYW5kb2ZmIG5vdCBmb3VuZCIpCglpbnRjIDEgLy8gMAoKCS8vIEhhbmRvZmYgbm90IGZvdW5kCglhc3NlcnQKCippZjJfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTExCgkvLyBjb3VudCA9IHRoaXMuaGFuZG9mZkNvdW50Qm94KGJhdGNoQXNhSWQpLnZhbHVlCglieXRlYyAzIC8vICAiaG9uIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5oYW5kb2ZmQ291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJZnJhbWVfYnVyeSAwIC8vIGNvdW50OiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxMTIKCS8vIGFzc2VydChpbmRleCA8PSBjb3VudCwgIkhhbmRvZmYgbm90IGZvdW5kIikKCWZyYW1lX2RpZyAtMiAvLyBpbmRleDogdWludDY0CglmcmFtZV9kaWcgMCAvLyBjb3VudDogdWludDY0Cgk8PQoKCS8vIEhhbmRvZmYgbm90IGZvdW5kCglhc3NlcnQKCXJldHN1YgoKLy8gbmV4dFBheW1lbnRJZCgpOiB1aW50NjQKbmV4dFBheW1lbnRJZDoKCXByb3RvIDAgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CglkdXAKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxMTYKCS8vIGN1cnJlbnQgPSB0aGlzLnRvdGFsUGF5bWVudHMuZXhpc3RzID8gdGhpcy50b3RhbFBheW1lbnRzLnZhbHVlIDogMAoJdHhuYSBBcHBsaWNhdGlvbnMgMAoJYnl0ZWMgNyAvLyAgInRvdGFsUGF5bWVudHMiCglhcHBfZ2xvYmFsX2dldF9leAoJc3dhcAoJcG9wCglieiAqdGVybmFyeTFfZmFsc2UKCWJ5dGVjIDcgLy8gICJ0b3RhbFBheW1lbnRzIgoJYXBwX2dsb2JhbF9nZXQKCWIgKnRlcm5hcnkxX2VuZAoKKnRlcm5hcnkxX2ZhbHNlOgoJaW50YyAxIC8vIDAKCip0ZXJuYXJ5MV9lbmQ6CglmcmFtZV9idXJ5IDAgLy8gY3VycmVudDogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTE3CgkvLyBuZXh0SWQgPSBjdXJyZW50ICsgMQoJZnJhbWVfZGlnIDAgLy8gY3VycmVudDogdWludDY0CglpbnRjIDAgLy8gMQoJKwoJZnJhbWVfYnVyeSAxIC8vIG5leHRJZDogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTE4CgkvLyB0aGlzLnRvdGFsUGF5bWVudHMudmFsdWUgPSBuZXh0SWQKCWJ5dGVjIDcgLy8gICJ0b3RhbFBheW1lbnRzIgoJZnJhbWVfZGlnIDEgLy8gbmV4dElkOiB1aW50NjQKCWFwcF9nbG9iYWxfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTE5CgkvLyByZXR1cm4gbmV4dElkOwoJZnJhbWVfZGlnIDEgLy8gbmV4dElkOiB1aW50NjQKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCgkvLyBwb3AgYWxsIGxvY2FsIHZhcmlhYmxlcyBmcm9tIHRoZSBzdGFjawoJcG9wbiAxCglyZXRzdWIKCi8vIGNyZWF0ZUJhdGNoKHN0cmluZyx1aW50NjQsc3RyaW5nLHN0cmluZyxzdHJpbmcsc3RyaW5nLHVpbnQ2NCl1aW50NjQKKmFiaV9yb3V0ZV9jcmVhdGVCYXRjaDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gY3JlYXRlZEF0OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDcKCWJ0b2kKCgkvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDYKCWV4dHJhY3QgMiAwCgoJLy8gb3JnYW5pY0NlcnRJZDogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyA1CglleHRyYWN0IDIgMAoKCS8vIGZhcm1pbmdQcmFjdGljZXM6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNAoJZXh0cmFjdCAyIDAKCgkvLyBmYXJtR3BzOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDMKCWV4dHJhY3QgMiAwCgoJLy8gd2VpZ2h0OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWJ0b2kKCgkvLyBjcm9wVHlwZTogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglleHRyYWN0IDIgMAoKCS8vIGV4ZWN1dGUgY3JlYXRlQmF0Y2goc3RyaW5nLHVpbnQ2NCxzdHJpbmcsc3RyaW5nLHN0cmluZyxzdHJpbmcsdWludDY0KXVpbnQ2NAoJY2FsbHN1YiBjcmVhdGVCYXRjaAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGNyZWF0ZUJhdGNoKGNyb3BUeXBlOiBzdHJpbmcsIHdlaWdodDogdWludDY0LCBmYXJtR3BzOiBzdHJpbmcsIGZhcm1pbmdQcmFjdGljZXM6IHN0cmluZywgb3JnYW5pY0NlcnRJZDogc3RyaW5nLCBmYXJtZXJBZGRyOiBzdHJpbmcsIGNyZWF0ZWRBdDogdWludDY0KTogQmF0Y2hBc2FJZApjcmVhdGVCYXRjaDoKCXByb3RvIDcgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CglkdXAKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxMzIKCS8vIHRoaXMuYXNzZXJ0QWRtaW4oKQoJY2FsbHN1YiBhc3NlcnRBZG1pbgoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjEzMwoJLy8gY3VycmVudCA9IHRoaXMudG90YWxCYXRjaGVzLmV4aXN0cyA/IHRoaXMudG90YWxCYXRjaGVzLnZhbHVlIDogMAoJdHhuYSBBcHBsaWNhdGlvbnMgMAoJYnl0ZWMgNCAvLyAgInRvdGFsQmF0Y2hlcyIKCWFwcF9nbG9iYWxfZ2V0X2V4Cglzd2FwCglwb3AKCWJ6ICp0ZXJuYXJ5Ml9mYWxzZQoJYnl0ZWMgNCAvLyAgInRvdGFsQmF0Y2hlcyIKCWFwcF9nbG9iYWxfZ2V0CgliICp0ZXJuYXJ5Ml9lbmQKCip0ZXJuYXJ5Ml9mYWxzZToKCWludGMgMSAvLyAwCgoqdGVybmFyeTJfZW5kOgoJZnJhbWVfYnVyeSAwIC8vIGN1cnJlbnQ6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjEzNAoJLy8gbmV4dElkID0gY3VycmVudCArIDEKCWZyYW1lX2RpZyAwIC8vIGN1cnJlbnQ6IHVpbnQ2NAoJaW50YyAwIC8vIDEKCSsKCWZyYW1lX2J1cnkgMSAvLyBuZXh0SWQ6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjEzNQoJLy8gdGhpcy50b3RhbEJhdGNoZXMudmFsdWUgPSBuZXh0SWQKCWJ5dGVjIDQgLy8gICJ0b3RhbEJhdGNoZXMiCglmcmFtZV9kaWcgMSAvLyBuZXh0SWQ6IHVpbnQ2NAoJYXBwX2dsb2JhbF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxMzYKCS8vIHRoaXMuYmF0Y2hDcm9wVHlwZUJveChuZXh0SWQpLnZhbHVlID0gY3JvcFR5cGUKCWJ5dGVjIDEwIC8vICAiYmN0IgoJZnJhbWVfZGlnIDEgLy8gbmV4dElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZHVwCglib3hfZGVsCglwb3AKCWZyYW1lX2RpZyAtMSAvLyBjcm9wVHlwZTogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjEzNwoJLy8gdGhpcy5iYXRjaFdlaWdodEJveChuZXh0SWQpLnZhbHVlID0gd2VpZ2h0CglieXRlYyA1MiAvLyAgImJ3IgoJZnJhbWVfZGlnIDEgLy8gbmV4dElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIC0yIC8vIHdlaWdodDogdWludDY0CglpdG9iCglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTM4CgkvLyB0aGlzLmJhdGNoRmFybUdwc0JveChuZXh0SWQpLnZhbHVlID0gZmFybUdwcwoJYnl0ZWMgMTUgLy8gICJiZmciCglmcmFtZV9kaWcgMSAvLyBuZXh0SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC0zIC8vIGZhcm1HcHM6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxMzkKCS8vIHRoaXMuYmF0Y2hGYXJtaW5nUHJhY3RpY2VzQm94KG5leHRJZCkudmFsdWUgPSBmYXJtaW5nUHJhY3RpY2VzCglieXRlYyA0MyAvLyAgImJmcCIKCWZyYW1lX2RpZyAxIC8vIG5leHRJZDogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTQgLy8gZmFybWluZ1ByYWN0aWNlczogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE0MAoJLy8gdGhpcy5iYXRjaE9yZ2FuaWNDZXJ0SWRCb3gobmV4dElkKS52YWx1ZSA9IG9yZ2FuaWNDZXJ0SWQKCWJ5dGVjIDE2IC8vICAiYm9jIgoJZnJhbWVfZGlnIDEgLy8gbmV4dElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZHVwCglib3hfZGVsCglwb3AKCWZyYW1lX2RpZyAtNSAvLyBvcmdhbmljQ2VydElkOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTQxCgkvLyB0aGlzLmJhdGNoRmFybWVyQWRkckJveChuZXh0SWQpLnZhbHVlID0gZmFybWVyQWRkcgoJYnl0ZWMgMTcgLy8gICJiZmEiCglmcmFtZV9kaWcgMSAvLyBuZXh0SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC02IC8vIGZhcm1lckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxNDIKCS8vIHRoaXMuYmF0Y2hDcmVhdGVkQXRCb3gobmV4dElkKS52YWx1ZSA9IGNyZWF0ZWRBdAoJYnl0ZWMgNDQgLy8gICJiY2EiCglmcmFtZV9kaWcgMSAvLyBuZXh0SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0CglmcmFtZV9kaWcgLTcgLy8gY3JlYXRlZEF0OiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxNDMKCS8vIHJldHVybiBuZXh0SWQ7CglmcmFtZV9kaWcgMSAvLyBuZXh0SWQ6IHVpbnQ2NAoKCS8vIHNldCB0aGUgc3Vicm91dGluZSByZXR1cm4gdmFsdWUKCWZyYW1lX2J1cnkgMAoKCS8vIHBvcCBhbGwgbG9jYWwgdmFyaWFibGVzIGZyb20gdGhlIHN0YWNrCglwb3BuIDEKCXJldHN1YgoKLy8gbG9nQ2hlY2twb2ludCh1aW50NjQsc3RyaW5nLHN0cmluZyx1aW50NjQsdWludDY0LHN0cmluZyxzdHJpbmcsc3RyaW5nLHVpbnQ2NCl2b2lkCiphYmlfcm91dGVfbG9nQ2hlY2twb2ludDoKCS8vIGNoZWNrcG9pbnRUaW1lc3RhbXA6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgOQoJYnRvaQoKCS8vIHBob3RvSGFzaDogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyA4CglleHRyYWN0IDIgMAoKCS8vIG5vdGVzOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDcKCWV4dHJhY3QgMiAwCgoJLy8gaGFuZGxlclR5cGU6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNgoJZXh0cmFjdCAyIDAKCgkvLyBodW1pZGl0eTogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyA1CglidG9pCgoJLy8gdGVtcGVyYXR1cmU6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNAoJYnRvaQoKCS8vIGdwc0xuZzogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAzCglleHRyYWN0IDIgMAoKCS8vIGdwc0xhdDogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglleHRyYWN0IDIgMAoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgbG9nQ2hlY2twb2ludCh1aW50NjQsc3RyaW5nLHN0cmluZyx1aW50NjQsdWludDY0LHN0cmluZyxzdHJpbmcsc3RyaW5nLHVpbnQ2NCl2b2lkCgljYWxsc3ViIGxvZ0NoZWNrcG9pbnQKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGxvZ0NoZWNrcG9pbnQoYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCwgZ3BzTGF0OiBzdHJpbmcsIGdwc0xuZzogc3RyaW5nLCB0ZW1wZXJhdHVyZTogdWludDY0LCBodW1pZGl0eTogdWludDY0LCBoYW5kbGVyVHlwZTogc3RyaW5nLCBub3Rlczogc3RyaW5nLCBwaG90b0hhc2g6IHN0cmluZywgY2hlY2twb2ludFRpbWVzdGFtcDogdWludDY0KTogdm9pZApsb2dDaGVja3BvaW50OgoJcHJvdG8gOSAwCgoJLy8gUHVzaCBlbXB0eSBieXRlcyBhZnRlciB0aGUgZnJhbWUgcG9pbnRlciB0byByZXNlcnZlIHNwYWNlIGZvciBsb2NhbCB2YXJpYWJsZXMKCWJ5dGVjIDEgLy8gMHgKCWR1cG4gMgoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE1OAoJLy8gdGhpcy5hc3NlcnRBZG1pbigpCgljYWxsc3ViIGFzc2VydEFkbWluCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTU5CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE2MQoJLy8gY3VycmVudCA9IHRoaXMuY2hlY2twb2ludENvdW50Qm94KGJhdGNoQXNhSWQpLmV4aXN0cwoJLy8gICAgICAgICAgICAgPyB0aGlzLmNoZWNrcG9pbnRDb3VudEJveChiYXRjaEFzYUlkKS52YWx1ZQoJLy8gICAgICAgICAgICAgOiAwCglieXRlYyA1IC8vICAiY3BuIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCglieiAqdGVybmFyeTNfZmFsc2UKCWJ5dGVjIDUgLy8gICJjcG4iCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmNoZWNrcG9pbnRDb3VudEJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglidG9pCgliICp0ZXJuYXJ5M19lbmQKCip0ZXJuYXJ5M19mYWxzZToKCWludGMgMSAvLyAwCgoqdGVybmFyeTNfZW5kOgoJZnJhbWVfYnVyeSAwIC8vIGN1cnJlbnQ6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE2NAoJLy8gbmV4dEluZGV4ID0gY3VycmVudCArIDEKCWZyYW1lX2RpZyAwIC8vIGN1cnJlbnQ6IHVpbnQ2NAoJaW50YyAwIC8vIDEKCSsKCWZyYW1lX2J1cnkgMSAvLyBuZXh0SW5kZXg6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE2NQoJLy8gdGhpcy5jaGVja3BvaW50Q291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWUgPSBuZXh0SW5kZXgKCWJ5dGVjIDUgLy8gICJjcG4iCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0CglmcmFtZV9kaWcgMSAvLyBuZXh0SW5kZXg6IHVpbnQ2NAoJaXRvYgoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE2NwoJLy8gcGsgPSBiYXRjaEFzYUlkICogMTAwMDAgKyBuZXh0SW5kZXgKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpbnRjIDIgLy8gMTAwMDAKCSoKCWZyYW1lX2RpZyAxIC8vIG5leHRJbmRleDogdWludDY0CgkrCglmcmFtZV9idXJ5IDIgLy8gcGs6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE2OAoJLy8gdGhpcy5jaGVja3BvaW50R3BzQm94KHBrKS52YWx1ZSA9IGdwc0xhdCArICJ8IiArIGdwc0xuZwoJYnl0ZWMgMTggLy8gICJjcGciCglmcmFtZV9kaWcgMiAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTIgLy8gZ3BzTGF0OiBzdHJpbmcKCWJ5dGVjIDIgLy8gICJ8IgoJY29uY2F0CglmcmFtZV9kaWcgLTMgLy8gZ3BzTG5nOiBzdHJpbmcKCWNvbmNhdAoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxNjkKCS8vIHRoaXMuY2hlY2twb2ludFRlbXBlcmF0dXJlQm94KHBrKS52YWx1ZSA9IHRlbXBlcmF0dXJlCglieXRlYyA0NSAvLyAgImNwdCIKCWZyYW1lX2RpZyAyIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIC00IC8vIHRlbXBlcmF0dXJlOiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxNzAKCS8vIHRoaXMuY2hlY2twb2ludEh1bWlkaXR5Qm94KHBrKS52YWx1ZSA9IGh1bWlkaXR5CglieXRlYyA0NiAvLyAgImNwaCIKCWZyYW1lX2RpZyAyIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIC01IC8vIGh1bWlkaXR5OiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxNzEKCS8vIHRoaXMuY2hlY2twb2ludEhhbmRsZXJUeXBlQm94KHBrKS52YWx1ZSA9IGhhbmRsZXJUeXBlCglieXRlYyAxMyAvLyAgImNwaG4iCglmcmFtZV9kaWcgMiAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTYgLy8gaGFuZGxlclR5cGU6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxNzIKCS8vIHRoaXMuY2hlY2twb2ludE5vdGVzQm94KHBrKS52YWx1ZSA9IG5vdGVzCglieXRlYyAxNCAvLyAgImNwbm8iCglmcmFtZV9kaWcgMiAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTcgLy8gbm90ZXM6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxNzMKCS8vIHRoaXMuY2hlY2twb2ludFBob3RvSGFzaEJveChwaykudmFsdWUgPSBwaG90b0hhc2gKCWJ5dGVjIDE5IC8vICAiY3BwIgoJZnJhbWVfZGlnIDIgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC04IC8vIHBob3RvSGFzaDogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE3NAoJLy8gdGhpcy5jaGVja3BvaW50VGltZXN0YW1wQm94KHBrKS52YWx1ZSA9IGNoZWNrcG9pbnRUaW1lc3RhbXAKCWJ5dGVjIDQyIC8vICAiY3B0cyIKCWZyYW1lX2RpZyAyIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIC05IC8vIGNoZWNrcG9pbnRUaW1lc3RhbXA6IHVpbnQ2NAoJaXRvYgoJYm94X3B1dAoJcmV0c3ViCgovLyBpbml0aWF0ZUhhbmRvZmYodWludDY0LHN0cmluZyxzdHJpbmcsc3RyaW5nLHN0cmluZyl2b2lkCiphYmlfcm91dGVfaW5pdGlhdGVIYW5kb2ZmOgoJLy8gaGFuZG9mZlBob3RvSGFzaGVzOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDUKCWV4dHJhY3QgMiAwCgoJLy8gaGFuZG9mZlR5cGU6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNAoJZXh0cmFjdCAyIDAKCgkvLyB0b0FkZHI6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMwoJZXh0cmFjdCAyIDAKCgkvLyBmcm9tQWRkcjogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglleHRyYWN0IDIgMAoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgaW5pdGlhdGVIYW5kb2ZmKHVpbnQ2NCxzdHJpbmcsc3RyaW5nLHN0cmluZyxzdHJpbmcpdm9pZAoJY2FsbHN1YiBpbml0aWF0ZUhhbmRvZmYKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGluaXRpYXRlSGFuZG9mZihiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBmcm9tQWRkcjogc3RyaW5nLCB0b0FkZHI6IHN0cmluZywgaGFuZG9mZlR5cGU6IHN0cmluZywgaGFuZG9mZlBob3RvSGFzaGVzOiBzdHJpbmcpOiB2b2lkCmluaXRpYXRlSGFuZG9mZjoKCXByb3RvIDUgMAoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CglkdXBuIDIKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxODUKCS8vIHRoaXMuYXNzZXJ0QWRtaW4oKQoJY2FsbHN1YiBhc3NlcnRBZG1pbgoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE4NgoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxODgKCS8vIGN1cnJlbnQgPSB0aGlzLmhhbmRvZmZDb3VudEJveChiYXRjaEFzYUlkKS5leGlzdHMKCS8vICAgICAgICAgICAgID8gdGhpcy5oYW5kb2ZmQ291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCS8vICAgICAgICAgICAgIDogMAoJYnl0ZWMgMyAvLyAgImhvbiIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJYnogKnRlcm5hcnk0X2ZhbHNlCglieXRlYyAzIC8vICAiaG9uIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5oYW5kb2ZmQ291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJYiAqdGVybmFyeTRfZW5kCgoqdGVybmFyeTRfZmFsc2U6CglpbnRjIDEgLy8gMAoKKnRlcm5hcnk0X2VuZDoKCWZyYW1lX2J1cnkgMCAvLyBjdXJyZW50OiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxOTEKCS8vIG5leHRJbmRleCA9IGN1cnJlbnQgKyAxCglmcmFtZV9kaWcgMCAvLyBjdXJyZW50OiB1aW50NjQKCWludGMgMCAvLyAxCgkrCglmcmFtZV9idXJ5IDEgLy8gbmV4dEluZGV4OiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxOTIKCS8vIHRoaXMuaGFuZG9mZkNvdW50Qm94KGJhdGNoQXNhSWQpLnZhbHVlID0gbmV4dEluZGV4CglieXRlYyAzIC8vICAiaG9uIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIDEgLy8gbmV4dEluZGV4OiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxOTQKCS8vIHBrID0gYmF0Y2hBc2FJZCAqIDEwMDAwICsgbmV4dEluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgMSAvLyBuZXh0SW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAyIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxOTUKCS8vIHRoaXMuaGFuZG9mZkZyb21BZGRyQm94KHBrKS52YWx1ZSA9IGZyb21BZGRyCglieXRlYyAyMCAvLyAgImhvZiIKCWZyYW1lX2RpZyAyIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZHVwCglib3hfZGVsCglwb3AKCWZyYW1lX2RpZyAtMiAvLyBmcm9tQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE5NgoJLy8gdGhpcy5oYW5kb2ZmVG9BZGRyQm94KHBrKS52YWx1ZSA9IHRvQWRkcgoJYnl0ZWMgMjEgLy8gICJob3QiCglmcmFtZV9kaWcgMiAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTMgLy8gdG9BZGRyOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MTk3CgkvLyB0aGlzLmhhbmRvZmZUeXBlQm94KHBrKS52YWx1ZSA9IGhhbmRvZmZUeXBlCglieXRlYyAyMiAvLyAgImhveSIKCWZyYW1lX2RpZyAyIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZHVwCglib3hfZGVsCglwb3AKCWZyYW1lX2RpZyAtNCAvLyBoYW5kb2ZmVHlwZTogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjE5OAoJLy8gdGhpcy5oYW5kb2ZmU3RhdHVzQm94KHBrKS52YWx1ZSA9ICJwZW5kaW5nIgoJYnl0ZWMgMTEgLy8gICJob3MiCglmcmFtZV9kaWcgMiAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglwdXNoYnl0ZXMgMHgwMDA3NzA2NTZlNjQ2OTZlNjcKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoxOTkKCS8vIHRoaXMuaGFuZG9mZkNvbmZpcm1lZEF0Qm94KHBrKS52YWx1ZSA9IDAKCWJ5dGVjIDIzIC8vICAiaGNhIgoJZnJhbWVfZGlnIDIgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0CglwdXNoYnl0ZXMgMHgwMDAwMDAwMDAwMDAwMDAwCglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjAwCgkvLyB0aGlzLmhhbmRvZmZQaG90b0hhc2hlc0JveChwaykudmFsdWUgPSBoYW5kb2ZmUGhvdG9IYXNoZXMKCWJ5dGVjIDQ3IC8vICAiaHBoIgoJZnJhbWVfZGlnIDIgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC01IC8vIGhhbmRvZmZQaG90b0hhc2hlczogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoJcmV0c3ViCgovLyBjb25maXJtSGFuZG9mZih1aW50NjQsdWludDY0LHVpbnQ2NCl2b2lkCiphYmlfcm91dGVfY29uZmlybUhhbmRvZmY6CgkvLyBjb25maXJtZWRBdDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAzCglidG9pCgoJLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWJ0b2kKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGNvbmZpcm1IYW5kb2ZmKHVpbnQ2NCx1aW50NjQsdWludDY0KXZvaWQKCWNhbGxzdWIgY29uZmlybUhhbmRvZmYKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGNvbmZpcm1IYW5kb2ZmKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGhhbmRvZmZJbmRleDogdWludDY0LCBjb25maXJtZWRBdDogdWludDY0KTogdm9pZApjb25maXJtSGFuZG9mZjoKCXByb3RvIDMgMAoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjA0CgkvLyB0aGlzLmFzc2VydEFkbWluKCkKCWNhbGxzdWIgYXNzZXJ0QWRtaW4KCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyMDUKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjA2CgkvLyB0aGlzLmFzc2VydEhhbmRvZmZJbmRleChiYXRjaEFzYUlkLCBoYW5kb2ZmSW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEhhbmRvZmZJbmRleAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIwNwoJLy8gcGsgPSBiYXRjaEFzYUlkICogMTAwMDAgKyBoYW5kb2ZmSW5kZXgKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpbnRjIDIgLy8gMTAwMDAKCSoKCWZyYW1lX2RpZyAtMiAvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyMDgKCS8vIHRoaXMuaGFuZG9mZlN0YXR1c0JveChwaykudmFsdWUgPSAiY29uZmlybWVkIgoJYnl0ZWMgMTEgLy8gICJob3MiCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglwdXNoYnl0ZXMgMHgwMDA5NjM2ZjZlNjY2OTcyNmQ2NTY0Cglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjA5CgkvLyB0aGlzLmhhbmRvZmZDb25maXJtZWRBdEJveChwaykudmFsdWUgPSBjb25maXJtZWRBdAoJYnl0ZWMgMjMgLy8gICJoY2EiCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWZyYW1lX2RpZyAtMyAvLyBjb25maXJtZWRBdDogdWludDY0CglpdG9iCglib3hfcHV0CglyZXRzdWIKCi8vIG1pbnRCYXRjaEFzYSh1aW50NjQsYnl0ZVtdKXVpbnQ2NAoqYWJpX3JvdXRlX21pbnRCYXRjaEFzYToKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gbWV0YWRhdGFIYXNoOiBieXRlW10KCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWV4dHJhY3QgMiAwCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBtaW50QmF0Y2hBc2EodWludDY0LGJ5dGVbXSl1aW50NjQKCWNhbGxzdWIgbWludEJhdGNoQXNhCglpdG9iCgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gbWludEJhdGNoQXNhKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIG1ldGFkYXRhSGFzaDogYnl0ZXMpOiB1aW50NjQKbWludEJhdGNoQXNhOgoJcHJvdG8gMiAxCgoJLy8gUHVzaCBlbXB0eSBieXRlcyBhZnRlciB0aGUgZnJhbWUgcG9pbnRlciB0byByZXNlcnZlIHNwYWNlIGZvciBsb2NhbCB2YXJpYWJsZXMKCWJ5dGVjIDEgLy8gMHgKCWR1cAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIxMwoJLy8gdGhpcy5hc3NlcnRBZG1pbigpCgljYWxsc3ViIGFzc2VydEFkbWluCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjE0CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIxNQoJLy8gYXNzZXJ0KCF0aGlzLmJhdGNoQXNhSWRCb3goYmF0Y2hBc2FJZCkuZXhpc3RzLCAiQVNBIGFscmVhZHkgbWludGVkIikKCWJ5dGVjIDEyIC8vICAiYmFzIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCgoJLy8gQVNBIGFscmVhZHkgbWludGVkCglhc3NlcnQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyMTYKCS8vIGFzc2V0SWQgPSBzZW5kQXNzZXRDcmVhdGlvbih7CgkvLyAgICAgICAgICAgICBmZWU6IGdsb2JhbHMubWluVHhuRmVlLAoJLy8gICAgICAgICAgICAgY29uZmlnQXNzZXRUb3RhbDogMSwKCS8vICAgICAgICAgICAgIGNvbmZpZ0Fzc2V0RGVjaW1hbHM6IDAsCgkvLyAgICAgICAgICAgICBjb25maWdBc3NldE5hbWU6ICJDSEFJTlZFUklGWS1CQVRDSCIsCgkvLyAgICAgICAgICAgICBjb25maWdBc3NldFVuaXROYW1lOiAiQ1ZCQVRDSCIsCgkvLyAgICAgICAgICAgICBjb25maWdBc3NldE1hbmFnZXI6IGdsb2JhbHMuY3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcywKCS8vICAgICAgICAgICAgIGNvbmZpZ0Fzc2V0UmVzZXJ2ZTogZ2xvYmFscy5jdXJyZW50QXBwbGljYXRpb25BZGRyZXNzLAoJLy8gICAgICAgICAgICAgY29uZmlnQXNzZXRGcmVlemU6IGdsb2JhbHMuY3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcywKCS8vICAgICAgICAgICAgIGNvbmZpZ0Fzc2V0Q2xhd2JhY2s6IGdsb2JhbHMuY3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcywKCS8vICAgICAgICAgICAgIGNvbmZpZ0Fzc2V0TWV0YWRhdGFIYXNoOiBtZXRhZGF0YUhhc2gsCgkvLyAgICAgICAgIH0pCglpdHhuX2JlZ2luCglwdXNoaW50IDMgLy8gYWNmZwoJaXR4bl9maWVsZCBUeXBlRW51bQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIxNwoJLy8gZmVlOiBnbG9iYWxzLm1pblR4bkZlZQoJZ2xvYmFsIE1pblR4bkZlZQoJaXR4bl9maWVsZCBGZWUKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyMTgKCS8vIGNvbmZpZ0Fzc2V0VG90YWw6IDEKCWludGMgMCAvLyAxCglpdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0VG90YWwKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyMTkKCS8vIGNvbmZpZ0Fzc2V0RGVjaW1hbHM6IDAKCWludGMgMSAvLyAwCglpdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0RGVjaW1hbHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyMjAKCS8vIGNvbmZpZ0Fzc2V0TmFtZTogIkNIQUlOVkVSSUZZLUJBVENIIgoJcHVzaGJ5dGVzIDB4NDM0ODQxNDk0ZTU2NDU1MjQ5NDY1OTJkNDI0MTU0NDM0OCAvLyAiQ0hBSU5WRVJJRlktQkFUQ0giCglpdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0TmFtZQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIyMQoJLy8gY29uZmlnQXNzZXRVbml0TmFtZTogIkNWQkFUQ0giCglwdXNoYnl0ZXMgMHg0MzU2NDI0MTU0NDM0OCAvLyAiQ1ZCQVRDSCIKCWl0eG5fZmllbGQgQ29uZmlnQXNzZXRVbml0TmFtZQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIyMgoJLy8gY29uZmlnQXNzZXRNYW5hZ2VyOiBnbG9iYWxzLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglpdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0TWFuYWdlcgoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIyMwoJLy8gY29uZmlnQXNzZXRSZXNlcnZlOiBnbG9iYWxzLmN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCglpdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0UmVzZXJ2ZQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIyNAoJLy8gY29uZmlnQXNzZXRGcmVlemU6IGdsb2JhbHMuY3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwoJZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWl0eG5fZmllbGQgQ29uZmlnQXNzZXRGcmVlemUKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyMjUKCS8vIGNvbmZpZ0Fzc2V0Q2xhd2JhY2s6IGdsb2JhbHMuY3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwoJZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKCWl0eG5fZmllbGQgQ29uZmlnQXNzZXRDbGF3YmFjawoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIyNgoJLy8gY29uZmlnQXNzZXRNZXRhZGF0YUhhc2g6IG1ldGFkYXRhSGFzaAoJZnJhbWVfZGlnIC0yIC8vIG1ldGFkYXRhSGFzaDogYnl0ZXMKCWl0eG5fZmllbGQgQ29uZmlnQXNzZXRNZXRhZGF0YUhhc2gKCgkvLyBTdWJtaXQgaW5uZXIgdHJhbnNhY3Rpb24KCWl0eG5fc3VibWl0CglpdHhuIENyZWF0ZWRBc3NldElECglmcmFtZV9idXJ5IDAgLy8gYXNzZXRJZDogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjI4CgkvLyBhc3NldEluZGV4ID0gYXNzZXRJZC5pZAoJZnJhbWVfZGlnIDAgLy8gYXNzZXRJZDogdWludDY0CglmcmFtZV9idXJ5IDEgLy8gYXNzZXRJbmRleDogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjI5CgkvLyB0aGlzLmJhdGNoQXNhSWRCb3goYmF0Y2hBc2FJZCkudmFsdWUgPSBhc3NldEluZGV4CglieXRlYyAxMiAvLyAgImJhcyIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWZyYW1lX2RpZyAxIC8vIGFzc2V0SW5kZXg6IHVpbnQ2NAoJaXRvYgoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjIzMAoJLy8gcmV0dXJuIGFzc2V0SW5kZXg7CglmcmFtZV9kaWcgMSAvLyBhc3NldEluZGV4OiB1aW50NjQKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCgkvLyBwb3AgYWxsIGxvY2FsIHZhcmlhYmxlcyBmcm9tIHRoZSBzdGFjawoJcG9wbiAxCglyZXRzdWIKCi8vIHN0b3JlVmVyaWZpY2F0aW9uKHVpbnQ2NCxzdHJpbmcsdWludDY0LHN0cmluZyxzdHJpbmcpdm9pZAoqYWJpX3JvdXRlX3N0b3JlVmVyaWZpY2F0aW9uOgoJLy8gdmVyaWZpZXJBZGRyOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDUKCWV4dHJhY3QgMiAwCgoJLy8gcmVhc29uOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDQKCWV4dHJhY3QgMiAwCgoJLy8gY29uZmlkZW5jZTogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAzCglidG9pCgoJLy8gcmVzdWx0OiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWV4dHJhY3QgMiAwCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBzdG9yZVZlcmlmaWNhdGlvbih1aW50NjQsc3RyaW5nLHVpbnQ2NCxzdHJpbmcsc3RyaW5nKXZvaWQKCWNhbGxzdWIgc3RvcmVWZXJpZmljYXRpb24KCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIHN0b3JlVmVyaWZpY2F0aW9uKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIHJlc3VsdDogVmVyaWZpY2F0aW9uUmVzdWx0LCBjb25maWRlbmNlOiB1aW50NjQsIHJlYXNvbjogc3RyaW5nLCB2ZXJpZmllckFkZHI6IHN0cmluZyk6IHZvaWQKc3RvcmVWZXJpZmljYXRpb246Cglwcm90byA1IDAKCgkvLyBQdXNoIGVtcHR5IGJ5dGVzIGFmdGVyIHRoZSBmcmFtZSBwb2ludGVyIHRvIHJlc2VydmUgc3BhY2UgZm9yIGxvY2FsIHZhcmlhYmxlcwoJYnl0ZWMgMSAvLyAweAoJZHVwCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjQxCgkvLyB0aGlzLmFzc2VydEFkbWluKCkKCWNhbGxzdWIgYXNzZXJ0QWRtaW4KCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyNDIKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjQ0CgkvLyBleGlzdGVkID0gdGhpcy52ZXJpZmljYXRpb25SZXN1bHRCb3goYmF0Y2hBc2FJZCkuZXhpc3RzCglieXRlYyA5IC8vICAidnJzIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCglmcmFtZV9idXJ5IDAgLy8gZXhpc3RlZDogYm9vbAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjI0NQoJLy8gdGhpcy52ZXJpZmljYXRpb25SZXN1bHRCb3goYmF0Y2hBc2FJZCkudmFsdWUgPSByZXN1bHQKCWJ5dGVjIDkgLy8gICJ2cnMiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC0yIC8vIHJlc3VsdDogVmVyaWZpY2F0aW9uUmVzdWx0CglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjI0NgoJLy8gdGhpcy52ZXJpZmljYXRpb25Db25maWRlbmNlQm94KGJhdGNoQXNhSWQpLnZhbHVlID0gY29uZmlkZW5jZQoJYnl0ZWMgNDggLy8gICJ2cmMiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0CglmcmFtZV9kaWcgLTMgLy8gY29uZmlkZW5jZTogdWludDY0CglpdG9iCglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjQ3CgkvLyB0aGlzLnZlcmlmaWNhdGlvblJlYXNvbkJveChiYXRjaEFzYUlkKS52YWx1ZSA9IHJlYXNvbgoJYnl0ZWMgNDkgLy8gICJ2cnIiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC00IC8vIHJlYXNvbjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjI0OAoJLy8gdGhpcy52ZXJpZmljYXRpb25WZXJpZmllckFkZHJCb3goYmF0Y2hBc2FJZCkudmFsdWUgPSB2ZXJpZmllckFkZHIKCWJ5dGVjIDUwIC8vICAidnJ2IgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJZHVwCglib3hfZGVsCglwb3AKCWZyYW1lX2RpZyAtNSAvLyB2ZXJpZmllckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyNDkKCS8vIHRoaXMudmVyaWZpY2F0aW9uVGltZXN0YW1wQm94KGJhdGNoQXNhSWQpLnZhbHVlID0gZ2xvYmFscy5sYXRlc3RUaW1lc3RhbXAKCWJ5dGVjIDUxIC8vICAidnJ0IgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJZ2xvYmFsIExhdGVzdFRpbWVzdGFtcAoJaXRvYgoJYm94X3B1dAoKCS8vICppZjNfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyNTEKCS8vICFleGlzdGVkCglmcmFtZV9kaWcgMCAvLyBleGlzdGVkOiBib29sCgkhCglieiAqaWYzX2VuZAoKCS8vICppZjNfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjUyCgkvLyBjdXJyZW50ID0gdGhpcy50b3RhbFZlcmlmaWNhdGlvbnMuZXhpc3RzID8gdGhpcy50b3RhbFZlcmlmaWNhdGlvbnMudmFsdWUgOiAwCgl0eG5hIEFwcGxpY2F0aW9ucyAwCglieXRlYyA2IC8vICAidG90YWxWZXJpZmljYXRpb25zIgoJYXBwX2dsb2JhbF9nZXRfZXgKCXN3YXAKCXBvcAoJYnogKnRlcm5hcnk1X2ZhbHNlCglieXRlYyA2IC8vICAidG90YWxWZXJpZmljYXRpb25zIgoJYXBwX2dsb2JhbF9nZXQKCWIgKnRlcm5hcnk1X2VuZAoKKnRlcm5hcnk1X2ZhbHNlOgoJaW50YyAxIC8vIDAKCip0ZXJuYXJ5NV9lbmQ6CglmcmFtZV9idXJ5IDEgLy8gY3VycmVudDogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjUzCgkvLyB0aGlzLnRvdGFsVmVyaWZpY2F0aW9ucy52YWx1ZSA9IGN1cnJlbnQgKyAxCglieXRlYyA2IC8vICAidG90YWxWZXJpZmljYXRpb25zIgoJZnJhbWVfZGlnIDEgLy8gY3VycmVudDogdWludDY0CglpbnRjIDAgLy8gMQoJKwoJYXBwX2dsb2JhbF9wdXQKCippZjNfZW5kOgoJcmV0c3ViCgovLyB1cGRhdGVDYXJib25TY29yZSh1aW50NjQsdWludDY0LHVpbnQ2NCx1aW50NjQsc3RyaW5nLHVpbnQ2NCl2b2lkCiphYmlfcm91dGVfdXBkYXRlQ2FyYm9uU2NvcmU6CgkvLyBjYWxjdWxhdGVkQXQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNgoJYnRvaQoKCS8vIHRyYW5zcG9ydE1ldGhvZDogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyA1CglleHRyYWN0IDIgMAoKCS8vIGRpc3RhbmNlOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDQKCWJ0b2kKCgkvLyBjcmVkaXRzRWFybmVkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDMKCWJ0b2kKCgkvLyBzY29yZTogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSB1cGRhdGVDYXJib25TY29yZSh1aW50NjQsdWludDY0LHVpbnQ2NCx1aW50NjQsc3RyaW5nLHVpbnQ2NCl2b2lkCgljYWxsc3ViIHVwZGF0ZUNhcmJvblNjb3JlCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyB1cGRhdGVDYXJib25TY29yZShiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBzY29yZTogdWludDY0LCBjcmVkaXRzRWFybmVkOiB1aW50NjQsIGRpc3RhbmNlOiB1aW50NjQsIHRyYW5zcG9ydE1ldGhvZDogc3RyaW5nLCBjYWxjdWxhdGVkQXQ6IHVpbnQ2NCk6IHZvaWQKdXBkYXRlQ2FyYm9uU2NvcmU6Cglwcm90byA2IDAKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyNjYKCS8vIHRoaXMuYXNzZXJ0QWRtaW4oKQoJY2FsbHN1YiBhc3NlcnRBZG1pbgoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjI2NwoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyNjgKCS8vIHRoaXMuY2FyYm9uU2NvcmVCb3goYmF0Y2hBc2FJZCkudmFsdWUgPSBzY29yZQoJYnl0ZWMgMjQgLy8gICJjY3MiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0CglmcmFtZV9kaWcgLTIgLy8gc2NvcmU6IHVpbnQ2NAoJaXRvYgoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjI2OQoJLy8gdGhpcy5jYXJib25DcmVkaXRzQm94KGJhdGNoQXNhSWQpLnZhbHVlID0gY3JlZGl0c0Vhcm5lZAoJYnl0ZWMgMjUgLy8gICJjY2MiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0CglmcmFtZV9kaWcgLTMgLy8gY3JlZGl0c0Vhcm5lZDogdWludDY0CglpdG9iCglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjcwCgkvLyB0aGlzLmNhcmJvbkRpc3RhbmNlQm94KGJhdGNoQXNhSWQpLnZhbHVlID0gZGlzdGFuY2UKCWJ5dGVjIDI2IC8vICAiY2NkIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIC00IC8vIGRpc3RhbmNlOiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyNzEKCS8vIHRoaXMuY2FyYm9uVHJhbnNwb3J0Qm94KGJhdGNoQXNhSWQpLnZhbHVlID0gdHJhbnNwb3J0TWV0aG9kCglieXRlYyAyNyAvLyAgImNjdCIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTUgLy8gdHJhbnNwb3J0TWV0aG9kOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MjcyCgkvLyB0aGlzLmNhcmJvbkNhbGN1bGF0ZWRBdEJveChiYXRjaEFzYUlkKS52YWx1ZSA9IGNhbGN1bGF0ZWRBdAoJYnl0ZWMgMjggLy8gICJjY2EiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0CglmcmFtZV9kaWcgLTYgLy8gY2FsY3VsYXRlZEF0OiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCXJldHN1YgoKLy8gdXBkYXRlRmFybWVyUmVwdXRhdGlvbihzdHJpbmcsdWludDY0LHVpbnQ2NCx1aW50NjQsc3RyaW5nLHVpbnQ2NCx1aW50NjQsdWludDY0KXZvaWQKKmFiaV9yb3V0ZV91cGRhdGVGYXJtZXJSZXB1dGF0aW9uOgoJLy8gbGFzdFVwZGF0ZWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgOAoJYnRvaQoKCS8vIHRvdGFsUGF5bWVudHNSZWNlaXZlZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyA3CglidG9pCgoJLy8gY2FyYm9uQ3JlZGl0c1RvdGFsOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDYKCWJ0b2kKCgkvLyB0aWVyOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDUKCWV4dHJhY3QgMiAwCgoJLy8gZmxhZ2dlZENvdW50OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDQKCWJ0b2kKCgkvLyB2ZXJpZmllZENvdW50OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDMKCWJ0b2kKCgkvLyB0b3RhbEJhdGNoZXM6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgoJYnRvaQoKCS8vIGZhcm1lckFkZHI6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJZXh0cmFjdCAyIDAKCgkvLyBleGVjdXRlIHVwZGF0ZUZhcm1lclJlcHV0YXRpb24oc3RyaW5nLHVpbnQ2NCx1aW50NjQsdWludDY0LHN0cmluZyx1aW50NjQsdWludDY0LHVpbnQ2NCl2b2lkCgljYWxsc3ViIHVwZGF0ZUZhcm1lclJlcHV0YXRpb24KCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIHVwZGF0ZUZhcm1lclJlcHV0YXRpb24oZmFybWVyQWRkcjogc3RyaW5nLCB0b3RhbEJhdGNoZXM6IHVpbnQ2NCwgdmVyaWZpZWRDb3VudDogdWludDY0LCBmbGFnZ2VkQ291bnQ6IHVpbnQ2NCwgdGllcjogc3RyaW5nLCBjYXJib25DcmVkaXRzVG90YWw6IHVpbnQ2NCwgdG90YWxQYXltZW50c1JlY2VpdmVkOiB1aW50NjQsIGxhc3RVcGRhdGVkOiB1aW50NjQpOiB2b2lkCnVwZGF0ZUZhcm1lclJlcHV0YXRpb246Cglwcm90byA4IDAKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyODYKCS8vIHRoaXMuYXNzZXJ0QWRtaW4oKQoJY2FsbHN1YiBhc3NlcnRBZG1pbgoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjI4NwoJLy8gdGhpcy5mYXJtZXJUb3RhbEJhdGNoZXNCb3goZmFybWVyQWRkcikudmFsdWUgPSB0b3RhbEJhdGNoZXMKCWJ5dGVjIDI5IC8vICAiZnJiIgoJZnJhbWVfZGlnIC0xIC8vIGZhcm1lckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJZnJhbWVfZGlnIC0yIC8vIHRvdGFsQmF0Y2hlczogdWludDY0CglpdG9iCglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6Mjg4CgkvLyB0aGlzLmZhcm1lclZlcmlmaWVkQ291bnRCb3goZmFybWVyQWRkcikudmFsdWUgPSB2ZXJpZmllZENvdW50CglieXRlYyAzMCAvLyAgImZydiIKCWZyYW1lX2RpZyAtMSAvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWZyYW1lX2RpZyAtMyAvLyB2ZXJpZmllZENvdW50OiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyODkKCS8vIHRoaXMuZmFybWVyRmxhZ2dlZENvdW50Qm94KGZhcm1lckFkZHIpLnZhbHVlID0gZmxhZ2dlZENvdW50CglieXRlYyAzMSAvLyAgImZyZiIKCWZyYW1lX2RpZyAtMSAvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWZyYW1lX2RpZyAtNCAvLyBmbGFnZ2VkQ291bnQ6IHVpbnQ2NAoJaXRvYgoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjI5MAoJLy8gdGhpcy5mYXJtZXJUaWVyQm94KGZhcm1lckFkZHIpLnZhbHVlID0gdGllcgoJYnl0ZWMgMzIgLy8gICJmcnQiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC01IC8vIHRpZXI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyOTEKCS8vIHRoaXMuZmFybWVyQ2FyYm9uQ3JlZGl0c0JveChmYXJtZXJBZGRyKS52YWx1ZSA9IGNhcmJvbkNyZWRpdHNUb3RhbAoJYnl0ZWMgMzMgLy8gICJmcmMiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0CglmcmFtZV9kaWcgLTYgLy8gY2FyYm9uQ3JlZGl0c1RvdGFsOiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyOTIKCS8vIHRoaXMuZmFybWVyUGF5bWVudHNUb3RhbEJveChmYXJtZXJBZGRyKS52YWx1ZSA9IHRvdGFsUGF5bWVudHNSZWNlaXZlZAoJYnl0ZWMgMzQgLy8gICJmcnAiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0CglmcmFtZV9kaWcgLTcgLy8gdG90YWxQYXltZW50c1JlY2VpdmVkOiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czoyOTMKCS8vIHRoaXMuZmFybWVyTGFzdFVwZGF0ZWRCb3goZmFybWVyQWRkcikudmFsdWUgPSBsYXN0VXBkYXRlZAoJYnl0ZWMgMzUgLy8gICJmcnUiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0CglmcmFtZV9kaWcgLTggLy8gbGFzdFVwZGF0ZWQ6IHVpbnQ2NAoJaXRvYgoJYm94X3B1dAoJcmV0c3ViCgovLyByZWNvcmRGYXJtZXJQYXltZW50KHN0cmluZyx1aW50NjQsdWludDY0LHN0cmluZyxzdHJpbmcsdWludDY0KXZvaWQKKmFiaV9yb3V0ZV9yZWNvcmRGYXJtZXJQYXltZW50OgoJLy8gdGltZXN0YW1wOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDYKCWJ0b2kKCgkvLyB0eElkOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDUKCWV4dHJhY3QgMiAwCgoJLy8gY3VycmVuY3k6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNAoJZXh0cmFjdCAyIDAKCgkvLyBhbW91bnQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMwoJYnRvaQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgoJYnRvaQoKCS8vIGZhcm1lckFkZHI6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJZXh0cmFjdCAyIDAKCgkvLyBleGVjdXRlIHJlY29yZEZhcm1lclBheW1lbnQoc3RyaW5nLHVpbnQ2NCx1aW50NjQsc3RyaW5nLHN0cmluZyx1aW50NjQpdm9pZAoJY2FsbHN1YiByZWNvcmRGYXJtZXJQYXltZW50CglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyByZWNvcmRGYXJtZXJQYXltZW50KGZhcm1lckFkZHI6IHN0cmluZywgYmF0Y2hBc2FJZDogdWludDY0LCBhbW91bnQ6IHVpbnQ2NCwgY3VycmVuY3k6IHN0cmluZywgdHhJZDogc3RyaW5nLCB0aW1lc3RhbXA6IHVpbnQ2NCk6IHZvaWQKcmVjb3JkRmFybWVyUGF5bWVudDoKCXByb3RvIDYgMAoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzA0CgkvLyB0aGlzLmFzc2VydEFkbWluKCkKCWNhbGxzdWIgYXNzZXJ0QWRtaW4KCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMDUKCS8vIHBheW1lbnRJZCA9IHRoaXMubmV4dFBheW1lbnRJZCgpCgljYWxsc3ViIG5leHRQYXltZW50SWQKCWZyYW1lX2J1cnkgMCAvLyBwYXltZW50SWQ6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjMwNgoJLy8gdGhpcy5wYXltZW50RmFybWVyQWRkckJveChwYXltZW50SWQpLnZhbHVlID0gZmFybWVyQWRkcgoJYnl0ZWMgMzcgLy8gICJwZiIKCWZyYW1lX2RpZyAwIC8vIHBheW1lbnRJZDogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjMwNwoJLy8gdGhpcy5wYXltZW50QmF0Y2hJZEJveChwYXltZW50SWQpLnZhbHVlID0gYmF0Y2hBc2FJZAoJYnl0ZWMgMzggLy8gICJwYiIKCWZyYW1lX2RpZyAwIC8vIHBheW1lbnRJZDogdWludDY0CglpdG9iCgljb25jYXQKCWZyYW1lX2RpZyAtMiAvLyBiYXRjaEFzYUlkOiB1aW50NjQKCWl0b2IKCWJveF9wdXQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMDgKCS8vIHRoaXMucGF5bWVudEFtb3VudEJveChwYXltZW50SWQpLnZhbHVlID0gYW1vdW50CglieXRlYyAzOSAvLyAgInBhIgoJZnJhbWVfZGlnIDAgLy8gcGF5bWVudElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIC0zIC8vIGFtb3VudDogdWludDY0CglpdG9iCglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzA5CgkvLyB0aGlzLnBheW1lbnRDdXJyZW5jeUJveChwYXltZW50SWQpLnZhbHVlID0gY3VycmVuY3kKCWJ5dGVjIDQwIC8vICAicGMiCglmcmFtZV9kaWcgMCAvLyBwYXltZW50SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0CglkdXAKCWJveF9kZWwKCXBvcAoJZnJhbWVfZGlnIC00IC8vIGN1cnJlbmN5OiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cglib3hfcHV0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzEwCgkvLyB0aGlzLnBheW1lbnRUeEJveChwYXltZW50SWQpLnZhbHVlID0gdHhJZAoJYnl0ZWMgNDEgLy8gICJwdCIKCWZyYW1lX2RpZyAwIC8vIHBheW1lbnRJZDogdWludDY0CglpdG9iCgljb25jYXQKCWR1cAoJYm94X2RlbAoJcG9wCglmcmFtZV9kaWcgLTUgLy8gdHhJZDogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJYm94X3B1dAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjMxMQoJLy8gdGhpcy5wYXltZW50VGltZXN0YW1wQm94KHBheW1lbnRJZCkudmFsdWUgPSB0aW1lc3RhbXAKCWJ5dGVjIDM2IC8vICAicHRzIgoJZnJhbWVfZGlnIDAgLy8gcGF5bWVudElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJZnJhbWVfZGlnIC02IC8vIHRpbWVzdGFtcDogdWludDY0CglpdG9iCglib3hfcHV0CglyZXRzdWIKCi8vIGdldFZlcmlmaWNhdGlvbih1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0VmVyaWZpY2F0aW9uOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldFZlcmlmaWNhdGlvbih1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldFZlcmlmaWNhdGlvbgoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRWZXJpZmljYXRpb24oYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCk6IHN0cmluZwpnZXRWZXJpZmljYXRpb246Cglwcm90byAxIDEKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMTcKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzE4CgkvLyB0aGlzLmFzc2VydFZlcmlmaWNhdGlvbkV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0VmVyaWZpY2F0aW9uRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzE5CgkvLyByZXR1cm4gdGhpcy52ZXJpZmljYXRpb25SZXN1bHRCb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyA5IC8vICAidnJzIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy52ZXJpZmljYXRpb25SZXN1bHRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCXJldHN1YgoKLy8gZ2V0VG90YWxWZXJpZmljYXRpb25zKCl1aW50NjQKKmFiaV9yb3V0ZV9nZXRUb3RhbFZlcmlmaWNhdGlvbnM6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGV4ZWN1dGUgZ2V0VG90YWxWZXJpZmljYXRpb25zKCl1aW50NjQKCWNhbGxzdWIgZ2V0VG90YWxWZXJpZmljYXRpb25zCglpdG9iCgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0VG90YWxWZXJpZmljYXRpb25zKCk6IHVpbnQ2NApnZXRUb3RhbFZlcmlmaWNhdGlvbnM6Cglwcm90byAwIDEKCgkvLyAqaWY0X2NvbmRpdGlvbgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzI0CgkvLyAhdGhpcy50b3RhbFZlcmlmaWNhdGlvbnMuZXhpc3RzCgl0eG5hIEFwcGxpY2F0aW9ucyAwCglieXRlYyA2IC8vICAidG90YWxWZXJpZmljYXRpb25zIgoJYXBwX2dsb2JhbF9nZXRfZXgKCXN3YXAKCXBvcAoJIQoJYnogKmlmNF9lbmQKCgkvLyAqaWY0X2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjMyNAoJLy8gcmV0dXJuIDA7CglpbnRjIDEgLy8gMAoJcmV0c3ViCgoqaWY0X2VuZDoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjMyNQoJLy8gcmV0dXJuIHRoaXMudG90YWxWZXJpZmljYXRpb25zLnZhbHVlOwoJYnl0ZWMgNiAvLyAgInRvdGFsVmVyaWZpY2F0aW9ucyIKCWFwcF9nbG9iYWxfZ2V0CglyZXRzdWIKCi8vIGdldFRvdGFsQmF0Y2hlcygpdWludDY0CiphYmlfcm91dGVfZ2V0VG90YWxCYXRjaGVzOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBleGVjdXRlIGdldFRvdGFsQmF0Y2hlcygpdWludDY0CgljYWxsc3ViIGdldFRvdGFsQmF0Y2hlcwoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldFRvdGFsQmF0Y2hlcygpOiB1aW50NjQKZ2V0VG90YWxCYXRjaGVzOgoJcHJvdG8gMCAxCgoJLy8gKmlmNV9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjMzMAoJLy8gIXRoaXMudG90YWxCYXRjaGVzLmV4aXN0cwoJdHhuYSBBcHBsaWNhdGlvbnMgMAoJYnl0ZWMgNCAvLyAgInRvdGFsQmF0Y2hlcyIKCWFwcF9nbG9iYWxfZ2V0X2V4Cglzd2FwCglwb3AKCSEKCWJ6ICppZjVfZW5kCgoJLy8gKmlmNV9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMzAKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmNV9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMzEKCS8vIHJldHVybiB0aGlzLnRvdGFsQmF0Y2hlcy52YWx1ZTsKCWJ5dGVjIDQgLy8gICJ0b3RhbEJhdGNoZXMiCglhcHBfZ2xvYmFsX2dldAoJcmV0c3ViCgovLyBnZXRUb3RhbFBheW1lbnRzKCl1aW50NjQKKmFiaV9yb3V0ZV9nZXRUb3RhbFBheW1lbnRzOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBleGVjdXRlIGdldFRvdGFsUGF5bWVudHMoKXVpbnQ2NAoJY2FsbHN1YiBnZXRUb3RhbFBheW1lbnRzCglpdG9iCgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0VG90YWxQYXltZW50cygpOiB1aW50NjQKZ2V0VG90YWxQYXltZW50czoKCXByb3RvIDAgMQoKCS8vICppZjZfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMzYKCS8vICF0aGlzLnRvdGFsUGF5bWVudHMuZXhpc3RzCgl0eG5hIEFwcGxpY2F0aW9ucyAwCglieXRlYyA3IC8vICAidG90YWxQYXltZW50cyIKCWFwcF9nbG9iYWxfZ2V0X2V4Cglzd2FwCglwb3AKCSEKCWJ6ICppZjZfZW5kCgoJLy8gKmlmNl9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMzYKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmNl9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozMzcKCS8vIHJldHVybiB0aGlzLnRvdGFsUGF5bWVudHMudmFsdWU7CglieXRlYyA3IC8vICAidG90YWxQYXltZW50cyIKCWFwcF9nbG9iYWxfZ2V0CglyZXRzdWIKCi8vIGdldFZlcmlmaWNhdGlvbkNvbmZpZGVuY2UodWludDY0KXVpbnQ2NAoqYWJpX3JvdXRlX2dldFZlcmlmaWNhdGlvbkNvbmZpZGVuY2U6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0VmVyaWZpY2F0aW9uQ29uZmlkZW5jZSh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldFZlcmlmaWNhdGlvbkNvbmZpZGVuY2UKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRWZXJpZmljYXRpb25Db25maWRlbmNlKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB1aW50NjQKZ2V0VmVyaWZpY2F0aW9uQ29uZmlkZW5jZToKCXByb3RvIDEgMQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM0MgoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozNDMKCS8vIHRoaXMuYXNzZXJ0VmVyaWZpY2F0aW9uRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRWZXJpZmljYXRpb25FeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozNDQKCS8vIHJldHVybiB0aGlzLnZlcmlmaWNhdGlvbkNvbmZpZGVuY2VCb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyA0OCAvLyAgInZyYyIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMudmVyaWZpY2F0aW9uQ29uZmlkZW5jZUJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglidG9pCglyZXRzdWIKCi8vIGdldFZlcmlmaWNhdGlvblJlYXNvbih1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0VmVyaWZpY2F0aW9uUmVhc29uOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldFZlcmlmaWNhdGlvblJlYXNvbih1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldFZlcmlmaWNhdGlvblJlYXNvbgoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRWZXJpZmljYXRpb25SZWFzb24oYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCk6IHN0cmluZwpnZXRWZXJpZmljYXRpb25SZWFzb246Cglwcm90byAxIDEKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozNDkKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzUwCgkvLyB0aGlzLmFzc2VydFZlcmlmaWNhdGlvbkV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0VmVyaWZpY2F0aW9uRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzUxCgkvLyByZXR1cm4gdGhpcy52ZXJpZmljYXRpb25SZWFzb25Cb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyA0OSAvLyAgInZyciIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMudmVyaWZpY2F0aW9uUmVhc29uQm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCglyZXRzdWIKCi8vIGdldFZlcmlmaWNhdGlvblZlcmlmaWVyQWRkcih1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0VmVyaWZpY2F0aW9uVmVyaWZpZXJBZGRyOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldFZlcmlmaWNhdGlvblZlcmlmaWVyQWRkcih1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldFZlcmlmaWNhdGlvblZlcmlmaWVyQWRkcgoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRWZXJpZmljYXRpb25WZXJpZmllckFkZHIoYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCk6IHN0cmluZwpnZXRWZXJpZmljYXRpb25WZXJpZmllckFkZHI6Cglwcm90byAxIDEKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozNTYKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzU3CgkvLyB0aGlzLmFzc2VydFZlcmlmaWNhdGlvbkV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0VmVyaWZpY2F0aW9uRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzU4CgkvLyByZXR1cm4gdGhpcy52ZXJpZmljYXRpb25WZXJpZmllckFkZHJCb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyA1MCAvLyAgInZydiIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMudmVyaWZpY2F0aW9uVmVyaWZpZXJBZGRyQm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCglyZXRzdWIKCi8vIGdldFZlcmlmaWNhdGlvblRpbWVzdGFtcCh1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0VmVyaWZpY2F0aW9uVGltZXN0YW1wOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldFZlcmlmaWNhdGlvblRpbWVzdGFtcCh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldFZlcmlmaWNhdGlvblRpbWVzdGFtcAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldFZlcmlmaWNhdGlvblRpbWVzdGFtcChiYXRjaEFzYUlkOiBCYXRjaEFzYUlkKTogdWludDY0CmdldFZlcmlmaWNhdGlvblRpbWVzdGFtcDoKCXByb3RvIDEgMQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM2MwoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozNjQKCS8vIHRoaXMuYXNzZXJ0VmVyaWZpY2F0aW9uRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRWZXJpZmljYXRpb25FeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozNjUKCS8vIHJldHVybiB0aGlzLnZlcmlmaWNhdGlvblRpbWVzdGFtcEJveChiYXRjaEFzYUlkKS52YWx1ZTsKCWJ5dGVjIDUxIC8vICAidnJ0IgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy52ZXJpZmljYXRpb25UaW1lc3RhbXBCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRDYXJib25TY29yZSh1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0Q2FyYm9uU2NvcmU6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0Q2FyYm9uU2NvcmUodWludDY0KXVpbnQ2NAoJY2FsbHN1YiBnZXRDYXJib25TY29yZQoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldENhcmJvblNjb3JlKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB1aW50NjQKZ2V0Q2FyYm9uU2NvcmU6Cglwcm90byAxIDEKCgkvLyAqaWY3X2NvbmRpdGlvbgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzcwCgkvLyAhdGhpcy5jYXJib25TY29yZUJveChiYXRjaEFzYUlkKS5leGlzdHMKCWJ5dGVjIDI0IC8vICAiY2NzIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWY3X2VuZAoKCS8vICppZjdfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzcwCgkvLyByZXR1cm4gMDsKCWludGMgMSAvLyAwCglyZXRzdWIKCippZjdfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6MzcxCgkvLyByZXR1cm4gdGhpcy5jYXJib25TY29yZUJveChiYXRjaEFzYUlkKS52YWx1ZTsKCWJ5dGVjIDI0IC8vICAiY2NzIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jYXJib25TY29yZUJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglidG9pCglyZXRzdWIKCi8vIGdldENhcmJvbkNyZWRpdHModWludDY0KXVpbnQ2NAoqYWJpX3JvdXRlX2dldENhcmJvbkNyZWRpdHM6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0Q2FyYm9uQ3JlZGl0cyh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldENhcmJvbkNyZWRpdHMKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRDYXJib25DcmVkaXRzKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB1aW50NjQKZ2V0Q2FyYm9uQ3JlZGl0czoKCXByb3RvIDEgMQoKCS8vICppZjhfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozNzYKCS8vICF0aGlzLmNhcmJvbkNyZWRpdHNCb3goYmF0Y2hBc2FJZCkuZXhpc3RzCglieXRlYyAyNSAvLyAgImNjYyIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJIQoJYnogKmlmOF9lbmQKCgkvLyAqaWY4X2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM3NgoJLy8gcmV0dXJuIDA7CglpbnRjIDEgLy8gMAoJcmV0c3ViCgoqaWY4X2VuZDoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM3NwoJLy8gcmV0dXJuIHRoaXMuY2FyYm9uQ3JlZGl0c0JveChiYXRjaEFzYUlkKS52YWx1ZTsKCWJ5dGVjIDI1IC8vICAiY2NjIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jYXJib25DcmVkaXRzQm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWJ0b2kKCXJldHN1YgoKLy8gZ2V0Q2FyYm9uRGlzdGFuY2UodWludDY0KXVpbnQ2NAoqYWJpX3JvdXRlX2dldENhcmJvbkRpc3RhbmNlOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldENhcmJvbkRpc3RhbmNlKHVpbnQ2NCl1aW50NjQKCWNhbGxzdWIgZ2V0Q2FyYm9uRGlzdGFuY2UKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRDYXJib25EaXN0YW5jZShiYXRjaEFzYUlkOiBCYXRjaEFzYUlkKTogdWludDY0CmdldENhcmJvbkRpc3RhbmNlOgoJcHJvdG8gMSAxCgoJLy8gKmlmOV9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM4MgoJLy8gIXRoaXMuY2FyYm9uRGlzdGFuY2VCb3goYmF0Y2hBc2FJZCkuZXhpc3RzCglieXRlYyAyNiAvLyAgImNjZCIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJIQoJYnogKmlmOV9lbmQKCgkvLyAqaWY5X2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM4MgoJLy8gcmV0dXJuIDA7CglpbnRjIDEgLy8gMAoJcmV0c3ViCgoqaWY5X2VuZDoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM4MwoJLy8gcmV0dXJuIHRoaXMuY2FyYm9uRGlzdGFuY2VCb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyAyNiAvLyAgImNjZCIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuY2FyYm9uRGlzdGFuY2VCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRDYXJib25UcmFuc3BvcnRNZXRob2QodWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldENhcmJvblRyYW5zcG9ydE1ldGhvZDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRDYXJib25UcmFuc3BvcnRNZXRob2QodWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRDYXJib25UcmFuc3BvcnRNZXRob2QKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0Q2FyYm9uVHJhbnNwb3J0TWV0aG9kKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiBzdHJpbmcKZ2V0Q2FyYm9uVHJhbnNwb3J0TWV0aG9kOgoJcHJvdG8gMSAxCgoJLy8gKmlmMTBfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozODgKCS8vICF0aGlzLmNhcmJvblRyYW5zcG9ydEJveChiYXRjaEFzYUlkKS5leGlzdHMKCWJ5dGVjIDI3IC8vICAiY2N0IgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYxMF9lbmQKCgkvLyAqaWYxMF9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozODgKCS8vIHJldHVybiAiIjsKCWJ5dGVjIDEgLy8gICIiCglyZXRzdWIKCippZjEwX2VuZDoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM4OQoJLy8gcmV0dXJuIHRoaXMuY2FyYm9uVHJhbnNwb3J0Qm94KGJhdGNoQXNhSWQpLnZhbHVlOwoJYnl0ZWMgMjcgLy8gICJjY3QiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmNhcmJvblRyYW5zcG9ydEJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRDYXJib25DYWxjdWxhdGVkQXQodWludDY0KXVpbnQ2NAoqYWJpX3JvdXRlX2dldENhcmJvbkNhbGN1bGF0ZWRBdDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRDYXJib25DYWxjdWxhdGVkQXQodWludDY0KXVpbnQ2NAoJY2FsbHN1YiBnZXRDYXJib25DYWxjdWxhdGVkQXQKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRDYXJib25DYWxjdWxhdGVkQXQoYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCk6IHVpbnQ2NApnZXRDYXJib25DYWxjdWxhdGVkQXQ6Cglwcm90byAxIDEKCgkvLyAqaWYxMV9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM5NAoJLy8gIXRoaXMuY2FyYm9uQ2FsY3VsYXRlZEF0Qm94KGJhdGNoQXNhSWQpLmV4aXN0cwoJYnl0ZWMgMjggLy8gICJjY2EiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfbGVuCglzd2FwCglwb3AKCSEKCWJ6ICppZjExX2VuZAoKCS8vICppZjExX2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjM5NAoJLy8gcmV0dXJuIDA7CglpbnRjIDEgLy8gMAoJcmV0c3ViCgoqaWYxMV9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czozOTUKCS8vIHJldHVybiB0aGlzLmNhcmJvbkNhbGN1bGF0ZWRBdEJveChiYXRjaEFzYUlkKS52YWx1ZTsKCWJ5dGVjIDI4IC8vICAiY2NhIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jYXJib25DYWxjdWxhdGVkQXRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRGYXJtZXJUb3RhbEJhdGNoZXMoc3RyaW5nKXVpbnQ2NAoqYWJpX3JvdXRlX2dldEZhcm1lclRvdGFsQmF0Y2hlczoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gZmFybWVyQWRkcjogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglleHRyYWN0IDIgMAoKCS8vIGV4ZWN1dGUgZ2V0RmFybWVyVG90YWxCYXRjaGVzKHN0cmluZyl1aW50NjQKCWNhbGxzdWIgZ2V0RmFybWVyVG90YWxCYXRjaGVzCglpdG9iCgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0RmFybWVyVG90YWxCYXRjaGVzKGZhcm1lckFkZHI6IHN0cmluZyk6IHVpbnQ2NApnZXRGYXJtZXJUb3RhbEJhdGNoZXM6Cglwcm90byAxIDEKCgkvLyAqaWYxMl9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQwMAoJLy8gIXRoaXMuZmFybWVyVG90YWxCYXRjaGVzQm94KGZhcm1lckFkZHIpLmV4aXN0cwoJYnl0ZWMgMjkgLy8gICJmcmIiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglib3hfbGVuCglzd2FwCglwb3AKCSEKCWJ6ICppZjEyX2VuZAoKCS8vICppZjEyX2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQwMAoJLy8gcmV0dXJuIDA7CglpbnRjIDEgLy8gMAoJcmV0c3ViCgoqaWYxMl9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0MDEKCS8vIHJldHVybiB0aGlzLmZhcm1lclRvdGFsQmF0Y2hlc0JveChmYXJtZXJBZGRyKS52YWx1ZTsKCWJ5dGVjIDI5IC8vICAiZnJiIgoJZnJhbWVfZGlnIC0xIC8vIGZhcm1lckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5mYXJtZXJUb3RhbEJhdGNoZXNCb3goZmFybWVyQWRkcikudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRGYXJtZXJWZXJpZmllZENvdW50KHN0cmluZyl1aW50NjQKKmFiaV9yb3V0ZV9nZXRGYXJtZXJWZXJpZmllZENvdW50OgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWV4dHJhY3QgMiAwCgoJLy8gZXhlY3V0ZSBnZXRGYXJtZXJWZXJpZmllZENvdW50KHN0cmluZyl1aW50NjQKCWNhbGxzdWIgZ2V0RmFybWVyVmVyaWZpZWRDb3VudAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEZhcm1lclZlcmlmaWVkQ291bnQoZmFybWVyQWRkcjogc3RyaW5nKTogdWludDY0CmdldEZhcm1lclZlcmlmaWVkQ291bnQ6Cglwcm90byAxIDEKCgkvLyAqaWYxM19jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQwNgoJLy8gIXRoaXMuZmFybWVyVmVyaWZpZWRDb3VudEJveChmYXJtZXJBZGRyKS5leGlzdHMKCWJ5dGVjIDMwIC8vICAiZnJ2IgoJZnJhbWVfZGlnIC0xIC8vIGZhcm1lckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYxM19lbmQKCgkvLyAqaWYxM19jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0MDYKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMTNfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDA3CgkvLyByZXR1cm4gdGhpcy5mYXJtZXJWZXJpZmllZENvdW50Qm94KGZhcm1lckFkZHIpLnZhbHVlOwoJYnl0ZWMgMzAgLy8gICJmcnYiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmZhcm1lclZlcmlmaWVkQ291bnRCb3goZmFybWVyQWRkcikudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRGYXJtZXJGbGFnZ2VkQ291bnQoc3RyaW5nKXVpbnQ2NAoqYWJpX3JvdXRlX2dldEZhcm1lckZsYWdnZWRDb3VudDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gZmFybWVyQWRkcjogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglleHRyYWN0IDIgMAoKCS8vIGV4ZWN1dGUgZ2V0RmFybWVyRmxhZ2dlZENvdW50KHN0cmluZyl1aW50NjQKCWNhbGxzdWIgZ2V0RmFybWVyRmxhZ2dlZENvdW50CglpdG9iCgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0RmFybWVyRmxhZ2dlZENvdW50KGZhcm1lckFkZHI6IHN0cmluZyk6IHVpbnQ2NApnZXRGYXJtZXJGbGFnZ2VkQ291bnQ6Cglwcm90byAxIDEKCgkvLyAqaWYxNF9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQxMgoJLy8gIXRoaXMuZmFybWVyRmxhZ2dlZENvdW50Qm94KGZhcm1lckFkZHIpLmV4aXN0cwoJYnl0ZWMgMzEgLy8gICJmcmYiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglib3hfbGVuCglzd2FwCglwb3AKCSEKCWJ6ICppZjE0X2VuZAoKCS8vICppZjE0X2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQxMgoJLy8gcmV0dXJuIDA7CglpbnRjIDEgLy8gMAoJcmV0c3ViCgoqaWYxNF9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0MTMKCS8vIHJldHVybiB0aGlzLmZhcm1lckZsYWdnZWRDb3VudEJveChmYXJtZXJBZGRyKS52YWx1ZTsKCWJ5dGVjIDMxIC8vICAiZnJmIgoJZnJhbWVfZGlnIC0xIC8vIGZhcm1lckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5mYXJtZXJGbGFnZ2VkQ291bnRCb3goZmFybWVyQWRkcikudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRGYXJtZXJUaWVyKHN0cmluZylzdHJpbmcKKmFiaV9yb3V0ZV9nZXRGYXJtZXJUaWVyOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWV4dHJhY3QgMiAwCgoJLy8gZXhlY3V0ZSBnZXRGYXJtZXJUaWVyKHN0cmluZylzdHJpbmcKCWNhbGxzdWIgZ2V0RmFybWVyVGllcgoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRGYXJtZXJUaWVyKGZhcm1lckFkZHI6IHN0cmluZyk6IHN0cmluZwpnZXRGYXJtZXJUaWVyOgoJcHJvdG8gMSAxCgoJLy8gKmlmMTVfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0MTgKCS8vICF0aGlzLmZhcm1lclRpZXJCb3goZmFybWVyQWRkcikuZXhpc3RzCglieXRlYyAzMiAvLyAgImZydCIKCWZyYW1lX2RpZyAtMSAvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJIQoJYnogKmlmMTVfZW5kCgoJLy8gKmlmMTVfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDE4CgkvLyByZXR1cm4gIiI7CglieXRlYyAxIC8vICAiIgoJcmV0c3ViCgoqaWYxNV9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0MTkKCS8vIHJldHVybiB0aGlzLmZhcm1lclRpZXJCb3goZmFybWVyQWRkcikudmFsdWU7CglieXRlYyAzMiAvLyAgImZydCIKCWZyYW1lX2RpZyAtMSAvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuZmFybWVyVGllckJveChmYXJtZXJBZGRyKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRGYXJtZXJDYXJib25DcmVkaXRzVG90YWwoc3RyaW5nKXVpbnQ2NAoqYWJpX3JvdXRlX2dldEZhcm1lckNhcmJvbkNyZWRpdHNUb3RhbDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gZmFybWVyQWRkcjogc3RyaW5nCgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglleHRyYWN0IDIgMAoKCS8vIGV4ZWN1dGUgZ2V0RmFybWVyQ2FyYm9uQ3JlZGl0c1RvdGFsKHN0cmluZyl1aW50NjQKCWNhbGxzdWIgZ2V0RmFybWVyQ2FyYm9uQ3JlZGl0c1RvdGFsCglpdG9iCgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0RmFybWVyQ2FyYm9uQ3JlZGl0c1RvdGFsKGZhcm1lckFkZHI6IHN0cmluZyk6IHVpbnQ2NApnZXRGYXJtZXJDYXJib25DcmVkaXRzVG90YWw6Cglwcm90byAxIDEKCgkvLyAqaWYxNl9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQyNAoJLy8gIXRoaXMuZmFybWVyQ2FyYm9uQ3JlZGl0c0JveChmYXJtZXJBZGRyKS5leGlzdHMKCWJ5dGVjIDMzIC8vICAiZnJjIgoJZnJhbWVfZGlnIC0xIC8vIGZhcm1lckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYxNl9lbmQKCgkvLyAqaWYxNl9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0MjQKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMTZfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDI1CgkvLyByZXR1cm4gdGhpcy5mYXJtZXJDYXJib25DcmVkaXRzQm94KGZhcm1lckFkZHIpLnZhbHVlOwoJYnl0ZWMgMzMgLy8gICJmcmMiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmZhcm1lckNhcmJvbkNyZWRpdHNCb3goZmFybWVyQWRkcikudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRGYXJtZXJQYXltZW50c1RvdGFsKHN0cmluZyl1aW50NjQKKmFiaV9yb3V0ZV9nZXRGYXJtZXJQYXltZW50c1RvdGFsOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWV4dHJhY3QgMiAwCgoJLy8gZXhlY3V0ZSBnZXRGYXJtZXJQYXltZW50c1RvdGFsKHN0cmluZyl1aW50NjQKCWNhbGxzdWIgZ2V0RmFybWVyUGF5bWVudHNUb3RhbAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEZhcm1lclBheW1lbnRzVG90YWwoZmFybWVyQWRkcjogc3RyaW5nKTogdWludDY0CmdldEZhcm1lclBheW1lbnRzVG90YWw6Cglwcm90byAxIDEKCgkvLyAqaWYxN19jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQzMAoJLy8gIXRoaXMuZmFybWVyUGF5bWVudHNUb3RhbEJveChmYXJtZXJBZGRyKS5leGlzdHMKCWJ5dGVjIDM0IC8vICAiZnJwIgoJZnJhbWVfZGlnIC0xIC8vIGZhcm1lckFkZHI6IHN0cmluZwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYxN19lbmQKCgkvLyAqaWYxN19jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0MzAKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMTdfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDMxCgkvLyByZXR1cm4gdGhpcy5mYXJtZXJQYXltZW50c1RvdGFsQm94KGZhcm1lckFkZHIpLnZhbHVlOwoJYnl0ZWMgMzQgLy8gICJmcnAiCglmcmFtZV9kaWcgLTEgLy8gZmFybWVyQWRkcjogc3RyaW5nCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmZhcm1lclBheW1lbnRzVG90YWxCb3goZmFybWVyQWRkcikudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRGYXJtZXJMYXN0VXBkYXRlZChzdHJpbmcpdWludDY0CiphYmlfcm91dGVfZ2V0RmFybWVyTGFzdFVwZGF0ZWQ6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGZhcm1lckFkZHI6IHN0cmluZwoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJZXh0cmFjdCAyIDAKCgkvLyBleGVjdXRlIGdldEZhcm1lckxhc3RVcGRhdGVkKHN0cmluZyl1aW50NjQKCWNhbGxzdWIgZ2V0RmFybWVyTGFzdFVwZGF0ZWQKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRGYXJtZXJMYXN0VXBkYXRlZChmYXJtZXJBZGRyOiBzdHJpbmcpOiB1aW50NjQKZ2V0RmFybWVyTGFzdFVwZGF0ZWQ6Cglwcm90byAxIDEKCgkvLyAqaWYxOF9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQzNgoJLy8gIXRoaXMuZmFybWVyTGFzdFVwZGF0ZWRCb3goZmFybWVyQWRkcikuZXhpc3RzCglieXRlYyAzNSAvLyAgImZydSIKCWZyYW1lX2RpZyAtMSAvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJIQoJYnogKmlmMThfZW5kCgoJLy8gKmlmMThfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDM2CgkvLyByZXR1cm4gMDsKCWludGMgMSAvLyAwCglyZXRzdWIKCippZjE4X2VuZDoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQzNwoJLy8gcmV0dXJuIHRoaXMuZmFybWVyTGFzdFVwZGF0ZWRCb3goZmFybWVyQWRkcikudmFsdWU7CglieXRlYyAzNSAvLyAgImZydSIKCWZyYW1lX2RpZyAtMSAvLyBmYXJtZXJBZGRyOiBzdHJpbmcKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuZmFybWVyTGFzdFVwZGF0ZWRCb3goZmFybWVyQWRkcikudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRQYXltZW50RmFybWVyQWRkcih1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0UGF5bWVudEZhcm1lckFkZHI6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIHBheW1lbnRJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRQYXltZW50RmFybWVyQWRkcih1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldFBheW1lbnRGYXJtZXJBZGRyCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldFBheW1lbnRGYXJtZXJBZGRyKHBheW1lbnRJZDogdWludDY0KTogc3RyaW5nCmdldFBheW1lbnRGYXJtZXJBZGRyOgoJcHJvdG8gMSAxCgoJLy8gKmlmMTlfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NDIKCS8vICF0aGlzLnBheW1lbnRGYXJtZXJBZGRyQm94KHBheW1lbnRJZCkuZXhpc3RzCglieXRlYyAzNyAvLyAgInBmIgoJZnJhbWVfZGlnIC0xIC8vIHBheW1lbnRJZDogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJIQoJYnogKmlmMTlfZW5kCgoJLy8gKmlmMTlfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDQyCgkvLyByZXR1cm4gIiI7CglieXRlYyAxIC8vICAiIgoJcmV0c3ViCgoqaWYxOV9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NDMKCS8vIHJldHVybiB0aGlzLnBheW1lbnRGYXJtZXJBZGRyQm94KHBheW1lbnRJZCkudmFsdWU7CglieXRlYyAzNyAvLyAgInBmIgoJZnJhbWVfZGlnIC0xIC8vIHBheW1lbnRJZDogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMucGF5bWVudEZhcm1lckFkZHJCb3gocGF5bWVudElkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRQYXltZW50QmF0Y2hJZCh1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0UGF5bWVudEJhdGNoSWQ6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIHBheW1lbnRJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRQYXltZW50QmF0Y2hJZCh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldFBheW1lbnRCYXRjaElkCglpdG9iCgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0UGF5bWVudEJhdGNoSWQocGF5bWVudElkOiB1aW50NjQpOiB1aW50NjQKZ2V0UGF5bWVudEJhdGNoSWQ6Cglwcm90byAxIDEKCgkvLyAqaWYyMF9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQ0OAoJLy8gIXRoaXMucGF5bWVudEJhdGNoSWRCb3gocGF5bWVudElkKS5leGlzdHMKCWJ5dGVjIDM4IC8vICAicGIiCglmcmFtZV9kaWcgLTEgLy8gcGF5bWVudElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYyMF9lbmQKCgkvLyAqaWYyMF9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NDgKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMjBfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDQ5CgkvLyByZXR1cm4gdGhpcy5wYXltZW50QmF0Y2hJZEJveChwYXltZW50SWQpLnZhbHVlOwoJYnl0ZWMgMzggLy8gICJwYiIKCWZyYW1lX2RpZyAtMSAvLyBwYXltZW50SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLnBheW1lbnRCYXRjaElkQm94KHBheW1lbnRJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRQYXltZW50QW1vdW50KHVpbnQ2NCl1aW50NjQKKmFiaV9yb3V0ZV9nZXRQYXltZW50QW1vdW50OgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBwYXltZW50SWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0UGF5bWVudEFtb3VudCh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldFBheW1lbnRBbW91bnQKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRQYXltZW50QW1vdW50KHBheW1lbnRJZDogdWludDY0KTogdWludDY0CmdldFBheW1lbnRBbW91bnQ6Cglwcm90byAxIDEKCgkvLyAqaWYyMV9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQ1NAoJLy8gIXRoaXMucGF5bWVudEFtb3VudEJveChwYXltZW50SWQpLmV4aXN0cwoJYnl0ZWMgMzkgLy8gICJwYSIKCWZyYW1lX2RpZyAtMSAvLyBwYXltZW50SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfbGVuCglzd2FwCglwb3AKCSEKCWJ6ICppZjIxX2VuZAoKCS8vICppZjIxX2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQ1NAoJLy8gcmV0dXJuIDA7CglpbnRjIDEgLy8gMAoJcmV0c3ViCgoqaWYyMV9lbmQ6CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NTUKCS8vIHJldHVybiB0aGlzLnBheW1lbnRBbW91bnRCb3gocGF5bWVudElkKS52YWx1ZTsKCWJ5dGVjIDM5IC8vICAicGEiCglmcmFtZV9kaWcgLTEgLy8gcGF5bWVudElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5wYXltZW50QW1vdW50Qm94KHBheW1lbnRJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRQYXltZW50Q3VycmVuY3kodWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldFBheW1lbnRDdXJyZW5jeToKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gcGF5bWVudElkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldFBheW1lbnRDdXJyZW5jeSh1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldFBheW1lbnRDdXJyZW5jeQoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRQYXltZW50Q3VycmVuY3kocGF5bWVudElkOiB1aW50NjQpOiBzdHJpbmcKZ2V0UGF5bWVudEN1cnJlbmN5OgoJcHJvdG8gMSAxCgoJLy8gKmlmMjJfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NjAKCS8vICF0aGlzLnBheW1lbnRDdXJyZW5jeUJveChwYXltZW50SWQpLmV4aXN0cwoJYnl0ZWMgNDAgLy8gICJwYyIKCWZyYW1lX2RpZyAtMSAvLyBwYXltZW50SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfbGVuCglzd2FwCglwb3AKCSEKCWJ6ICppZjIyX2VuZAoKCS8vICppZjIyX2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQ2MAoJLy8gcmV0dXJuICIiOwoJYnl0ZWMgMSAvLyAgIiIKCXJldHN1YgoKKmlmMjJfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDYxCgkvLyByZXR1cm4gdGhpcy5wYXltZW50Q3VycmVuY3lCb3gocGF5bWVudElkKS52YWx1ZTsKCWJ5dGVjIDQwIC8vICAicGMiCglmcmFtZV9kaWcgLTEgLy8gcGF5bWVudElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5wYXltZW50Q3VycmVuY3lCb3gocGF5bWVudElkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRQYXltZW50VHhJZCh1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0UGF5bWVudFR4SWQ6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIHBheW1lbnRJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRQYXltZW50VHhJZCh1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldFBheW1lbnRUeElkCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldFBheW1lbnRUeElkKHBheW1lbnRJZDogdWludDY0KTogc3RyaW5nCmdldFBheW1lbnRUeElkOgoJcHJvdG8gMSAxCgoJLy8gKmlmMjNfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NjYKCS8vICF0aGlzLnBheW1lbnRUeEJveChwYXltZW50SWQpLmV4aXN0cwoJYnl0ZWMgNDEgLy8gICJwdCIKCWZyYW1lX2RpZyAtMSAvLyBwYXltZW50SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfbGVuCglzd2FwCglwb3AKCSEKCWJ6ICppZjIzX2VuZAoKCS8vICppZjIzX2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQ2NgoJLy8gcmV0dXJuICIiOwoJYnl0ZWMgMSAvLyAgIiIKCXJldHN1YgoKKmlmMjNfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDY3CgkvLyByZXR1cm4gdGhpcy5wYXltZW50VHhCb3gocGF5bWVudElkKS52YWx1ZTsKCWJ5dGVjIDQxIC8vICAicHQiCglmcmFtZV9kaWcgLTEgLy8gcGF5bWVudElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5wYXltZW50VHhCb3gocGF5bWVudElkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRQYXltZW50VGltZXN0YW1wKHVpbnQ2NCl1aW50NjQKKmFiaV9yb3V0ZV9nZXRQYXltZW50VGltZXN0YW1wOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBwYXltZW50SWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0UGF5bWVudFRpbWVzdGFtcCh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldFBheW1lbnRUaW1lc3RhbXAKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRQYXltZW50VGltZXN0YW1wKHBheW1lbnRJZDogdWludDY0KTogdWludDY0CmdldFBheW1lbnRUaW1lc3RhbXA6Cglwcm90byAxIDEKCgkvLyAqaWYyNF9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQ3MgoJLy8gIXRoaXMucGF5bWVudFRpbWVzdGFtcEJveChwYXltZW50SWQpLmV4aXN0cwoJYnl0ZWMgMzYgLy8gICJwdHMiCglmcmFtZV9kaWcgLTEgLy8gcGF5bWVudElkOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYyNF9lbmQKCgkvLyAqaWYyNF9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NzIKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMjRfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDczCgkvLyByZXR1cm4gdGhpcy5wYXltZW50VGltZXN0YW1wQm94KHBheW1lbnRJZCkudmFsdWU7CglieXRlYyAzNiAvLyAgInB0cyIKCWZyYW1lX2RpZyAtMSAvLyBwYXltZW50SWQ6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLnBheW1lbnRUaW1lc3RhbXBCb3gocGF5bWVudElkKS52YWx1ZQoJYXNzZXJ0CglidG9pCglyZXRzdWIKCi8vIGdldEJhdGNoKHVpbnQ2NClzdHJpbmcKKmFiaV9yb3V0ZV9nZXRCYXRjaDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRCYXRjaCh1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldEJhdGNoCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEJhdGNoKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiBzdHJpbmcKZ2V0QmF0Y2g6Cglwcm90byAxIDEKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0NzgKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDc5CgkvLyByZXR1cm4gdGhpcy5iYXRjaENyb3BUeXBlQm94KGJhdGNoQXNhSWQpLnZhbHVlCgkvLyAgICAgICAgICAgICArICJ8IiArIHRoaXMuYmF0Y2hGYXJtR3BzQm94KGJhdGNoQXNhSWQpLnZhbHVlCgkvLyAgICAgICAgICAgICArICJ8IiArIHRoaXMuYmF0Y2hPcmdhbmljQ2VydElkQm94KGJhdGNoQXNhSWQpLnZhbHVlCgkvLyAgICAgICAgICAgICArICJ8IiArIHRoaXMuYmF0Y2hGYXJtZXJBZGRyQm94KGJhdGNoQXNhSWQpLnZhbHVlOwoJYnl0ZWMgMTAgLy8gICJiY3QiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmJhdGNoQ3JvcFR5cGVCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCWJ5dGVjIDIgLy8gICJ8IgoJY29uY2F0CglieXRlYyAxNSAvLyAgImJmZyIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuYmF0Y2hGYXJtR3BzQm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgljb25jYXQKCWJ5dGVjIDIgLy8gICJ8IgoJY29uY2F0CglieXRlYyAxNiAvLyAgImJvYyIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuYmF0Y2hPcmdhbmljQ2VydElkQm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgljb25jYXQKCWJ5dGVjIDIgLy8gICJ8IgoJY29uY2F0CglieXRlYyAxNyAvLyAgImJmYSIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuYmF0Y2hGYXJtZXJBZGRyQm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgljb25jYXQKCXJldHN1YgoKLy8gaGFzQmF0Y2godWludDY0KWJvb2wKKmFiaV9yb3V0ZV9oYXNCYXRjaDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBoYXNCYXRjaCh1aW50NjQpYm9vbAoJY2FsbHN1YiBoYXNCYXRjaAoJYnl0ZWMgNTMgLy8gMHgwMAoJaW50YyAxIC8vIDAKCXVuY292ZXIgMgoJc2V0Yml0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gaGFzQmF0Y2goYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCk6IGJvb2xlYW4KaGFzQmF0Y2g6Cglwcm90byAxIDEKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0ODcKCS8vIHJldHVybiB0aGlzLmJhdGNoQ3JvcFR5cGVCb3goYmF0Y2hBc2FJZCkuZXhpc3RzOwoJYnl0ZWMgMTAgLy8gICJiY3QiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfbGVuCglzd2FwCglwb3AKCXJldHN1YgoKLy8gZ2V0Q2hlY2twb2ludCh1aW50NjQsdWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldENoZWNrcG9pbnQ6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGluZGV4OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWJ0b2kKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldENoZWNrcG9pbnQodWludDY0LHVpbnQ2NClzdHJpbmcKCWNhbGxzdWIgZ2V0Q2hlY2twb2ludAoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRDaGVja3BvaW50KGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGluZGV4OiB1aW50NjQpOiBzdHJpbmcKZ2V0Q2hlY2twb2ludDoKCXByb3RvIDIgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDkyCgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjQ5MwoJLy8gdGhpcy5hc3NlcnRDaGVja3BvaW50SW5kZXgoYmF0Y2hBc2FJZCwgaW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0Q2hlY2twb2ludEluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NDk0CgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo0OTUKCS8vIHJldHVybiB0aGlzLmNoZWNrcG9pbnRHcHNCb3gocGspLnZhbHVlCgkvLyAgICAgICAgICAgICArICJ8IiArIHRoaXMuY2hlY2twb2ludEhhbmRsZXJUeXBlQm94KHBrKS52YWx1ZQoJLy8gICAgICAgICAgICAgKyAifCIgKyB0aGlzLmNoZWNrcG9pbnROb3Rlc0JveChwaykudmFsdWUKCS8vICAgICAgICAgICAgICsgInwiICsgdGhpcy5jaGVja3BvaW50UGhvdG9IYXNoQm94KHBrKS52YWx1ZTsKCWJ5dGVjIDE4IC8vICAiY3BnIgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmNoZWNrcG9pbnRHcHNCb3gocGspLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCglieXRlYyAyIC8vICAifCIKCWNvbmNhdAoJYnl0ZWMgMTMgLy8gICJjcGhuIgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmNoZWNrcG9pbnRIYW5kbGVyVHlwZUJveChwaykudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCWNvbmNhdAoJYnl0ZWMgMiAvLyAgInwiCgljb25jYXQKCWJ5dGVjIDE0IC8vICAiY3BubyIKCWZyYW1lX2RpZyAwIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jaGVja3BvaW50Tm90ZXNCb3gocGspLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgljb25jYXQKCWJ5dGVjIDIgLy8gICJ8IgoJY29uY2F0CglieXRlYyAxOSAvLyAgImNwcCIKCWZyYW1lX2RpZyAwIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jaGVja3BvaW50UGhvdG9IYXNoQm94KHBrKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJY29uY2F0CgoJLy8gc2V0IHRoZSBzdWJyb3V0aW5lIHJldHVybiB2YWx1ZQoJZnJhbWVfYnVyeSAwCglyZXRzdWIKCi8vIGdldENoZWNrcG9pbnRDb3VudCh1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0Q2hlY2twb2ludENvdW50OgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldENoZWNrcG9pbnRDb3VudCh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldENoZWNrcG9pbnRDb3VudAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldENoZWNrcG9pbnRDb3VudChiYXRjaEFzYUlkOiBCYXRjaEFzYUlkKTogdWludDY0CmdldENoZWNrcG9pbnRDb3VudDoKCXByb3RvIDEgMQoKCS8vICppZjI1X2NvbmRpdGlvbgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTAzCgkvLyAhdGhpcy5jaGVja3BvaW50Q291bnRCb3goYmF0Y2hBc2FJZCkuZXhpc3RzCglieXRlYyA1IC8vICAiY3BuIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYyNV9lbmQKCgkvLyAqaWYyNV9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1MDMKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMjVfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTA0CgkvLyByZXR1cm4gdGhpcy5jaGVja3BvaW50Q291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyA1IC8vICAiY3BuIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jaGVja3BvaW50Q291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRIYW5kb2ZmKHVpbnQ2NCx1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0SGFuZG9mZjoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWJ0b2kKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldEhhbmRvZmYodWludDY0LHVpbnQ2NClzdHJpbmcKCWNhbGxzdWIgZ2V0SGFuZG9mZgoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRIYW5kb2ZmKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGhhbmRvZmZJbmRleDogdWludDY0KTogc3RyaW5nCmdldEhhbmRvZmY6Cglwcm90byAyIDEKCgkvLyBQdXNoIGVtcHR5IGJ5dGVzIGFmdGVyIHRoZSBmcmFtZSBwb2ludGVyIHRvIHJlc2VydmUgc3BhY2UgZm9yIGxvY2FsIHZhcmlhYmxlcwoJYnl0ZWMgMSAvLyAweAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjUwOQoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1MTAKCS8vIHRoaXMuYXNzZXJ0SGFuZG9mZkluZGV4KGJhdGNoQXNhSWQsIGhhbmRvZmZJbmRleCkKCWZyYW1lX2RpZyAtMiAvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0SGFuZG9mZkluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTExCgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGhhbmRvZmZJbmRleAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWludGMgMiAvLyAxMDAwMAoJKgoJZnJhbWVfZGlnIC0yIC8vIGhhbmRvZmZJbmRleDogdWludDY0CgkrCglmcmFtZV9idXJ5IDAgLy8gcGs6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjUxMgoJLy8gcmV0dXJuIHRoaXMuaGFuZG9mZkZyb21BZGRyQm94KHBrKS52YWx1ZQoJLy8gICAgICAgICAgICAgKyAifCIgKyB0aGlzLmhhbmRvZmZUb0FkZHJCb3gocGspLnZhbHVlCgkvLyAgICAgICAgICAgICArICJ8IiArIHRoaXMuaGFuZG9mZlR5cGVCb3gocGspLnZhbHVlCgkvLyAgICAgICAgICAgICArICJ8IiArIHRoaXMuaGFuZG9mZlN0YXR1c0JveChwaykudmFsdWU7CglieXRlYyAyMCAvLyAgImhvZiIKCWZyYW1lX2RpZyAwIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5oYW5kb2ZmRnJvbUFkZHJCb3gocGspLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCglieXRlYyAyIC8vICAifCIKCWNvbmNhdAoJYnl0ZWMgMjEgLy8gICJob3QiCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuaGFuZG9mZlRvQWRkckJveChwaykudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCWNvbmNhdAoJYnl0ZWMgMiAvLyAgInwiCgljb25jYXQKCWJ5dGVjIDIyIC8vICAiaG95IgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmhhbmRvZmZUeXBlQm94KHBrKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJY29uY2F0CglieXRlYyAyIC8vICAifCIKCWNvbmNhdAoJYnl0ZWMgMTEgLy8gICJob3MiCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuaGFuZG9mZlN0YXR1c0JveChwaykudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCWNvbmNhdAoKCS8vIHNldCB0aGUgc3Vicm91dGluZSByZXR1cm4gdmFsdWUKCWZyYW1lX2J1cnkgMAoJcmV0c3ViCgovLyBoYXNIYW5kb2ZmKHVpbnQ2NCx1aW50NjQpYm9vbAoqYWJpX3JvdXRlX2hhc0hhbmRvZmY6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGhhbmRvZmZJbmRleDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBoYXNIYW5kb2ZmKHVpbnQ2NCx1aW50NjQpYm9vbAoJY2FsbHN1YiBoYXNIYW5kb2ZmCglieXRlYyA1MyAvLyAweDAwCglpbnRjIDEgLy8gMAoJdW5jb3ZlciAyCglzZXRiaXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBoYXNIYW5kb2ZmKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGhhbmRvZmZJbmRleDogdWludDY0KTogYm9vbGVhbgpoYXNIYW5kb2ZmOgoJcHJvdG8gMiAxCgoJLy8gUHVzaCBlbXB0eSBieXRlcyBhZnRlciB0aGUgZnJhbWUgcG9pbnRlciB0byByZXNlcnZlIHNwYWNlIGZvciBsb2NhbCB2YXJpYWJsZXMKCWJ5dGVjIDEgLy8gMHgKCgkvLyAqaWYyNl9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjUyMAoJLy8gIXRoaXMuaGFuZG9mZkNvdW50Qm94KGJhdGNoQXNhSWQpLmV4aXN0cwoJYnl0ZWMgMyAvLyAgImhvbiIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9sZW4KCXN3YXAKCXBvcAoJIQoJYnogKmlmMjZfZW5kCgoJLy8gKmlmMjZfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTIwCgkvLyByZXR1cm4gZmFsc2U7CglpbnRjIDEgLy8gMAoJYiAqaGFzSGFuZG9mZipyZXR1cm4KCippZjI2X2VuZDoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjUyMQoJLy8gY291bnQgPSB0aGlzLmhhbmRvZmZDb3VudEJveChiYXRjaEFzYUlkKS52YWx1ZQoJYnl0ZWMgMyAvLyAgImhvbiIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuaGFuZG9mZkNvdW50Qm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWJ0b2kKCWZyYW1lX2J1cnkgMCAvLyBjb3VudDogdWludDY0CgoJLy8gKmlmMjdfY29uZGl0aW9uCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1MjIKCS8vIGhhbmRvZmZJbmRleCA+IGNvdW50CglmcmFtZV9kaWcgLTIgLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCWZyYW1lX2RpZyAwIC8vIGNvdW50OiB1aW50NjQKCT4KCWJ6ICppZjI3X2VuZAoKCS8vICppZjI3X2NvbnNlcXVlbnQKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjUyMgoJLy8gcmV0dXJuIGZhbHNlOwoJaW50YyAxIC8vIDAKCWIgKmhhc0hhbmRvZmYqcmV0dXJuCgoqaWYyN19lbmQ6CgkvLyAqaWYyOF9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjUyMwoJLy8gaGFuZG9mZkluZGV4ID09PSAwCglmcmFtZV9kaWcgLTIgLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCWludGMgMSAvLyAwCgk9PQoJYnogKmlmMjhfZW5kCgoJLy8gKmlmMjhfY29uc2VxdWVudAoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTIzCgkvLyByZXR1cm4gZmFsc2U7CglpbnRjIDEgLy8gMAoJYiAqaGFzSGFuZG9mZipyZXR1cm4KCippZjI4X2VuZDoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjUyNAoJLy8gcmV0dXJuIHRydWU7CglpbnRjIDAgLy8gMQoKKmhhc0hhbmRvZmYqcmV0dXJuOgoJLy8gc2V0IHRoZSBzdWJyb3V0aW5lIHJldHVybiB2YWx1ZQoJZnJhbWVfYnVyeSAwCglyZXRzdWIKCi8vIGdldEhhbmRvZmZDb3VudCh1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0SGFuZG9mZkNvdW50OgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldEhhbmRvZmZDb3VudCh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldEhhbmRvZmZDb3VudAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEhhbmRvZmZDb3VudChiYXRjaEFzYUlkOiBCYXRjaEFzYUlkKTogdWludDY0CmdldEhhbmRvZmZDb3VudDoKCXByb3RvIDEgMQoKCS8vICppZjI5X2NvbmRpdGlvbgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTI5CgkvLyAhdGhpcy5oYW5kb2ZmQ291bnRCb3goYmF0Y2hBc2FJZCkuZXhpc3RzCglieXRlYyAzIC8vICAiaG9uIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYyOV9lbmQKCgkvLyAqaWYyOV9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1MjkKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMjlfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTMwCgkvLyByZXR1cm4gdGhpcy5oYW5kb2ZmQ291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyAzIC8vICAiaG9uIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5oYW5kb2ZmQ291bnRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRCYXRjaFdlaWdodCh1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0QmF0Y2hXZWlnaHQ6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0QmF0Y2hXZWlnaHQodWludDY0KXVpbnQ2NAoJY2FsbHN1YiBnZXRCYXRjaFdlaWdodAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEJhdGNoV2VpZ2h0KGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB1aW50NjQKZ2V0QmF0Y2hXZWlnaHQ6Cglwcm90byAxIDEKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1MzUKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTM2CgkvLyByZXR1cm4gdGhpcy5iYXRjaFdlaWdodEJveChiYXRjaEFzYUlkKS52YWx1ZTsKCWJ5dGVjIDUyIC8vICAiYnciCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmJhdGNoV2VpZ2h0Qm94KGJhdGNoQXNhSWQpLnZhbHVlCglhc3NlcnQKCWJ0b2kKCXJldHN1YgoKLy8gZ2V0QmF0Y2hDcm9wVHlwZSh1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0QmF0Y2hDcm9wVHlwZToKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRCYXRjaENyb3BUeXBlKHVpbnQ2NClzdHJpbmcKCWNhbGxzdWIgZ2V0QmF0Y2hDcm9wVHlwZQoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRCYXRjaENyb3BUeXBlKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiBzdHJpbmcKZ2V0QmF0Y2hDcm9wVHlwZToKCXByb3RvIDEgMQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU0MQoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1NDIKCS8vIHJldHVybiB0aGlzLmJhdGNoQ3JvcFR5cGVCb3goYmF0Y2hBc2FJZCkudmFsdWU7CglieXRlYyAxMCAvLyAgImJjdCIKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuYmF0Y2hDcm9wVHlwZUJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRCYXRjaEZhcm1HcHModWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldEJhdGNoRmFybUdwczoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRCYXRjaEZhcm1HcHModWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRCYXRjaEZhcm1HcHMKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0QmF0Y2hGYXJtR3BzKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiBzdHJpbmcKZ2V0QmF0Y2hGYXJtR3BzOgoJcHJvdG8gMSAxCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTQ3CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU0OAoJLy8gcmV0dXJuIHRoaXMuYmF0Y2hGYXJtR3BzQm94KGJhdGNoQXNhSWQpLnZhbHVlOwoJYnl0ZWMgMTUgLy8gICJiZmciCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmJhdGNoRmFybUdwc0JveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRCYXRjaEZhcm1pbmdQcmFjdGljZXModWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldEJhdGNoRmFybWluZ1ByYWN0aWNlczoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRCYXRjaEZhcm1pbmdQcmFjdGljZXModWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRCYXRjaEZhcm1pbmdQcmFjdGljZXMKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0QmF0Y2hGYXJtaW5nUHJhY3RpY2VzKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiBzdHJpbmcKZ2V0QmF0Y2hGYXJtaW5nUHJhY3RpY2VzOgoJcHJvdG8gMSAxCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTUzCgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU1NAoJLy8gcmV0dXJuIHRoaXMuYmF0Y2hGYXJtaW5nUHJhY3RpY2VzQm94KGJhdGNoQXNhSWQpLnZhbHVlOwoJYnl0ZWMgNDMgLy8gICJiZnAiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmJhdGNoRmFybWluZ1ByYWN0aWNlc0JveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRCYXRjaE9yZ2FuaWNDZXJ0SWQodWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldEJhdGNoT3JnYW5pY0NlcnRJZDoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRCYXRjaE9yZ2FuaWNDZXJ0SWQodWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRCYXRjaE9yZ2FuaWNDZXJ0SWQKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0QmF0Y2hPcmdhbmljQ2VydElkKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiBzdHJpbmcKZ2V0QmF0Y2hPcmdhbmljQ2VydElkOgoJcHJvdG8gMSAxCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTU5CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU2MAoJLy8gcmV0dXJuIHRoaXMuYmF0Y2hPcmdhbmljQ2VydElkQm94KGJhdGNoQXNhSWQpLnZhbHVlOwoJYnl0ZWMgMTYgLy8gICJib2MiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmJhdGNoT3JnYW5pY0NlcnRJZEJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRCYXRjaEZhcm1lckFkZHIodWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldEJhdGNoRmFybWVyQWRkcjoKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRCYXRjaEZhcm1lckFkZHIodWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRCYXRjaEZhcm1lckFkZHIKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0QmF0Y2hGYXJtZXJBZGRyKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiBzdHJpbmcKZ2V0QmF0Y2hGYXJtZXJBZGRyOgoJcHJvdG8gMSAxCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTY1CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU2NgoJLy8gcmV0dXJuIHRoaXMuYmF0Y2hGYXJtZXJBZGRyQm94KGJhdGNoQXNhSWQpLnZhbHVlOwoJYnl0ZWMgMTcgLy8gICJiZmEiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmJhdGNoRmFybWVyQWRkckJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoJcmV0c3ViCgovLyBnZXRCYXRjaENyZWF0ZWRBdCh1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0QmF0Y2hDcmVhdGVkQXQ6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0QmF0Y2hDcmVhdGVkQXQodWludDY0KXVpbnQ2NAoJY2FsbHN1YiBnZXRCYXRjaENyZWF0ZWRBdAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEJhdGNoQ3JlYXRlZEF0KGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB1aW50NjQKZ2V0QmF0Y2hDcmVhdGVkQXQ6Cglwcm90byAxIDEKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1NzEKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTcyCgkvLyByZXR1cm4gdGhpcy5iYXRjaENyZWF0ZWRBdEJveChiYXRjaEFzYUlkKS52YWx1ZTsKCWJ5dGVjIDQ0IC8vICAiYmNhIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5iYXRjaENyZWF0ZWRBdEJveChiYXRjaEFzYUlkKS52YWx1ZQoJYXNzZXJ0CglidG9pCglyZXRzdWIKCi8vIGdldEJhdGNoQXNhSWQodWludDY0KXVpbnQ2NAoqYWJpX3JvdXRlX2dldEJhdGNoQXNhSWQ6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0QmF0Y2hBc2FJZCh1aW50NjQpdWludDY0CgljYWxsc3ViIGdldEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRCYXRjaEFzYUlkKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQpOiB1aW50NjQKZ2V0QmF0Y2hBc2FJZDoKCXByb3RvIDEgMQoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU3NwoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyAqaWYzMF9jb25kaXRpb24KCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU3OAoJLy8gIXRoaXMuYmF0Y2hBc2FJZEJveChiYXRjaEFzYUlkKS5leGlzdHMKCWJ5dGVjIDEyIC8vICAiYmFzIgoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWl0b2IKCWNvbmNhdAoJYm94X2xlbgoJc3dhcAoJcG9wCgkhCglieiAqaWYzMF9lbmQKCgkvLyAqaWYzMF9jb25zZXF1ZW50CgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1NzgKCS8vIHJldHVybiAwOwoJaW50YyAxIC8vIDAKCXJldHN1YgoKKmlmMzBfZW5kOgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTc5CgkvLyByZXR1cm4gdGhpcy5iYXRjaEFzYUlkQm94KGJhdGNoQXNhSWQpLnZhbHVlOwoJYnl0ZWMgMTIgLy8gICJiYXMiCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmJhdGNoQXNhSWRCb3goYmF0Y2hBc2FJZCkudmFsdWUKCWFzc2VydAoJYnRvaQoJcmV0c3ViCgovLyBnZXRDaGVja3BvaW50VGVtcGVyYXR1cmUodWludDY0LHVpbnQ2NCl1aW50NjQKKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50VGVtcGVyYXR1cmU6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGluZGV4OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWJ0b2kKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldENoZWNrcG9pbnRUZW1wZXJhdHVyZSh1aW50NjQsdWludDY0KXVpbnQ2NAoJY2FsbHN1YiBnZXRDaGVja3BvaW50VGVtcGVyYXR1cmUKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRDaGVja3BvaW50VGVtcGVyYXR1cmUoYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCwgaW5kZXg6IHVpbnQ2NCk6IHVpbnQ2NApnZXRDaGVja3BvaW50VGVtcGVyYXR1cmU6Cglwcm90byAyIDEKCgkvLyBQdXNoIGVtcHR5IGJ5dGVzIGFmdGVyIHRoZSBmcmFtZSBwb2ludGVyIHRvIHJlc2VydmUgc3BhY2UgZm9yIGxvY2FsIHZhcmlhYmxlcwoJYnl0ZWMgMSAvLyAweAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU4NAoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1ODUKCS8vIHRoaXMuYXNzZXJ0Q2hlY2twb2ludEluZGV4KGJhdGNoQXNhSWQsIGluZGV4KQoJZnJhbWVfZGlnIC0yIC8vIGluZGV4OiB1aW50NjQKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydENoZWNrcG9pbnRJbmRleAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU4NgoJLy8gcGsgPSBiYXRjaEFzYUlkICogMTAwMDAgKyBpbmRleAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWludGMgMiAvLyAxMDAwMAoJKgoJZnJhbWVfZGlnIC0yIC8vIGluZGV4OiB1aW50NjQKCSsKCWZyYW1lX2J1cnkgMCAvLyBwazogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTg3CgkvLyByZXR1cm4gdGhpcy5jaGVja3BvaW50VGVtcGVyYXR1cmVCb3gocGspLnZhbHVlOwoJYnl0ZWMgNDUgLy8gICJjcHQiCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuY2hlY2twb2ludFRlbXBlcmF0dXJlQm94KHBrKS52YWx1ZQoJYXNzZXJ0CglidG9pCgoJLy8gc2V0IHRoZSBzdWJyb3V0aW5lIHJldHVybiB2YWx1ZQoJZnJhbWVfYnVyeSAwCglyZXRzdWIKCi8vIGdldENoZWNrcG9pbnRIdW1pZGl0eSh1aW50NjQsdWludDY0KXVpbnQ2NAoqYWJpX3JvdXRlX2dldENoZWNrcG9pbnRIdW1pZGl0eToKCS8vIFRoZSBBQkkgcmV0dXJuIHByZWZpeAoJYnl0ZWMgMCAvLyAweDE1MWY3Yzc1CgoJLy8gaW5kZXg6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgoJYnRvaQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0Q2hlY2twb2ludEh1bWlkaXR5KHVpbnQ2NCx1aW50NjQpdWludDY0CgljYWxsc3ViIGdldENoZWNrcG9pbnRIdW1pZGl0eQoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldENoZWNrcG9pbnRIdW1pZGl0eShiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBpbmRleDogdWludDY0KTogdWludDY0CmdldENoZWNrcG9pbnRIdW1pZGl0eToKCXByb3RvIDIgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTkyCgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjU5MwoJLy8gdGhpcy5hc3NlcnRDaGVja3BvaW50SW5kZXgoYmF0Y2hBc2FJZCwgaW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0Q2hlY2twb2ludEluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NTk0CgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo1OTUKCS8vIHJldHVybiB0aGlzLmNoZWNrcG9pbnRIdW1pZGl0eUJveChwaykudmFsdWU7CglieXRlYyA0NiAvLyAgImNwaCIKCWZyYW1lX2RpZyAwIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jaGVja3BvaW50SHVtaWRpdHlCb3gocGspLnZhbHVlCglhc3NlcnQKCWJ0b2kKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCXJldHN1YgoKLy8gZ2V0Q2hlY2twb2ludEdwcyh1aW50NjQsdWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldENoZWNrcG9pbnRHcHM6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGluZGV4OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWJ0b2kKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldENoZWNrcG9pbnRHcHModWludDY0LHVpbnQ2NClzdHJpbmcKCWNhbGxzdWIgZ2V0Q2hlY2twb2ludEdwcwoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRDaGVja3BvaW50R3BzKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGluZGV4OiB1aW50NjQpOiBzdHJpbmcKZ2V0Q2hlY2twb2ludEdwczoKCXByb3RvIDIgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjAwCgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjYwMQoJLy8gdGhpcy5hc3NlcnRDaGVja3BvaW50SW5kZXgoYmF0Y2hBc2FJZCwgaW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0Q2hlY2twb2ludEluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjAyCgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2MDMKCS8vIHJldHVybiB0aGlzLmNoZWNrcG9pbnRHcHNCb3gocGspLnZhbHVlOwoJYnl0ZWMgMTggLy8gICJjcGciCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuY2hlY2twb2ludEdwc0JveChwaykudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCXJldHN1YgoKLy8gZ2V0Q2hlY2twb2ludEhhbmRsZXJUeXBlKHVpbnQ2NCx1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0Q2hlY2twb2ludEhhbmRsZXJUeXBlOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBpbmRleDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRDaGVja3BvaW50SGFuZGxlclR5cGUodWludDY0LHVpbnQ2NClzdHJpbmcKCWNhbGxzdWIgZ2V0Q2hlY2twb2ludEhhbmRsZXJUeXBlCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldENoZWNrcG9pbnRIYW5kbGVyVHlwZShiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBpbmRleDogdWludDY0KTogc3RyaW5nCmdldENoZWNrcG9pbnRIYW5kbGVyVHlwZToKCXByb3RvIDIgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjA4CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjYwOQoJLy8gdGhpcy5hc3NlcnRDaGVja3BvaW50SW5kZXgoYmF0Y2hBc2FJZCwgaW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0Q2hlY2twb2ludEluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjEwCgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2MTEKCS8vIHJldHVybiB0aGlzLmNoZWNrcG9pbnRIYW5kbGVyVHlwZUJveChwaykudmFsdWU7CglieXRlYyAxMyAvLyAgImNwaG4iCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuY2hlY2twb2ludEhhbmRsZXJUeXBlQm94KHBrKS52YWx1ZQoJYXNzZXJ0CglleHRyYWN0IDIgMAoKCS8vIHNldCB0aGUgc3Vicm91dGluZSByZXR1cm4gdmFsdWUKCWZyYW1lX2J1cnkgMAoJcmV0c3ViCgovLyBnZXRDaGVja3BvaW50Tm90ZXModWludDY0LHVpbnQ2NClzdHJpbmcKKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50Tm90ZXM6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGluZGV4OiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDIKCWJ0b2kKCgkvLyBiYXRjaEFzYUlkOiB1aW50NjQKCXR4bmEgQXBwbGljYXRpb25BcmdzIDEKCWJ0b2kKCgkvLyBleGVjdXRlIGdldENoZWNrcG9pbnROb3Rlcyh1aW50NjQsdWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRDaGVja3BvaW50Tm90ZXMKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0Q2hlY2twb2ludE5vdGVzKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGluZGV4OiB1aW50NjQpOiBzdHJpbmcKZ2V0Q2hlY2twb2ludE5vdGVzOgoJcHJvdG8gMiAxCgoJLy8gUHVzaCBlbXB0eSBieXRlcyBhZnRlciB0aGUgZnJhbWUgcG9pbnRlciB0byByZXNlcnZlIHNwYWNlIGZvciBsb2NhbCB2YXJpYWJsZXMKCWJ5dGVjIDEgLy8gMHgKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2MTYKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjE3CgkvLyB0aGlzLmFzc2VydENoZWNrcG9pbnRJbmRleChiYXRjaEFzYUlkLCBpbmRleCkKCWZyYW1lX2RpZyAtMiAvLyBpbmRleDogdWludDY0CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRDaGVja3BvaW50SW5kZXgKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2MTgKCS8vIHBrID0gYmF0Y2hBc2FJZCAqIDEwMDAwICsgaW5kZXgKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpbnRjIDIgLy8gMTAwMDAKCSoKCWZyYW1lX2RpZyAtMiAvLyBpbmRleDogdWludDY0CgkrCglmcmFtZV9idXJ5IDAgLy8gcGs6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjYxOQoJLy8gcmV0dXJuIHRoaXMuY2hlY2twb2ludE5vdGVzQm94KHBrKS52YWx1ZTsKCWJ5dGVjIDE0IC8vICAiY3BubyIKCWZyYW1lX2RpZyAwIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5jaGVja3BvaW50Tm90ZXNCb3gocGspLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgoJLy8gc2V0IHRoZSBzdWJyb3V0aW5lIHJldHVybiB2YWx1ZQoJZnJhbWVfYnVyeSAwCglyZXRzdWIKCi8vIGdldENoZWNrcG9pbnRQaG90b0hhc2godWludDY0LHVpbnQ2NClzdHJpbmcKKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50UGhvdG9IYXNoOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBpbmRleDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRDaGVja3BvaW50UGhvdG9IYXNoKHVpbnQ2NCx1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldENoZWNrcG9pbnRQaG90b0hhc2gKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0Q2hlY2twb2ludFBob3RvSGFzaChiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBpbmRleDogdWludDY0KTogc3RyaW5nCmdldENoZWNrcG9pbnRQaG90b0hhc2g6Cglwcm90byAyIDEKCgkvLyBQdXNoIGVtcHR5IGJ5dGVzIGFmdGVyIHRoZSBmcmFtZSBwb2ludGVyIHRvIHJlc2VydmUgc3BhY2UgZm9yIGxvY2FsIHZhcmlhYmxlcwoJYnl0ZWMgMSAvLyAweAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjYyNAoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2MjUKCS8vIHRoaXMuYXNzZXJ0Q2hlY2twb2ludEluZGV4KGJhdGNoQXNhSWQsIGluZGV4KQoJZnJhbWVfZGlnIC0yIC8vIGluZGV4OiB1aW50NjQKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydENoZWNrcG9pbnRJbmRleAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjYyNgoJLy8gcGsgPSBiYXRjaEFzYUlkICogMTAwMDAgKyBpbmRleAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWludGMgMiAvLyAxMDAwMAoJKgoJZnJhbWVfZGlnIC0yIC8vIGluZGV4OiB1aW50NjQKCSsKCWZyYW1lX2J1cnkgMCAvLyBwazogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjI3CgkvLyByZXR1cm4gdGhpcy5jaGVja3BvaW50UGhvdG9IYXNoQm94KHBrKS52YWx1ZTsKCWJ5dGVjIDE5IC8vICAiY3BwIgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmNoZWNrcG9pbnRQaG90b0hhc2hCb3gocGspLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgoJLy8gc2V0IHRoZSBzdWJyb3V0aW5lIHJldHVybiB2YWx1ZQoJZnJhbWVfYnVyeSAwCglyZXRzdWIKCi8vIGdldENoZWNrcG9pbnRUaW1lc3RhbXAodWludDY0LHVpbnQ2NCl1aW50NjQKKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50VGltZXN0YW1wOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBpbmRleDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRDaGVja3BvaW50VGltZXN0YW1wKHVpbnQ2NCx1aW50NjQpdWludDY0CgljYWxsc3ViIGdldENoZWNrcG9pbnRUaW1lc3RhbXAKCWl0b2IKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRDaGVja3BvaW50VGltZXN0YW1wKGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQsIGluZGV4OiB1aW50NjQpOiB1aW50NjQKZ2V0Q2hlY2twb2ludFRpbWVzdGFtcDoKCXByb3RvIDIgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjMyCgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjYzMwoJLy8gdGhpcy5hc3NlcnRDaGVja3BvaW50SW5kZXgoYmF0Y2hBc2FJZCwgaW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0Q2hlY2twb2ludEluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjM0CgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgLTIgLy8gaW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2MzUKCS8vIHJldHVybiB0aGlzLmNoZWNrcG9pbnRUaW1lc3RhbXBCb3gocGspLnZhbHVlOwoJYnl0ZWMgNDIgLy8gICJjcHRzIgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmNoZWNrcG9pbnRUaW1lc3RhbXBCb3gocGspLnZhbHVlCglhc3NlcnQKCWJ0b2kKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCXJldHN1YgoKLy8gZ2V0SGFuZG9mZkZyb21BZGRyKHVpbnQ2NCx1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0SGFuZG9mZkZyb21BZGRyOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgoJYnRvaQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0SGFuZG9mZkZyb21BZGRyKHVpbnQ2NCx1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldEhhbmRvZmZGcm9tQWRkcgoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRIYW5kb2ZmRnJvbUFkZHIoYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCwgaGFuZG9mZkluZGV4OiB1aW50NjQpOiBzdHJpbmcKZ2V0SGFuZG9mZkZyb21BZGRyOgoJcHJvdG8gMiAxCgoJLy8gUHVzaCBlbXB0eSBieXRlcyBhZnRlciB0aGUgZnJhbWUgcG9pbnRlciB0byByZXNlcnZlIHNwYWNlIGZvciBsb2NhbCB2YXJpYWJsZXMKCWJ5dGVjIDEgLy8gMHgKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NDAKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjQxCgkvLyB0aGlzLmFzc2VydEhhbmRvZmZJbmRleChiYXRjaEFzYUlkLCBoYW5kb2ZmSW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEhhbmRvZmZJbmRleAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY0MgoJLy8gcGsgPSBiYXRjaEFzYUlkICogMTAwMDAgKyBoYW5kb2ZmSW5kZXgKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpbnRjIDIgLy8gMTAwMDAKCSoKCWZyYW1lX2RpZyAtMiAvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NDMKCS8vIHJldHVybiB0aGlzLmhhbmRvZmZGcm9tQWRkckJveChwaykudmFsdWU7CglieXRlYyAyMCAvLyAgImhvZiIKCWZyYW1lX2RpZyAwIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5oYW5kb2ZmRnJvbUFkZHJCb3gocGspLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgoJLy8gc2V0IHRoZSBzdWJyb3V0aW5lIHJldHVybiB2YWx1ZQoJZnJhbWVfYnVyeSAwCglyZXRzdWIKCi8vIGdldEhhbmRvZmZUb0FkZHIodWludDY0LHVpbnQ2NClzdHJpbmcKKmFiaV9yb3V0ZV9nZXRIYW5kb2ZmVG9BZGRyOgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgoJYnRvaQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0SGFuZG9mZlRvQWRkcih1aW50NjQsdWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRIYW5kb2ZmVG9BZGRyCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEhhbmRvZmZUb0FkZHIoYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZCwgaGFuZG9mZkluZGV4OiB1aW50NjQpOiBzdHJpbmcKZ2V0SGFuZG9mZlRvQWRkcjoKCXByb3RvIDIgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjQ4CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY0OQoJLy8gdGhpcy5hc3NlcnRIYW5kb2ZmSW5kZXgoYmF0Y2hBc2FJZCwgaGFuZG9mZkluZGV4KQoJZnJhbWVfZGlnIC0yIC8vIGhhbmRvZmZJbmRleDogdWludDY0CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRIYW5kb2ZmSW5kZXgKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NTAKCS8vIHBrID0gYmF0Y2hBc2FJZCAqIDEwMDAwICsgaGFuZG9mZkluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgLTIgLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCSsKCWZyYW1lX2J1cnkgMCAvLyBwazogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjUxCgkvLyByZXR1cm4gdGhpcy5oYW5kb2ZmVG9BZGRyQm94KHBrKS52YWx1ZTsKCWJ5dGVjIDIxIC8vICAiaG90IgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmhhbmRvZmZUb0FkZHJCb3gocGspLnZhbHVlCglhc3NlcnQKCWV4dHJhY3QgMiAwCgoJLy8gc2V0IHRoZSBzdWJyb3V0aW5lIHJldHVybiB2YWx1ZQoJZnJhbWVfYnVyeSAwCglyZXRzdWIKCi8vIGdldEhhbmRvZmZUeXBlKHVpbnQ2NCx1aW50NjQpc3RyaW5nCiphYmlfcm91dGVfZ2V0SGFuZG9mZlR5cGU6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGhhbmRvZmZJbmRleDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRIYW5kb2ZmVHlwZSh1aW50NjQsdWludDY0KXN0cmluZwoJY2FsbHN1YiBnZXRIYW5kb2ZmVHlwZQoJZHVwCglsZW4KCWl0b2IKCWV4dHJhY3QgNiAyCglzd2FwCgljb25jYXQKCWNvbmNhdAoJbG9nCglpbnRjIDAgLy8gMQoJcmV0dXJuCgovLyBnZXRIYW5kb2ZmVHlwZShiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBoYW5kb2ZmSW5kZXg6IHVpbnQ2NCk6IHN0cmluZwpnZXRIYW5kb2ZmVHlwZToKCXByb3RvIDIgMQoKCS8vIFB1c2ggZW1wdHkgYnl0ZXMgYWZ0ZXIgdGhlIGZyYW1lIHBvaW50ZXIgdG8gcmVzZXJ2ZSBzcGFjZSBmb3IgbG9jYWwgdmFyaWFibGVzCglieXRlYyAxIC8vIDB4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjU2CgkvLyB0aGlzLmFzc2VydEJhdGNoRXhpc3RzKGJhdGNoQXNhSWQpCglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRCYXRjaEV4aXN0cwoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY1NwoJLy8gdGhpcy5hc3NlcnRIYW5kb2ZmSW5kZXgoYmF0Y2hBc2FJZCwgaGFuZG9mZkluZGV4KQoJZnJhbWVfZGlnIC0yIC8vIGhhbmRvZmZJbmRleDogdWludDY0CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJY2FsbHN1YiBhc3NlcnRIYW5kb2ZmSW5kZXgKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NTgKCS8vIHBrID0gYmF0Y2hBc2FJZCAqIDEwMDAwICsgaGFuZG9mZkluZGV4CglmcmFtZV9kaWcgLTEgLy8gYmF0Y2hBc2FJZDogQmF0Y2hBc2FJZAoJaW50YyAyIC8vIDEwMDAwCgkqCglmcmFtZV9kaWcgLTIgLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCSsKCWZyYW1lX2J1cnkgMCAvLyBwazogdWludDY0CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjU5CgkvLyByZXR1cm4gdGhpcy5oYW5kb2ZmVHlwZUJveChwaykudmFsdWU7CglieXRlYyAyMiAvLyAgImhveSIKCWZyYW1lX2RpZyAwIC8vIHBrOiB1aW50NjQKCWl0b2IKCWNvbmNhdAoJYm94X2dldAoKCS8vIGJveCB2YWx1ZSBkb2VzIG5vdCBleGlzdDogdGhpcy5oYW5kb2ZmVHlwZUJveChwaykudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCXJldHN1YgoKLy8gZ2V0SGFuZG9mZlN0YXR1cyh1aW50NjQsdWludDY0KXN0cmluZwoqYWJpX3JvdXRlX2dldEhhbmRvZmZTdGF0dXM6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGhhbmRvZmZJbmRleDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRIYW5kb2ZmU3RhdHVzKHVpbnQ2NCx1aW50NjQpc3RyaW5nCgljYWxsc3ViIGdldEhhbmRvZmZTdGF0dXMKCWR1cAoJbGVuCglpdG9iCglleHRyYWN0IDYgMgoJc3dhcAoJY29uY2F0Cgljb25jYXQKCWxvZwoJaW50YyAwIC8vIDEKCXJldHVybgoKLy8gZ2V0SGFuZG9mZlN0YXR1cyhiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBoYW5kb2ZmSW5kZXg6IHVpbnQ2NCk6IHN0cmluZwpnZXRIYW5kb2ZmU3RhdHVzOgoJcHJvdG8gMiAxCgoJLy8gUHVzaCBlbXB0eSBieXRlcyBhZnRlciB0aGUgZnJhbWUgcG9pbnRlciB0byByZXNlcnZlIHNwYWNlIGZvciBsb2NhbCB2YXJpYWJsZXMKCWJ5dGVjIDEgLy8gMHgKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NjQKCS8vIHRoaXMuYXNzZXJ0QmF0Y2hFeGlzdHMoYmF0Y2hBc2FJZCkKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEJhdGNoRXhpc3RzCgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjY1CgkvLyB0aGlzLmFzc2VydEhhbmRvZmZJbmRleChiYXRjaEFzYUlkLCBoYW5kb2ZmSW5kZXgpCglmcmFtZV9kaWcgLTIgLy8gaGFuZG9mZkluZGV4OiB1aW50NjQKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCgljYWxsc3ViIGFzc2VydEhhbmRvZmZJbmRleAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY2NgoJLy8gcGsgPSBiYXRjaEFzYUlkICogMTAwMDAgKyBoYW5kb2ZmSW5kZXgKCWZyYW1lX2RpZyAtMSAvLyBiYXRjaEFzYUlkOiBCYXRjaEFzYUlkCglpbnRjIDIgLy8gMTAwMDAKCSoKCWZyYW1lX2RpZyAtMiAvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJKwoJZnJhbWVfYnVyeSAwIC8vIHBrOiB1aW50NjQKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NjcKCS8vIHJldHVybiB0aGlzLmhhbmRvZmZTdGF0dXNCb3gocGspLnZhbHVlOwoJYnl0ZWMgMTEgLy8gICJob3MiCglmcmFtZV9kaWcgMCAvLyBwazogdWludDY0CglpdG9iCgljb25jYXQKCWJveF9nZXQKCgkvLyBib3ggdmFsdWUgZG9lcyBub3QgZXhpc3Q6IHRoaXMuaGFuZG9mZlN0YXR1c0JveChwaykudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCXJldHN1YgoKLy8gZ2V0SGFuZG9mZkNvbmZpcm1lZEF0KHVpbnQ2NCx1aW50NjQpdWludDY0CiphYmlfcm91dGVfZ2V0SGFuZG9mZkNvbmZpcm1lZEF0OgoJLy8gVGhlIEFCSSByZXR1cm4gcHJlZml4CglieXRlYyAwIC8vIDB4MTUxZjdjNzUKCgkvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgoJYnRvaQoKCS8vIGJhdGNoQXNhSWQ6IHVpbnQ2NAoJdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQoJYnRvaQoKCS8vIGV4ZWN1dGUgZ2V0SGFuZG9mZkNvbmZpcm1lZEF0KHVpbnQ2NCx1aW50NjQpdWludDY0CgljYWxsc3ViIGdldEhhbmRvZmZDb25maXJtZWRBdAoJaXRvYgoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEhhbmRvZmZDb25maXJtZWRBdChiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBoYW5kb2ZmSW5kZXg6IHVpbnQ2NCk6IHVpbnQ2NApnZXRIYW5kb2ZmQ29uZmlybWVkQXQ6Cglwcm90byAyIDEKCgkvLyBQdXNoIGVtcHR5IGJ5dGVzIGFmdGVyIHRoZSBmcmFtZSBwb2ludGVyIHRvIHJlc2VydmUgc3BhY2UgZm9yIGxvY2FsIHZhcmlhYmxlcwoJYnl0ZWMgMSAvLyAweAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY3MgoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2NzMKCS8vIHRoaXMuYXNzZXJ0SGFuZG9mZkluZGV4KGJhdGNoQXNhSWQsIGhhbmRvZmZJbmRleCkKCWZyYW1lX2RpZyAtMiAvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0SGFuZG9mZkluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6Njc0CgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGhhbmRvZmZJbmRleAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWludGMgMiAvLyAxMDAwMAoJKgoJZnJhbWVfZGlnIC0yIC8vIGhhbmRvZmZJbmRleDogdWludDY0CgkrCglmcmFtZV9idXJ5IDAgLy8gcGs6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY3NQoJLy8gcmV0dXJuIHRoaXMuaGFuZG9mZkNvbmZpcm1lZEF0Qm94KHBrKS52YWx1ZTsKCWJ5dGVjIDIzIC8vICAiaGNhIgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmhhbmRvZmZDb25maXJtZWRBdEJveChwaykudmFsdWUKCWFzc2VydAoJYnRvaQoKCS8vIHNldCB0aGUgc3Vicm91dGluZSByZXR1cm4gdmFsdWUKCWZyYW1lX2J1cnkgMAoJcmV0c3ViCgovLyBnZXRIYW5kb2ZmUGhvdG9IYXNoZXModWludDY0LHVpbnQ2NClzdHJpbmcKKmFiaV9yb3V0ZV9nZXRIYW5kb2ZmUGhvdG9IYXNoZXM6CgkvLyBUaGUgQUJJIHJldHVybiBwcmVmaXgKCWJ5dGVjIDAgLy8gMHgxNTFmN2M3NQoKCS8vIGhhbmRvZmZJbmRleDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAyCglidG9pCgoJLy8gYmF0Y2hBc2FJZDogdWludDY0Cgl0eG5hIEFwcGxpY2F0aW9uQXJncyAxCglidG9pCgoJLy8gZXhlY3V0ZSBnZXRIYW5kb2ZmUGhvdG9IYXNoZXModWludDY0LHVpbnQ2NClzdHJpbmcKCWNhbGxzdWIgZ2V0SGFuZG9mZlBob3RvSGFzaGVzCglkdXAKCWxlbgoJaXRvYgoJZXh0cmFjdCA2IDIKCXN3YXAKCWNvbmNhdAoJY29uY2F0Cglsb2cKCWludGMgMCAvLyAxCglyZXR1cm4KCi8vIGdldEhhbmRvZmZQaG90b0hhc2hlcyhiYXRjaEFzYUlkOiBCYXRjaEFzYUlkLCBoYW5kb2ZmSW5kZXg6IHVpbnQ2NCk6IHN0cmluZwpnZXRIYW5kb2ZmUGhvdG9IYXNoZXM6Cglwcm90byAyIDEKCgkvLyBQdXNoIGVtcHR5IGJ5dGVzIGFmdGVyIHRoZSBmcmFtZSBwb2ludGVyIHRvIHJlc2VydmUgc3BhY2UgZm9yIGxvY2FsIHZhcmlhYmxlcwoJYnl0ZWMgMSAvLyAweAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY4MAoJLy8gdGhpcy5hc3NlcnRCYXRjaEV4aXN0cyhiYXRjaEFzYUlkKQoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0QmF0Y2hFeGlzdHMKCgkvLyBjb250cmFjdHMvY29udHJhY3RTdXBwbHkvY29udHJhY3QuYWxnby50czo2ODEKCS8vIHRoaXMuYXNzZXJ0SGFuZG9mZkluZGV4KGJhdGNoQXNhSWQsIGhhbmRvZmZJbmRleCkKCWZyYW1lX2RpZyAtMiAvLyBoYW5kb2ZmSW5kZXg6IHVpbnQ2NAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWNhbGxzdWIgYXNzZXJ0SGFuZG9mZkluZGV4CgoJLy8gY29udHJhY3RzL2NvbnRyYWN0U3VwcGx5L2NvbnRyYWN0LmFsZ28udHM6NjgyCgkvLyBwayA9IGJhdGNoQXNhSWQgKiAxMDAwMCArIGhhbmRvZmZJbmRleAoJZnJhbWVfZGlnIC0xIC8vIGJhdGNoQXNhSWQ6IEJhdGNoQXNhSWQKCWludGMgMiAvLyAxMDAwMAoJKgoJZnJhbWVfZGlnIC0yIC8vIGhhbmRvZmZJbmRleDogdWludDY0CgkrCglmcmFtZV9idXJ5IDAgLy8gcGs6IHVpbnQ2NAoKCS8vIGNvbnRyYWN0cy9jb250cmFjdFN1cHBseS9jb250cmFjdC5hbGdvLnRzOjY4MwoJLy8gcmV0dXJuIHRoaXMuaGFuZG9mZlBob3RvSGFzaGVzQm94KHBrKS52YWx1ZTsKCWJ5dGVjIDQ3IC8vICAiaHBoIgoJZnJhbWVfZGlnIDAgLy8gcGs6IHVpbnQ2NAoJaXRvYgoJY29uY2F0Cglib3hfZ2V0CgoJLy8gYm94IHZhbHVlIGRvZXMgbm90IGV4aXN0OiB0aGlzLmhhbmRvZmZQaG90b0hhc2hlc0JveChwaykudmFsdWUKCWFzc2VydAoJZXh0cmFjdCAyIDAKCgkvLyBzZXQgdGhlIHN1YnJvdXRpbmUgcmV0dXJuIHZhbHVlCglmcmFtZV9idXJ5IDAKCXJldHN1YgoKKmNyZWF0ZV9Ob09wOgoJcHVzaGJ5dGVzIDB4Yjg0NDdiMzYgLy8gbWV0aG9kICJjcmVhdGVBcHBsaWNhdGlvbigpdm9pZCIKCXR4bmEgQXBwbGljYXRpb25BcmdzIDAKCW1hdGNoICphYmlfcm91dGVfY3JlYXRlQXBwbGljYXRpb24KCgkvLyB0aGlzIGNvbnRyYWN0IGRvZXMgbm90IGltcGxlbWVudCB0aGUgZ2l2ZW4gQUJJIG1ldGhvZCBmb3IgY3JlYXRlIE5vT3AKCWVycgoKKmNhbGxfTm9PcDoKCXB1c2hieXRlcyAweDE3ODY2OTEyIC8vIG1ldGhvZCAic2V0QWRtaW4oYWRkcmVzcyl2b2lkIgoJcHVzaGJ5dGVzIDB4NDRkZDQyNzcgLy8gbWV0aG9kICJjcmVhdGVCYXRjaChzdHJpbmcsdWludDY0LHN0cmluZyxzdHJpbmcsc3RyaW5nLHN0cmluZyx1aW50NjQpdWludDY0IgoJcHVzaGJ5dGVzIDB4YTg5ZGMyMTEgLy8gbWV0aG9kICJsb2dDaGVja3BvaW50KHVpbnQ2NCxzdHJpbmcsc3RyaW5nLHVpbnQ2NCx1aW50NjQsc3RyaW5nLHN0cmluZyxzdHJpbmcsdWludDY0KXZvaWQiCglwdXNoYnl0ZXMgMHgxOTg5MGY4YiAvLyBtZXRob2QgImluaXRpYXRlSGFuZG9mZih1aW50NjQsc3RyaW5nLHN0cmluZyxzdHJpbmcsc3RyaW5nKXZvaWQiCglwdXNoYnl0ZXMgMHg1Mjc0NTA4YSAvLyBtZXRob2QgImNvbmZpcm1IYW5kb2ZmKHVpbnQ2NCx1aW50NjQsdWludDY0KXZvaWQiCglwdXNoYnl0ZXMgMHhmNzRmY2Q4ZCAvLyBtZXRob2QgIm1pbnRCYXRjaEFzYSh1aW50NjQsYnl0ZVtdKXVpbnQ2NCIKCXB1c2hieXRlcyAweDRmOWYyNjNkIC8vIG1ldGhvZCAic3RvcmVWZXJpZmljYXRpb24odWludDY0LHN0cmluZyx1aW50NjQsc3RyaW5nLHN0cmluZyl2b2lkIgoJcHVzaGJ5dGVzIDB4OWMyYWE5ZGMgLy8gbWV0aG9kICJ1cGRhdGVDYXJib25TY29yZSh1aW50NjQsdWludDY0LHVpbnQ2NCx1aW50NjQsc3RyaW5nLHVpbnQ2NCl2b2lkIgoJcHVzaGJ5dGVzIDB4OGI0MzkzMTEgLy8gbWV0aG9kICJ1cGRhdGVGYXJtZXJSZXB1dGF0aW9uKHN0cmluZyx1aW50NjQsdWludDY0LHVpbnQ2NCxzdHJpbmcsdWludDY0LHVpbnQ2NCx1aW50NjQpdm9pZCIKCXB1c2hieXRlcyAweGZiYjY2ZGMzIC8vIG1ldGhvZCAicmVjb3JkRmFybWVyUGF5bWVudChzdHJpbmcsdWludDY0LHVpbnQ2NCxzdHJpbmcsc3RyaW5nLHVpbnQ2NCl2b2lkIgoJcHVzaGJ5dGVzIDB4NjZjZTBiZTQgLy8gbWV0aG9kICJnZXRWZXJpZmljYXRpb24odWludDY0KXN0cmluZyIKCXB1c2hieXRlcyAweGQwMGZkZDljIC8vIG1ldGhvZCAiZ2V0VG90YWxWZXJpZmljYXRpb25zKCl1aW50NjQiCglwdXNoYnl0ZXMgMHg2MjYwMzI4MCAvLyBtZXRob2QgImdldFRvdGFsQmF0Y2hlcygpdWludDY0IgoJcHVzaGJ5dGVzIDB4MzdlMzQ1MzMgLy8gbWV0aG9kICJnZXRUb3RhbFBheW1lbnRzKCl1aW50NjQiCglwdXNoYnl0ZXMgMHg3YTNlMTBiOSAvLyBtZXRob2QgImdldFZlcmlmaWNhdGlvbkNvbmZpZGVuY2UodWludDY0KXVpbnQ2NCIKCXB1c2hieXRlcyAweGFmM2FmM2Y0IC8vIG1ldGhvZCAiZ2V0VmVyaWZpY2F0aW9uUmVhc29uKHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHg3NDliMjdmYiAvLyBtZXRob2QgImdldFZlcmlmaWNhdGlvblZlcmlmaWVyQWRkcih1aW50NjQpc3RyaW5nIgoJcHVzaGJ5dGVzIDB4ZDQzMzQ3ZjcgLy8gbWV0aG9kICJnZXRWZXJpZmljYXRpb25UaW1lc3RhbXAodWludDY0KXVpbnQ2NCIKCXB1c2hieXRlcyAweGIyN2VhYjU1IC8vIG1ldGhvZCAiZ2V0Q2FyYm9uU2NvcmUodWludDY0KXVpbnQ2NCIKCXB1c2hieXRlcyAweGMwM2MwOWI1IC8vIG1ldGhvZCAiZ2V0Q2FyYm9uQ3JlZGl0cyh1aW50NjQpdWludDY0IgoJcHVzaGJ5dGVzIDB4NGM4M2E3ZWEgLy8gbWV0aG9kICJnZXRDYXJib25EaXN0YW5jZSh1aW50NjQpdWludDY0IgoJcHVzaGJ5dGVzIDB4MWM4OTY4ZTkgLy8gbWV0aG9kICJnZXRDYXJib25UcmFuc3BvcnRNZXRob2QodWludDY0KXN0cmluZyIKCXB1c2hieXRlcyAweDM4Yjk2NzRlIC8vIG1ldGhvZCAiZ2V0Q2FyYm9uQ2FsY3VsYXRlZEF0KHVpbnQ2NCl1aW50NjQiCglwdXNoYnl0ZXMgMHgwN2Q0NmU0MSAvLyBtZXRob2QgImdldEZhcm1lclRvdGFsQmF0Y2hlcyhzdHJpbmcpdWludDY0IgoJcHVzaGJ5dGVzIDB4MTNiM2UyYWQgLy8gbWV0aG9kICJnZXRGYXJtZXJWZXJpZmllZENvdW50KHN0cmluZyl1aW50NjQiCglwdXNoYnl0ZXMgMHgxMTFjNzg4MiAvLyBtZXRob2QgImdldEZhcm1lckZsYWdnZWRDb3VudChzdHJpbmcpdWludDY0IgoJcHVzaGJ5dGVzIDB4YmVjYzg3MjkgLy8gbWV0aG9kICJnZXRGYXJtZXJUaWVyKHN0cmluZylzdHJpbmciCglwdXNoYnl0ZXMgMHg4ZjEzOWFmZSAvLyBtZXRob2QgImdldEZhcm1lckNhcmJvbkNyZWRpdHNUb3RhbChzdHJpbmcpdWludDY0IgoJcHVzaGJ5dGVzIDB4ZDNhNzk0MzAgLy8gbWV0aG9kICJnZXRGYXJtZXJQYXltZW50c1RvdGFsKHN0cmluZyl1aW50NjQiCglwdXNoYnl0ZXMgMHhhOGFjZTc5ZCAvLyBtZXRob2QgImdldEZhcm1lckxhc3RVcGRhdGVkKHN0cmluZyl1aW50NjQiCglwdXNoYnl0ZXMgMHhmYzE5YmY3MSAvLyBtZXRob2QgImdldFBheW1lbnRGYXJtZXJBZGRyKHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHgwOTNjNjNkYyAvLyBtZXRob2QgImdldFBheW1lbnRCYXRjaElkKHVpbnQ2NCl1aW50NjQiCglwdXNoYnl0ZXMgMHg1MmMwM2Q3OCAvLyBtZXRob2QgImdldFBheW1lbnRBbW91bnQodWludDY0KXVpbnQ2NCIKCXB1c2hieXRlcyAweGNlMWUxNGJlIC8vIG1ldGhvZCAiZ2V0UGF5bWVudEN1cnJlbmN5KHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHhkNzdjZDQyYiAvLyBtZXRob2QgImdldFBheW1lbnRUeElkKHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHhmNzlmMGYwZCAvLyBtZXRob2QgImdldFBheW1lbnRUaW1lc3RhbXAodWludDY0KXVpbnQ2NCIKCXB1c2hieXRlcyAweDMxYzQ1OTlkIC8vIG1ldGhvZCAiZ2V0QmF0Y2godWludDY0KXN0cmluZyIKCXB1c2hieXRlcyAweGI0NWQwMTJiIC8vIG1ldGhvZCAiaGFzQmF0Y2godWludDY0KWJvb2wiCglwdXNoYnl0ZXMgMHg5MWNlYWViOCAvLyBtZXRob2QgImdldENoZWNrcG9pbnQodWludDY0LHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHgwMjg0ZGIyOSAvLyBtZXRob2QgImdldENoZWNrcG9pbnRDb3VudCh1aW50NjQpdWludDY0IgoJcHVzaGJ5dGVzIDB4Y2Q1ZTI1YTUgLy8gbWV0aG9kICJnZXRIYW5kb2ZmKHVpbnQ2NCx1aW50NjQpc3RyaW5nIgoJcHVzaGJ5dGVzIDB4ZDI3Y2JlYzcgLy8gbWV0aG9kICJoYXNIYW5kb2ZmKHVpbnQ2NCx1aW50NjQpYm9vbCIKCXB1c2hieXRlcyAweDM0MjRkOTdjIC8vIG1ldGhvZCAiZ2V0SGFuZG9mZkNvdW50KHVpbnQ2NCl1aW50NjQiCglwdXNoYnl0ZXMgMHhmMGU5NDg1ZiAvLyBtZXRob2QgImdldEJhdGNoV2VpZ2h0KHVpbnQ2NCl1aW50NjQiCglwdXNoYnl0ZXMgMHhlMjk3ZTFjMiAvLyBtZXRob2QgImdldEJhdGNoQ3JvcFR5cGUodWludDY0KXN0cmluZyIKCXB1c2hieXRlcyAweDg5NjhlMTc5IC8vIG1ldGhvZCAiZ2V0QmF0Y2hGYXJtR3BzKHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHg4YzQ0MTk0MiAvLyBtZXRob2QgImdldEJhdGNoRmFybWluZ1ByYWN0aWNlcyh1aW50NjQpc3RyaW5nIgoJcHVzaGJ5dGVzIDB4MzBmMjdjMmYgLy8gbWV0aG9kICJnZXRCYXRjaE9yZ2FuaWNDZXJ0SWQodWludDY0KXN0cmluZyIKCXB1c2hieXRlcyAweGVmMjJjYjRjIC8vIG1ldGhvZCAiZ2V0QmF0Y2hGYXJtZXJBZGRyKHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHg0Mzc3NWNmNSAvLyBtZXRob2QgImdldEJhdGNoQ3JlYXRlZEF0KHVpbnQ2NCl1aW50NjQiCglwdXNoYnl0ZXMgMHhjNDBmZTY1ZCAvLyBtZXRob2QgImdldEJhdGNoQXNhSWQodWludDY0KXVpbnQ2NCIKCXB1c2hieXRlcyAweDIxMTgwYjEwIC8vIG1ldGhvZCAiZ2V0Q2hlY2twb2ludFRlbXBlcmF0dXJlKHVpbnQ2NCx1aW50NjQpdWludDY0IgoJcHVzaGJ5dGVzIDB4OTY0YmYwZGIgLy8gbWV0aG9kICJnZXRDaGVja3BvaW50SHVtaWRpdHkodWludDY0LHVpbnQ2NCl1aW50NjQiCglwdXNoYnl0ZXMgMHg1ZjM4NWFiOCAvLyBtZXRob2QgImdldENoZWNrcG9pbnRHcHModWludDY0LHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHg0ZDY2N2Y0YyAvLyBtZXRob2QgImdldENoZWNrcG9pbnRIYW5kbGVyVHlwZSh1aW50NjQsdWludDY0KXN0cmluZyIKCXB1c2hieXRlcyAweDk1N2FhOGYzIC8vIG1ldGhvZCAiZ2V0Q2hlY2twb2ludE5vdGVzKHVpbnQ2NCx1aW50NjQpc3RyaW5nIgoJcHVzaGJ5dGVzIDB4YjlhZTUzNjQgLy8gbWV0aG9kICJnZXRDaGVja3BvaW50UGhvdG9IYXNoKHVpbnQ2NCx1aW50NjQpc3RyaW5nIgoJcHVzaGJ5dGVzIDB4MDVmMGQ1NzkgLy8gbWV0aG9kICJnZXRDaGVja3BvaW50VGltZXN0YW1wKHVpbnQ2NCx1aW50NjQpdWludDY0IgoJcHVzaGJ5dGVzIDB4NGJhNTBhMjcgLy8gbWV0aG9kICJnZXRIYW5kb2ZmRnJvbUFkZHIodWludDY0LHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHgzN2RiMmVmNiAvLyBtZXRob2QgImdldEhhbmRvZmZUb0FkZHIodWludDY0LHVpbnQ2NClzdHJpbmciCglwdXNoYnl0ZXMgMHgzYmQ0MjkwZiAvLyBtZXRob2QgImdldEhhbmRvZmZUeXBlKHVpbnQ2NCx1aW50NjQpc3RyaW5nIgoJcHVzaGJ5dGVzIDB4YmM0YThjZGQgLy8gbWV0aG9kICJnZXRIYW5kb2ZmU3RhdHVzKHVpbnQ2NCx1aW50NjQpc3RyaW5nIgoJcHVzaGJ5dGVzIDB4MjhiNDVlZWUgLy8gbWV0aG9kICJnZXRIYW5kb2ZmQ29uZmlybWVkQXQodWludDY0LHVpbnQ2NCl1aW50NjQiCglwdXNoYnl0ZXMgMHgwM2FkNjZlOCAvLyBtZXRob2QgImdldEhhbmRvZmZQaG90b0hhc2hlcyh1aW50NjQsdWludDY0KXN0cmluZyIKCXR4bmEgQXBwbGljYXRpb25BcmdzIDAKCW1hdGNoICphYmlfcm91dGVfc2V0QWRtaW4gKmFiaV9yb3V0ZV9jcmVhdGVCYXRjaCAqYWJpX3JvdXRlX2xvZ0NoZWNrcG9pbnQgKmFiaV9yb3V0ZV9pbml0aWF0ZUhhbmRvZmYgKmFiaV9yb3V0ZV9jb25maXJtSGFuZG9mZiAqYWJpX3JvdXRlX21pbnRCYXRjaEFzYSAqYWJpX3JvdXRlX3N0b3JlVmVyaWZpY2F0aW9uICphYmlfcm91dGVfdXBkYXRlQ2FyYm9uU2NvcmUgKmFiaV9yb3V0ZV91cGRhdGVGYXJtZXJSZXB1dGF0aW9uICphYmlfcm91dGVfcmVjb3JkRmFybWVyUGF5bWVudCAqYWJpX3JvdXRlX2dldFZlcmlmaWNhdGlvbiAqYWJpX3JvdXRlX2dldFRvdGFsVmVyaWZpY2F0aW9ucyAqYWJpX3JvdXRlX2dldFRvdGFsQmF0Y2hlcyAqYWJpX3JvdXRlX2dldFRvdGFsUGF5bWVudHMgKmFiaV9yb3V0ZV9nZXRWZXJpZmljYXRpb25Db25maWRlbmNlICphYmlfcm91dGVfZ2V0VmVyaWZpY2F0aW9uUmVhc29uICphYmlfcm91dGVfZ2V0VmVyaWZpY2F0aW9uVmVyaWZpZXJBZGRyICphYmlfcm91dGVfZ2V0VmVyaWZpY2F0aW9uVGltZXN0YW1wICphYmlfcm91dGVfZ2V0Q2FyYm9uU2NvcmUgKmFiaV9yb3V0ZV9nZXRDYXJib25DcmVkaXRzICphYmlfcm91dGVfZ2V0Q2FyYm9uRGlzdGFuY2UgKmFiaV9yb3V0ZV9nZXRDYXJib25UcmFuc3BvcnRNZXRob2QgKmFiaV9yb3V0ZV9nZXRDYXJib25DYWxjdWxhdGVkQXQgKmFiaV9yb3V0ZV9nZXRGYXJtZXJUb3RhbEJhdGNoZXMgKmFiaV9yb3V0ZV9nZXRGYXJtZXJWZXJpZmllZENvdW50ICphYmlfcm91dGVfZ2V0RmFybWVyRmxhZ2dlZENvdW50ICphYmlfcm91dGVfZ2V0RmFybWVyVGllciAqYWJpX3JvdXRlX2dldEZhcm1lckNhcmJvbkNyZWRpdHNUb3RhbCAqYWJpX3JvdXRlX2dldEZhcm1lclBheW1lbnRzVG90YWwgKmFiaV9yb3V0ZV9nZXRGYXJtZXJMYXN0VXBkYXRlZCAqYWJpX3JvdXRlX2dldFBheW1lbnRGYXJtZXJBZGRyICphYmlfcm91dGVfZ2V0UGF5bWVudEJhdGNoSWQgKmFiaV9yb3V0ZV9nZXRQYXltZW50QW1vdW50ICphYmlfcm91dGVfZ2V0UGF5bWVudEN1cnJlbmN5ICphYmlfcm91dGVfZ2V0UGF5bWVudFR4SWQgKmFiaV9yb3V0ZV9nZXRQYXltZW50VGltZXN0YW1wICphYmlfcm91dGVfZ2V0QmF0Y2ggKmFiaV9yb3V0ZV9oYXNCYXRjaCAqYWJpX3JvdXRlX2dldENoZWNrcG9pbnQgKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50Q291bnQgKmFiaV9yb3V0ZV9nZXRIYW5kb2ZmICphYmlfcm91dGVfaGFzSGFuZG9mZiAqYWJpX3JvdXRlX2dldEhhbmRvZmZDb3VudCAqYWJpX3JvdXRlX2dldEJhdGNoV2VpZ2h0ICphYmlfcm91dGVfZ2V0QmF0Y2hDcm9wVHlwZSAqYWJpX3JvdXRlX2dldEJhdGNoRmFybUdwcyAqYWJpX3JvdXRlX2dldEJhdGNoRmFybWluZ1ByYWN0aWNlcyAqYWJpX3JvdXRlX2dldEJhdGNoT3JnYW5pY0NlcnRJZCAqYWJpX3JvdXRlX2dldEJhdGNoRmFybWVyQWRkciAqYWJpX3JvdXRlX2dldEJhdGNoQ3JlYXRlZEF0ICphYmlfcm91dGVfZ2V0QmF0Y2hBc2FJZCAqYWJpX3JvdXRlX2dldENoZWNrcG9pbnRUZW1wZXJhdHVyZSAqYWJpX3JvdXRlX2dldENoZWNrcG9pbnRIdW1pZGl0eSAqYWJpX3JvdXRlX2dldENoZWNrcG9pbnRHcHMgKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50SGFuZGxlclR5cGUgKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50Tm90ZXMgKmFiaV9yb3V0ZV9nZXRDaGVja3BvaW50UGhvdG9IYXNoICphYmlfcm91dGVfZ2V0Q2hlY2twb2ludFRpbWVzdGFtcCAqYWJpX3JvdXRlX2dldEhhbmRvZmZGcm9tQWRkciAqYWJpX3JvdXRlX2dldEhhbmRvZmZUb0FkZHIgKmFiaV9yb3V0ZV9nZXRIYW5kb2ZmVHlwZSAqYWJpX3JvdXRlX2dldEhhbmRvZmZTdGF0dXMgKmFiaV9yb3V0ZV9nZXRIYW5kb2ZmQ29uZmlybWVkQXQgKmFiaV9yb3V0ZV9nZXRIYW5kb2ZmUGhvdG9IYXNoZXMKCgkvLyB0aGlzIGNvbnRyYWN0IGRvZXMgbm90IGltcGxlbWVudCB0aGUgZ2l2ZW4gQUJJIG1ldGhvZCBmb3IgY2FsbCBOb09wCgllcnI=", "clear": "I3ByYWdtYSB2ZXJzaW9uIDEw" }, "byteCode": { "approval": "CiADAQCQTiY2BBUffHUAAXwDaG9uDHRvdGFsQmF0Y2hlcwNjcG4SdG90YWxWZXJpZmljYXRpb25zDXRvdGFsUGF5bWVudHMFYWRtaW4DdnJzA2JjdANob3MDYmFzBGNwaG4EY3BubwNiZmcDYm9jA2JmYQNjcGcDY3BwA2hvZgNob3QDaG95A2hjYQNjY3MDY2NjA2NjZANjY3QDY2NhA2ZyYgNmcnYDZnJmA2ZydANmcmMDZnJwA2ZydQNwdHMCcGYCcGICcGECcGMCcHQEY3B0cwNiZnADYmNhA2NwdANjcGgDaHBoA3ZyYwN2cnIDdnJ2A3ZydAJidwEAMRgUgQYLMRkIjQwRiwAAAAAAAAAAAAARfQAAAAAAAAAAAAAAigEAKTYyACcEZUxIQQAGJwRkQgABI4wAi/8jDUlBAAaL/4sADhBEiYoAADYyACcIZUxISUEABzEAJwhkEhBEiYgAAiJDigAAJwgxAGeJNhoBSRWBIBJEiAACIkOKAQCI/8YnCIv/Z4mKAQAnCYv/FlC9TEgUQQACI0SJigIAKYv+Iw1EJwWL/xZQvUxIFEEAAiNEJwWL/xZQvkQXjACL/osADkSJigIAKYv+Iw1EK4v/FlC9TEgUQQACI0Qri/8WUL5EF4wAi/6LAA5EiYoAASlJNjIAJwdlTEhBAAYnB2RCAAEjjACLACIIjAEnB4sBZ4sBjABGAYkoNhoHFzYaBlcCADYaBVcCADYaBFcCADYaA1cCADYaAhc2GgFXAgCIAAUWULAiQ4oHASlJiP75NjIAJwRlTEhBAAYnBGRCAAEjjACLACIIjAEnBIsBZycKiwEWUEm8SIv/SRUWVwYCTFC/JzSLARZQi/4WvycPiwEWUEm8SIv9SRUWVwYCTFC/JyuLARZQSbxIi/xJFRZXBgJMUL8nEIsBFlBJvEiL+0kVFlcGAkxQvycRiwEWUEm8SIv6SRUWVwYCTFC/JyyLARZQi/kWv4sBjABGAYk2GgkXNhoIVwIANhoHVwIANhoGVwIANhoFFzYaBBc2GgNXAgA2GgJXAgA2GgEXiAACIkOKCQApRwKI/h+L/4j98icFi/8WUL1MSEEADCcFi/8WUL5EF0IAASOMAIsAIgiMAScFi/8WUIsBFr+L/yQLiwEIjAInEosCFlBJvEiL/ipQi/1QSRUWVwYCTFC/Jy2LAhZQi/wWvycuiwIWUIv7Fr8nDYsCFlBJvEiL+kkVFlcGAkxQvycOiwIWUEm8SIv5SRUWVwYCTFC/JxOLAhZQSbxIi/hJFRZXBgJMUL8nKosCFlCL9xa/iTYaBVcCADYaBFcCADYaA1cCADYaAlcCADYaAReIAAIiQ4oFAClHAoj9SIv/iP0bK4v/FlC9TEhBAAsri/8WUL5EF0IAASOMAIsAIgiMASuL/xZQiwEWv4v/JAuLAQiMAicUiwIWUEm8SIv+SRUWVwYCTFC/JxWLAhZQSbxIi/1JFRZXBgJMUL8nFosCFlBJvEiL/EkVFlcGAkxQvycLiwIWUEm8SIAJAAdwZW5kaW5nvycXiwIWUIAIAAAAAAAAAAC/Jy+LAhZQSbxIi/tJFRZXBgJMUL+JNhoDFzYaAhc2GgEXiAACIkOKAwApiPyDi/+I/FaL/ov/iPz0i/8kC4v+CIwAJwuLABZQSbxIgAsACWNvbmZpcm1lZL8nF4sAFlCL/Ra/iSg2GgJXAgA2GgEXiAAFFlCwIkOKAgEpSYj8MYv/iPwEJwyL/xZQvUxIFESxgQOyEDIAsgEisiIjsiOAEUNIQUlOVkVSSUZZLUJBVENIsiaAB0NWQkFUQ0iyJTIKsikyCrIqMgqyKzIKsiyL/rIos7Q8jACLAIwBJwyL/xZQiwEWv4sBjABGAYk2GgVXAgA2GgRXAgA2GgMXNhoCVwIANhoBF4gAAiJDigUAKUmI+52L/4j7cCcJi/8WUL1MSIwAJwmL/xZQSbxIi/5JFRZXBgJMUL8nMIv/FlCL/Ra/JzGL/xZQSbxIi/xJFRZXBgJMUL8nMov/FlBJvEiL+0kVFlcGAkxQvyczi/8WUDIHFr+LABRBABs2MgAnBmVMSEEABicGZEIAASOMAScGiwEiCGeJNhoGFzYaBVcCADYaBBc2GgMXNhoCFzYaAReIAAIiQ4oGAIj69ov/iPrJJxiL/xZQi/4WvycZi/8WUIv9Fr8nGov/FlCL/Ba/JxuL/xZQSbxIi/tJFRZXBgJMUL8nHIv/FlCL+ha/iTYaCBc2GgcXNhoGFzYaBVcCADYaBBc2GgMXNhoCFzYaAVcCAIgAAiJDiggAiPqFJx2L/0kVFlcGAkxQUIv+Fr8nHov/SRUWVwYCTFBQi/0Wvycfi/9JFRZXBgJMUFCL/Ba/JyCL/0kVFlcGAkxQUEm8SIv7SRUWVwYCTFC/JyGL/0kVFlcGAkxQUIv6Fr8nIov/SRUWVwYCTFBQi/kWvycji/9JFRZXBgJMUFCL+Ba/iTYaBhc2GgVXAgA2GgRXAgA2GgMXNhoCFzYaAVcCAIgAAiJDigYAKYj52Yj6e4wAJyWLABZQSbxIi/9JFRZXBgJMUL8nJosAFlCL/ha/JyeLABZQi/0WvycoiwAWUEm8SIv8SRUWVwYCTFC/JymLABZQSbxIi/tJFRZXBgJMUL8nJIsAFlCL+ha/iSg2GgEXiAAMSRUWVwYCTFBQsCJDigEBi/+I+TWL/4j5mCcJi/8WUL5EVwIAiSiIAAUWULAiQ4oAATYyACcGZUxIFEEAAiOJJwZkiSiIAAUWULAiQ4oAATYyACcEZUxIFEEAAiOJJwRkiSiIAAUWULAiQ4oAATYyACcHZUxIFEEAAiOJJwdkiSg2GgEXiAAFFlCwIkOKAQGL/4j4tYv/iPkYJzCL/xZQvkQXiSg2GgEXiAAMSRUWVwYCTFBQsCJDigEBi/+I+IqL/4j47Scxi/8WUL5EVwIAiSg2GgEXiAAMSRUWVwYCTFBQsCJDigEBi/+I+F2L/4j4wCcyi/8WUL5EVwIAiSg2GgEXiAAFFlCwIkOKAQGL/4j4N4v/iPiaJzOL/xZQvkQXiSg2GgEXiAAFFlCwIkOKAQEnGIv/FlC9TEgUQQACI4knGIv/FlC+RBeJKDYaAReIAAUWULAiQ4oBAScZi/8WUL1MSBRBAAIjiScZi/8WUL5EF4koNhoBF4gABRZQsCJDigEBJxqL/xZQvUxIFEEAAiOJJxqL/xZQvkQXiSg2GgEXiAAMSRUWVwYCTFBQsCJDigEBJxuL/xZQvUxIFEEAAimJJxuL/xZQvkRXAgCJKDYaAReIAAUWULAiQ4oBAScci/8WUL1MSBRBAAIjiScci/8WUL5EF4koNhoBVwIAiAAFFlCwIkOKAQEnHYv/SRUWVwYCTFBQvUxIFEEAAiOJJx2L/0kVFlcGAkxQUL5EF4koNhoBVwIAiAAFFlCwIkOKAQEnHov/SRUWVwYCTFBQvUxIFEEAAiOJJx6L/0kVFlcGAkxQUL5EF4koNhoBVwIAiAAFFlCwIkOKAQEnH4v/SRUWVwYCTFBQvUxIFEEAAiOJJx+L/0kVFlcGAkxQUL5EF4koNhoBVwIAiAAMSRUWVwYCTFBQsCJDigEBJyCL/0kVFlcGAkxQUL1MSBRBAAIpiScgi/9JFRZXBgJMUFC+RFcCAIkoNhoBVwIAiAAFFlCwIkOKAQEnIYv/SRUWVwYCTFBQvUxIFEEAAiOJJyGL/0kVFlcGAkxQUL5EF4koNhoBVwIAiAAFFlCwIkOKAQEnIov/SRUWVwYCTFBQvUxIFEEAAiOJJyKL/0kVFlcGAkxQUL5EF4koNhoBVwIAiAAFFlCwIkOKAQEnI4v/SRUWVwYCTFBQvUxIFEEAAiOJJyOL/0kVFlcGAkxQUL5EF4koNhoBF4gADEkVFlcGAkxQULAiQ4oBAScli/8WUL1MSBRBAAIpiScli/8WUL5EVwIAiSg2GgEXiAAFFlCwIkOKAQEnJov/FlC9TEgUQQACI4knJov/FlC+RBeJKDYaAReIAAUWULAiQ4oBAScni/8WUL1MSBRBAAIjiScni/8WUL5EF4koNhoBF4gADEkVFlcGAkxQULAiQ4oBAScoi/8WUL1MSBRBAAIpiScoi/8WUL5EVwIAiSg2GgEXiAAMSRUWVwYCTFBQsCJDigEBJymL/xZQvUxIFEEAAimJJymL/xZQvkRXAgCJKDYaAReIAAUWULAiQ4oBAScki/8WUL1MSBRBAAIjiScki/8WUL5EF4koNhoBF4gADEkVFlcGAkxQULAiQ4oBAYv/iPSNJwqL/xZQvkRXAgAqUCcPi/8WUL5EVwIAUCpQJxCL/xZQvkRXAgBQKlAnEYv/FlC+RFcCAFCJKDYaAReIAAonNSNPAlRQsCJDigEBJwqL/xZQvUxIiSg2GgIXNhoBF4gADEkVFlcGAkxQULAiQ4oCASmL/4j0F4v+i/+I9IuL/yQLi/4IjAAnEosAFlC+RFcCACpQJw2LABZQvkRXAgBQKlAnDosAFlC+RFcCAFAqUCcTiwAWUL5EVwIAUIwAiSg2GgEXiAAFFlCwIkOKAQEnBYv/FlC9TEgUQQACI4knBYv/FlC+RBeJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iPOFi/6L/4j0I4v/JAuL/giMACcUiwAWUL5EVwIAKlAnFYsAFlC+RFcCAFAqUCcWiwAWUL5EVwIAUCpQJwuLABZQvkRXAgBQjACJKDYaAhc2GgEXiAAKJzUjTwJUULAiQ4oCASkri/8WUL1MSBRBAAQjQgAiK4v/FlC+RBeMAIv+iwANQQAEI0IADIv+IxJBAAQjQgABIowAiSg2GgEXiAAFFlCwIkOKAQEri/8WUL1MSBRBAAIjiSuL/xZQvkQXiSg2GgEXiAAFFlCwIkOKAQGL/4jysic0i/8WUL5EF4koNhoBF4gADEkVFlcGAkxQULAiQ4oBAYv/iPKMJwqL/xZQvkRXAgCJKDYaAReIAAxJFRZXBgJMUFCwIkOKAQGL/4jyZCcPi/8WUL5EVwIAiSg2GgEXiAAMSRUWVwYCTFBQsCJDigEBi/+I8jwnK4v/FlC+RFcCAIkoNhoBF4gADEkVFlcGAkxQULAiQ4oBAYv/iPIUJxCL/xZQvkRXAgCJKDYaAReIAAxJFRZXBgJMUFCwIkOKAQGL/4jx7CcRi/8WUL5EVwIAiSg2GgEXiAAFFlCwIkOKAQGL/4jxyycsi/8WUL5EF4koNhoBF4gABRZQsCJDigEBi/+I8awnDIv/FlC9TEgUQQACI4knDIv/FlC+RBeJKDYaAhc2GgEXiAAFFlCwIkOKAgEpi/+I8XmL/ov/iPHti/8kC4v+CIwAJy2LABZQvkQXjACJKDYaAhc2GgEXiAAFFlCwIkOKAgEpi/+I8UOL/ov/iPG3i/8kC4v+CIwAJy6LABZQvkQXjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iPEGi/6L/4jxeov/JAuL/giMACcSiwAWUL5EVwIAjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iPDHi/6L/4jxO4v/JAuL/giMACcNiwAWUL5EVwIAjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iPCIi/6L/4jw/Iv/JAuL/giMACcOiwAWUL5EVwIAjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iPBJi/6L/4jwvYv/JAuL/giMACcTiwAWUL5EVwIAjACJKDYaAhc2GgEXiAAFFlCwIkOKAgEpi/+I8BGL/ov/iPCFi/8kC4v+CIwAJyqLABZQvkQXjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iO/Ui/6L/4jwcov/JAuL/giMACcUiwAWUL5EVwIAjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iO+Vi/6L/4jwM4v/JAuL/giMACcViwAWUL5EVwIAjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iO9Wi/6L/4jv9Iv/JAuL/giMACcWiwAWUL5EVwIAjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iO8Xi/6L/4jvtYv/JAuL/giMACcLiwAWUL5EVwIAjACJKDYaAhc2GgEXiAAFFlCwIkOKAgEpi/+I7t+L/ov/iO99i/8kC4v+CIwAJxeLABZQvkQXjACJKDYaAhc2GgEXiAAMSRUWVwYCTFBQsCJDigIBKYv/iO6ii/6L/4jvQIv/JAuL/giMACcviwAWUL5EVwIAjACJgAS4RHs2NhoAjgHutwCABBeGaRKABETdQneABKidwhGABBmJD4uABFJ0UIqABPdPzY2ABE+fJj2ABJwqqdyABItDkxGABPu2bcOABGbOC+SABNAP3ZyABGJgMoCABDfjRTOABHo+ELmABK868/SABHSbJ/uABNQzR/eABLJ+q1WABMA8CbWABEyDp+qABByJaOmABDi5Z06ABAfUbkGABBOz4q2ABBEceIKABL7MhymABI8Tmv6ABNOnlDCABKis552ABPwZv3GABAk8Y9yABFLAPXiABM4eFL6ABNd81CuABPefDw2ABDHEWZ2ABLRdASuABJHOrriABAKE2ymABM1eJaWABNJ8vseABDQk2XyABPDpSF+ABOKX4cKABIlo4XmABIxEGUKABDDyfC+ABO8iy0yABEN3XPWABMQP5l2ABCEYCxCABJZL8NuABF84WriABE1mf0yABJV6qPOABLmuU2SABAXw1XmABEulCieABDfbLvaABDvUKQ+ABLxKjN2ABCi0Xu6ABAOtZug2GgCOQOy/7WnuPu8n7/7wTfDV8X7x5fKW8yDzTfNr84nzp/PL8/j0JfRJ9HL0m/TE9Pb1H/VY9ZH1yvYM9kX2fva39un3Evc79233n/fI+Br4Ofii+Mv5NPmD+ar5yfnx+hn6Qfpp+pH6sPre+xT7SvuJ+8j8B/xG/Hz8u/z6/Tn9eP2uAA==", "clear": "Cg==" }, "compilerInfo": { "compiler": "algod", "compilerVersion": { "major": 4, "minor": 5, "patch": 1, "commitHash": "a8c16ecc" } } };
+class BinaryStateValue {
+    value;
+    constructor(value) {
+        this.value = value;
+    }
+    asByteArray() {
+        return this.value;
+    }
+    asString() {
+        return this.value !== undefined ? Buffer.from(this.value).toString('utf-8') : undefined;
+    }
+}
+/**
+ * Exposes methods for constructing `AppClient` params objects for ABI calls to the ContractSupply smart contract
+ */
+class ContractSupplyParamsFactory {
+    /**
+     * Gets available create ABI call param factories
+     */
+    static get create() {
+        return {
+            _resolveByMethod(params) {
+                switch (params.method) {
+                    case 'createApplication':
+                    case 'createApplication()void':
+                        return ContractSupplyParamsFactory.create.createApplication(params);
+                }
+                throw new Error(`Unknown ' + verb + ' method`);
+            },
+            /**
+             * Constructs create ABI call params for the ContractSupply smart contract using the createApplication()void ABI method
+             *
+             * @param params Parameters for the call
+             * @returns An `AppClientMethodCallParams` object for the call
+             */
+            createApplication(params) {
+                return {
+                    ...params,
+                    method: 'createApplication()void',
+                    args: Array.isArray(params.args) ? params.args : [],
+                };
+            },
+        };
+    }
+    /**
+     * Constructs a no op call for the setAdmin(address)void ABI method
+     *
+     * Transfer admin rights to a new address. Only current admin can call.
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static setAdmin(params) {
+        return {
+            ...params,
+            method: 'setAdmin(address)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.newAdmin],
+        };
+    }
+    /**
+     * Constructs a no op call for the createBatch(string,uint64,string,string,string,string,uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static createBatch(params) {
+        return {
+            ...params,
+            method: 'createBatch(string,uint64,string,string,string,string,uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.cropType, params.args.weight, params.args.farmGps, params.args.farmingPractices, params.args.organicCertId, params.args.farmerAddr, params.args.createdAt],
+        };
+    }
+    /**
+     * Constructs a no op call for the logCheckpoint(uint64,string,string,uint64,uint64,string,string,string,uint64)void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static logCheckpoint(params) {
+        return {
+            ...params,
+            method: 'logCheckpoint(uint64,string,string,uint64,uint64,string,string,string,uint64)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.gpsLat, params.args.gpsLng, params.args.temperature, params.args.humidity, params.args.handlerType, params.args.notes, params.args.photoHash, params.args.checkpointTimestamp],
+        };
+    }
+    /**
+     * Constructs a no op call for the initiateHandoff(uint64,string,string,string,string)void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static initiateHandoff(params) {
+        return {
+            ...params,
+            method: 'initiateHandoff(uint64,string,string,string,string)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.fromAddr, params.args.toAddr, params.args.handoffType, params.args.handoffPhotoHashes],
+        };
+    }
+    /**
+     * Constructs a no op call for the confirmHandoff(uint64,uint64,uint64)void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static confirmHandoff(params) {
+        return {
+            ...params,
+            method: 'confirmHandoff(uint64,uint64,uint64)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex, params.args.confirmedAt],
+        };
+    }
+    /**
+     * Constructs a no op call for the mintBatchAsa(uint64,byte[])uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static mintBatchAsa(params) {
+        return {
+            ...params,
+            method: 'mintBatchAsa(uint64,byte[])uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.metadataHash],
+        };
+    }
+    /**
+     * Constructs a no op call for the storeVerification(uint64,string,uint64,string,string)void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static storeVerification(params) {
+        return {
+            ...params,
+            method: 'storeVerification(uint64,string,uint64,string,string)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.result, params.args.confidence, params.args.reason, params.args.verifierAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the updateCarbonScore(uint64,uint64,uint64,uint64,string,uint64)void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static updateCarbonScore(params) {
+        return {
+            ...params,
+            method: 'updateCarbonScore(uint64,uint64,uint64,uint64,string,uint64)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.score, params.args.creditsEarned, params.args.distance, params.args.transportMethod, params.args.calculatedAt],
+        };
+    }
+    /**
+     * Constructs a no op call for the updateFarmerReputation(string,uint64,uint64,uint64,string,uint64,uint64,uint64)void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static updateFarmerReputation(params) {
+        return {
+            ...params,
+            method: 'updateFarmerReputation(string,uint64,uint64,uint64,string,uint64,uint64,uint64)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr, params.args.totalBatches, params.args.verifiedCount, params.args.flaggedCount, params.args.tier, params.args.carbonCreditsTotal, params.args.totalPaymentsReceived, params.args.lastUpdated],
+        };
+    }
+    /**
+     * Constructs a no op call for the recordFarmerPayment(string,uint64,uint64,string,string,uint64)void ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static recordFarmerPayment(params) {
+        return {
+            ...params,
+            method: 'recordFarmerPayment(string,uint64,uint64,string,string,uint64)void',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr, params.args.batchAsaId, params.args.amount, params.args.currency, params.args.txId, params.args.timestamp],
+        };
+    }
+    /**
+     * Constructs a no op call for the getVerification(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getVerification(params) {
+        return {
+            ...params,
+            method: 'getVerification(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getTotalVerifications()uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getTotalVerifications(params) {
+        return {
+            ...params,
+            method: 'getTotalVerifications()uint64',
+            args: Array.isArray(params.args) ? params.args : [],
+        };
+    }
+    /**
+     * Constructs a no op call for the getTotalBatches()uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getTotalBatches(params) {
+        return {
+            ...params,
+            method: 'getTotalBatches()uint64',
+            args: Array.isArray(params.args) ? params.args : [],
+        };
+    }
+    /**
+     * Constructs a no op call for the getTotalPayments()uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getTotalPayments(params) {
+        return {
+            ...params,
+            method: 'getTotalPayments()uint64',
+            args: Array.isArray(params.args) ? params.args : [],
+        };
+    }
+    /**
+     * Constructs a no op call for the getVerificationConfidence(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getVerificationConfidence(params) {
+        return {
+            ...params,
+            method: 'getVerificationConfidence(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getVerificationReason(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getVerificationReason(params) {
+        return {
+            ...params,
+            method: 'getVerificationReason(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getVerificationVerifierAddr(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getVerificationVerifierAddr(params) {
+        return {
+            ...params,
+            method: 'getVerificationVerifierAddr(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getVerificationTimestamp(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getVerificationTimestamp(params) {
+        return {
+            ...params,
+            method: 'getVerificationTimestamp(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCarbonScore(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCarbonScore(params) {
+        return {
+            ...params,
+            method: 'getCarbonScore(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCarbonCredits(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCarbonCredits(params) {
+        return {
+            ...params,
+            method: 'getCarbonCredits(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCarbonDistance(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCarbonDistance(params) {
+        return {
+            ...params,
+            method: 'getCarbonDistance(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCarbonTransportMethod(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCarbonTransportMethod(params) {
+        return {
+            ...params,
+            method: 'getCarbonTransportMethod(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCarbonCalculatedAt(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCarbonCalculatedAt(params) {
+        return {
+            ...params,
+            method: 'getCarbonCalculatedAt(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getFarmerTotalBatches(string)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getFarmerTotalBatches(params) {
+        return {
+            ...params,
+            method: 'getFarmerTotalBatches(string)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the getFarmerVerifiedCount(string)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getFarmerVerifiedCount(params) {
+        return {
+            ...params,
+            method: 'getFarmerVerifiedCount(string)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the getFarmerFlaggedCount(string)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getFarmerFlaggedCount(params) {
+        return {
+            ...params,
+            method: 'getFarmerFlaggedCount(string)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the getFarmerTier(string)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getFarmerTier(params) {
+        return {
+            ...params,
+            method: 'getFarmerTier(string)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the getFarmerCarbonCreditsTotal(string)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getFarmerCarbonCreditsTotal(params) {
+        return {
+            ...params,
+            method: 'getFarmerCarbonCreditsTotal(string)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the getFarmerPaymentsTotal(string)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getFarmerPaymentsTotal(params) {
+        return {
+            ...params,
+            method: 'getFarmerPaymentsTotal(string)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the getFarmerLastUpdated(string)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getFarmerLastUpdated(params) {
+        return {
+            ...params,
+            method: 'getFarmerLastUpdated(string)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.farmerAddr],
+        };
+    }
+    /**
+     * Constructs a no op call for the getPaymentFarmerAddr(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getPaymentFarmerAddr(params) {
+        return {
+            ...params,
+            method: 'getPaymentFarmerAddr(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.paymentId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getPaymentBatchId(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getPaymentBatchId(params) {
+        return {
+            ...params,
+            method: 'getPaymentBatchId(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.paymentId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getPaymentAmount(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getPaymentAmount(params) {
+        return {
+            ...params,
+            method: 'getPaymentAmount(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.paymentId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getPaymentCurrency(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getPaymentCurrency(params) {
+        return {
+            ...params,
+            method: 'getPaymentCurrency(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.paymentId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getPaymentTxId(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getPaymentTxId(params) {
+        return {
+            ...params,
+            method: 'getPaymentTxId(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.paymentId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getPaymentTimestamp(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getPaymentTimestamp(params) {
+        return {
+            ...params,
+            method: 'getPaymentTimestamp(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.paymentId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatch(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatch(params) {
+        return {
+            ...params,
+            method: 'getBatch(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the hasBatch(uint64)bool ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static hasBatch(params) {
+        return {
+            ...params,
+            method: 'hasBatch(uint64)bool',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpoint(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpoint(params) {
+        return {
+            ...params,
+            method: 'getCheckpoint(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointCount(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointCount(params) {
+        return {
+            ...params,
+            method: 'getCheckpointCount(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoff(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoff(params) {
+        return {
+            ...params,
+            method: 'getHandoff(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+    /**
+     * Constructs a no op call for the hasHandoff(uint64,uint64)bool ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static hasHandoff(params) {
+        return {
+            ...params,
+            method: 'hasHandoff(uint64,uint64)bool',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoffCount(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoffCount(params) {
+        return {
+            ...params,
+            method: 'getHandoffCount(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchWeight(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchWeight(params) {
+        return {
+            ...params,
+            method: 'getBatchWeight(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchCropType(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchCropType(params) {
+        return {
+            ...params,
+            method: 'getBatchCropType(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchFarmGps(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchFarmGps(params) {
+        return {
+            ...params,
+            method: 'getBatchFarmGps(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchFarmingPractices(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchFarmingPractices(params) {
+        return {
+            ...params,
+            method: 'getBatchFarmingPractices(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchOrganicCertId(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchOrganicCertId(params) {
+        return {
+            ...params,
+            method: 'getBatchOrganicCertId(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchFarmerAddr(uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchFarmerAddr(params) {
+        return {
+            ...params,
+            method: 'getBatchFarmerAddr(uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchCreatedAt(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchCreatedAt(params) {
+        return {
+            ...params,
+            method: 'getBatchCreatedAt(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getBatchAsaId(uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getBatchAsaId(params) {
+        return {
+            ...params,
+            method: 'getBatchAsaId(uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointTemperature(uint64,uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointTemperature(params) {
+        return {
+            ...params,
+            method: 'getCheckpointTemperature(uint64,uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointHumidity(uint64,uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointHumidity(params) {
+        return {
+            ...params,
+            method: 'getCheckpointHumidity(uint64,uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointGps(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointGps(params) {
+        return {
+            ...params,
+            method: 'getCheckpointGps(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointHandlerType(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointHandlerType(params) {
+        return {
+            ...params,
+            method: 'getCheckpointHandlerType(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointNotes(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointNotes(params) {
+        return {
+            ...params,
+            method: 'getCheckpointNotes(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointPhotoHash(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointPhotoHash(params) {
+        return {
+            ...params,
+            method: 'getCheckpointPhotoHash(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getCheckpointTimestamp(uint64,uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getCheckpointTimestamp(params) {
+        return {
+            ...params,
+            method: 'getCheckpointTimestamp(uint64,uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.index],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoffFromAddr(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoffFromAddr(params) {
+        return {
+            ...params,
+            method: 'getHandoffFromAddr(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoffToAddr(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoffToAddr(params) {
+        return {
+            ...params,
+            method: 'getHandoffToAddr(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoffType(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoffType(params) {
+        return {
+            ...params,
+            method: 'getHandoffType(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoffStatus(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoffStatus(params) {
+        return {
+            ...params,
+            method: 'getHandoffStatus(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoffConfirmedAt(uint64,uint64)uint64 ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoffConfirmedAt(params) {
+        return {
+            ...params,
+            method: 'getHandoffConfirmedAt(uint64,uint64)uint64',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+    /**
+     * Constructs a no op call for the getHandoffPhotoHashes(uint64,uint64)string ABI method
+     *
+     * @param params Parameters for the call
+     * @returns An `AppClientMethodCallParams` object for the call
+     */
+    static getHandoffPhotoHashes(params) {
+        return {
+            ...params,
+            method: 'getHandoffPhotoHashes(uint64,uint64)string',
+            args: Array.isArray(params.args) ? params.args : [params.args.batchAsaId, params.args.handoffIndex],
+        };
+    }
+}
+exports.ContractSupplyParamsFactory = ContractSupplyParamsFactory;
+/**
+ * A factory to create and deploy one or more instance of the ContractSupply smart contract and to create one or more app clients to interact with those (or other) app instances
+ */
+class ContractSupplyFactory {
+    /**
+     * The underlying `AppFactory` for when you want to have more flexibility
+     */
+    appFactory;
+    /**
+     * Creates a new instance of `ContractSupplyFactory`
+     *
+     * @param params The parameters to initialise the app factory with
+     */
+    constructor(params) {
+        this.appFactory = new app_factory_1.AppFactory({
+            ...params,
+            appSpec: exports.APP_SPEC,
+        });
+    }
+    /** The name of the app (from the ARC-32 / ARC-56 app spec or override). */
+    get appName() {
+        return this.appFactory.appName;
+    }
+    /** The ARC-56 app spec being used */
+    get appSpec() {
+        return exports.APP_SPEC;
+    }
+    /** A reference to the underlying `AlgorandClient` this app factory is using. */
+    get algorand() {
+        return this.appFactory.algorand;
+    }
+    /**
+     * Returns a new `AppClient` client for an app instance of the given ID.
+     *
+     * Automatically populates appName, defaultSender and source maps from the factory
+     * if not specified in the params.
+     * @param params The parameters to create the app client
+     * @returns The `AppClient`
+     */
+    getAppClientById(params) {
+        return new ContractSupplyClient(this.appFactory.getAppClientById(params));
+    }
+    /**
+     * Returns a new `AppClient` client, resolving the app by creator address and name
+     * using AlgoKit app deployment semantics (i.e. looking for the app creation transaction note).
+     *
+     * Automatically populates appName, defaultSender and source maps from the factory
+     * if not specified in the params.
+     * @param params The parameters to create the app client
+     * @returns The `AppClient`
+     */
+    async getAppClientByCreatorAndName(params) {
+        return new ContractSupplyClient(await this.appFactory.getAppClientByCreatorAndName(params));
+    }
+    /**
+     * Idempotently deploys the ContractSupply smart contract.
+     *
+     * @param params The arguments for the contract calls and any additional parameters for the call
+     * @returns The deployment result
+     */
+    async deploy(params = {}) {
+        const result = await this.appFactory.deploy({
+            ...params,
+            createParams: params.createParams?.method ? ContractSupplyParamsFactory.create._resolveByMethod(params.createParams) : params.createParams ? params.createParams : undefined,
+        });
+        return { result: result.result, appClient: new ContractSupplyClient(result.appClient) };
+    }
+    /**
+     * Get parameters to create transactions (create and deploy related calls) for the current app. A good mental model for this is that these parameters represent a deferred transaction creation.
+     */
+    params = {
+        /**
+         * Gets available create methods
+         */
+        create: {
+            /**
+             * Creates a new instance of the ContractSupply smart contract using the createApplication()void ABI method.
+             *
+             * Called once when the application is created. Sets the deployer as admin.
+             *
+             * @param params The params for the smart contract call
+             * @returns The create params
+             */
+            createApplication: (params = { args: [] }) => {
+                return this.appFactory.params.create(ContractSupplyParamsFactory.create.createApplication(params));
+            },
+        },
+    };
+    /**
+     * Create transactions for the current app
+     */
+    createTransaction = {
+        /**
+         * Gets available create methods
+         */
+        create: {
+            /**
+             * Creates a new instance of the ContractSupply smart contract using the createApplication()void ABI method.
+             *
+             * Called once when the application is created. Sets the deployer as admin.
+             *
+             * @param params The params for the smart contract call
+             * @returns The create transaction
+             */
+            createApplication: (params = { args: [] }) => {
+                return this.appFactory.createTransaction.create(ContractSupplyParamsFactory.create.createApplication(params));
+            },
+        },
+    };
+    /**
+     * Send calls to the current app
+     */
+    send = {
+        /**
+         * Gets available create methods
+         */
+        create: {
+            /**
+             * Creates a new instance of the ContractSupply smart contract using an ABI method call using the createApplication()void ABI method.
+             *
+             * Called once when the application is created. Sets the deployer as admin.
+             *
+             * @param params The params for the smart contract call
+             * @returns The create result
+             */
+            createApplication: async (params = { args: [] }) => {
+                const result = await this.appFactory.send.create(ContractSupplyParamsFactory.create.createApplication(params));
+                return { result: { ...result.result, return: result.result.return }, appClient: new ContractSupplyClient(result.appClient) };
+            },
+        },
+    };
+}
+exports.ContractSupplyFactory = ContractSupplyFactory;
+/**
+ * A client to make calls to the ContractSupply smart contract
+ */
+class ContractSupplyClient {
+    /**
+     * The underlying `AppClient` for when you want to have more flexibility
+     */
+    appClient;
+    constructor(appClientOrParams) {
+        this.appClient = appClientOrParams instanceof app_client_1.AppClient ? appClientOrParams : new app_client_1.AppClient({
+            ...appClientOrParams,
+            appSpec: exports.APP_SPEC,
+        });
+    }
+    /**
+     * Checks for decode errors on the given return value and maps the return value to the return type for the given method
+     * @returns The typed return value or undefined if there was no value
+     */
+    decodeReturnValue(method, returnValue) {
+        return returnValue !== undefined ? (0, app_arc56_1.getArc56ReturnValue)(returnValue, this.appClient.getABIMethod(method), exports.APP_SPEC.structs) : undefined;
+    }
+    /**
+     * Returns a new `ContractSupplyClient` client, resolving the app by creator address and name
+     * using AlgoKit app deployment semantics (i.e. looking for the app creation transaction note).
+     * @param params The parameters to create the app client
+     */
+    static async fromCreatorAndName(params) {
+        return new ContractSupplyClient(await app_client_1.AppClient.fromCreatorAndName({ ...params, appSpec: exports.APP_SPEC }));
+    }
+    /**
+     * Returns an `ContractSupplyClient` instance for the current network based on
+     * pre-determined network-specific app IDs specified in the ARC-56 app spec.
+     *
+     * If no IDs are in the app spec or the network isn't recognised, an error is thrown.
+     * @param params The parameters to create the app client
+     */
+    static async fromNetwork(params) {
+        return new ContractSupplyClient(await app_client_1.AppClient.fromNetwork({ ...params, appSpec: exports.APP_SPEC }));
+    }
+    /** The ID of the app instance this client is linked to. */
+    get appId() {
+        return this.appClient.appId;
+    }
+    /** The app address of the app instance this client is linked to. */
+    get appAddress() {
+        return this.appClient.appAddress;
+    }
+    /** The name of the app. */
+    get appName() {
+        return this.appClient.appName;
+    }
+    /** The ARC-56 app spec being used */
+    get appSpec() {
+        return this.appClient.appSpec;
+    }
+    /** A reference to the underlying `AlgorandClient` this app client is using. */
+    get algorand() {
+        return this.appClient.algorand;
+    }
+    /**
+     * Get parameters to create transactions for the current app. A good mental model for this is that these parameters represent a deferred transaction creation.
+     */
+    params = {
+        /**
+         * Makes a clear_state call to an existing instance of the ContractSupply smart contract.
+         *
+         * @param params The params for the bare (raw) call
+         * @returns The clearState result
+         */
+        clearState: (params) => {
+            return this.appClient.params.bare.clearState(params);
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `setAdmin(address)void` ABI method.
+         *
+         * Transfer admin rights to a new address. Only current admin can call.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        setAdmin: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.setAdmin(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `createBatch(string,uint64,string,string,string,string,uint64)uint64` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        createBatch: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.createBatch(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `logCheckpoint(uint64,string,string,uint64,uint64,string,string,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        logCheckpoint: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.logCheckpoint(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `initiateHandoff(uint64,string,string,string,string)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        initiateHandoff: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.initiateHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `confirmHandoff(uint64,uint64,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        confirmHandoff: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.confirmHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `mintBatchAsa(uint64,byte[])uint64` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        mintBatchAsa: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.mintBatchAsa(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `storeVerification(uint64,string,uint64,string,string)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        storeVerification: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.storeVerification(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `updateCarbonScore(uint64,uint64,uint64,uint64,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        updateCarbonScore: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.updateCarbonScore(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `updateFarmerReputation(string,uint64,uint64,uint64,string,uint64,uint64,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        updateFarmerReputation: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.updateFarmerReputation(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `recordFarmerPayment(string,uint64,uint64,string,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        recordFarmerPayment: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.recordFarmerPayment(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerification(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getVerification: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getVerification(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalVerifications()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getTotalVerifications: (params = { args: [] }) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getTotalVerifications(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalBatches()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getTotalBatches: (params = { args: [] }) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getTotalBatches(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalPayments()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getTotalPayments: (params = { args: [] }) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getTotalPayments(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationConfidence(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getVerificationConfidence: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getVerificationConfidence(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationReason(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getVerificationReason: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getVerificationReason(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationVerifierAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getVerificationVerifierAddr: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getVerificationVerifierAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationTimestamp(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getVerificationTimestamp: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getVerificationTimestamp(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonScore(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCarbonScore: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCarbonScore(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonCredits(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCarbonCredits: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCarbonCredits(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonDistance(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCarbonDistance: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCarbonDistance(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonTransportMethod(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCarbonTransportMethod: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCarbonTransportMethod(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonCalculatedAt(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCarbonCalculatedAt: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCarbonCalculatedAt(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerTotalBatches(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getFarmerTotalBatches: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getFarmerTotalBatches(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerVerifiedCount(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getFarmerVerifiedCount: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getFarmerVerifiedCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerFlaggedCount(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getFarmerFlaggedCount: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getFarmerFlaggedCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerTier(string)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getFarmerTier: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getFarmerTier(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerCarbonCreditsTotal(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getFarmerCarbonCreditsTotal: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getFarmerCarbonCreditsTotal(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerPaymentsTotal(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getFarmerPaymentsTotal: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getFarmerPaymentsTotal(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerLastUpdated(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getFarmerLastUpdated: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getFarmerLastUpdated(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentFarmerAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getPaymentFarmerAddr: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getPaymentFarmerAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentBatchId(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getPaymentBatchId: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getPaymentBatchId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentAmount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getPaymentAmount: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getPaymentAmount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentCurrency(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getPaymentCurrency: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getPaymentCurrency(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentTxId(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getPaymentTxId: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getPaymentTxId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentTimestamp(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getPaymentTimestamp: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getPaymentTimestamp(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatch(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatch: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatch(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `hasBatch(uint64)bool` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        hasBatch: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.hasBatch(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpoint(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpoint: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpoint(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointCount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointCount: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoff(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoff: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `hasHandoff(uint64,uint64)bool` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        hasHandoff: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.hasHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffCount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoffCount: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoffCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchWeight(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchWeight: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchWeight(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchCropType(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchCropType: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchCropType(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmGps(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchFarmGps: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchFarmGps(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmingPractices(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchFarmingPractices: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchFarmingPractices(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchOrganicCertId(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchOrganicCertId: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchOrganicCertId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmerAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchFarmerAddr: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchFarmerAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchCreatedAt(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchCreatedAt: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchCreatedAt(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchAsaId(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getBatchAsaId: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getBatchAsaId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointTemperature(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointTemperature: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointTemperature(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointHumidity(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointHumidity: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointHumidity(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointGps(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointGps: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointGps(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointHandlerType(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointHandlerType: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointHandlerType(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointNotes(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointNotes: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointNotes(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointPhotoHash(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointPhotoHash: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointPhotoHash(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointTimestamp(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getCheckpointTimestamp: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getCheckpointTimestamp(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffFromAddr(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoffFromAddr: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoffFromAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffToAddr(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoffToAddr: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoffToAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffType(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoffType: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoffType(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffStatus(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoffStatus: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoffStatus(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffConfirmedAt(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoffConfirmedAt: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoffConfirmedAt(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffPhotoHashes(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call params
+         */
+        getHandoffPhotoHashes: (params) => {
+            return this.appClient.params.call(ContractSupplyParamsFactory.getHandoffPhotoHashes(params));
+        },
+    };
+    /**
+     * Create transactions for the current app
+     */
+    createTransaction = {
+        /**
+         * Makes a clear_state call to an existing instance of the ContractSupply smart contract.
+         *
+         * @param params The params for the bare (raw) call
+         * @returns The clearState result
+         */
+        clearState: (params) => {
+            return this.appClient.createTransaction.bare.clearState(params);
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `setAdmin(address)void` ABI method.
+         *
+         * Transfer admin rights to a new address. Only current admin can call.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        setAdmin: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.setAdmin(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `createBatch(string,uint64,string,string,string,string,uint64)uint64` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        createBatch: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.createBatch(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `logCheckpoint(uint64,string,string,uint64,uint64,string,string,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        logCheckpoint: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.logCheckpoint(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `initiateHandoff(uint64,string,string,string,string)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        initiateHandoff: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.initiateHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `confirmHandoff(uint64,uint64,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        confirmHandoff: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.confirmHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `mintBatchAsa(uint64,byte[])uint64` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        mintBatchAsa: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.mintBatchAsa(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `storeVerification(uint64,string,uint64,string,string)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        storeVerification: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.storeVerification(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `updateCarbonScore(uint64,uint64,uint64,uint64,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        updateCarbonScore: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.updateCarbonScore(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `updateFarmerReputation(string,uint64,uint64,uint64,string,uint64,uint64,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        updateFarmerReputation: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.updateFarmerReputation(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `recordFarmerPayment(string,uint64,uint64,string,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        recordFarmerPayment: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.recordFarmerPayment(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerification(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getVerification: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getVerification(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalVerifications()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getTotalVerifications: (params = { args: [] }) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getTotalVerifications(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalBatches()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getTotalBatches: (params = { args: [] }) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getTotalBatches(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalPayments()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getTotalPayments: (params = { args: [] }) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getTotalPayments(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationConfidence(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getVerificationConfidence: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getVerificationConfidence(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationReason(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getVerificationReason: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getVerificationReason(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationVerifierAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getVerificationVerifierAddr: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getVerificationVerifierAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationTimestamp(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getVerificationTimestamp: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getVerificationTimestamp(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonScore(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCarbonScore: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCarbonScore(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonCredits(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCarbonCredits: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCarbonCredits(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonDistance(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCarbonDistance: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCarbonDistance(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonTransportMethod(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCarbonTransportMethod: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCarbonTransportMethod(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonCalculatedAt(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCarbonCalculatedAt: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCarbonCalculatedAt(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerTotalBatches(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getFarmerTotalBatches: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getFarmerTotalBatches(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerVerifiedCount(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getFarmerVerifiedCount: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getFarmerVerifiedCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerFlaggedCount(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getFarmerFlaggedCount: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getFarmerFlaggedCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerTier(string)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getFarmerTier: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getFarmerTier(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerCarbonCreditsTotal(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getFarmerCarbonCreditsTotal: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getFarmerCarbonCreditsTotal(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerPaymentsTotal(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getFarmerPaymentsTotal: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getFarmerPaymentsTotal(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerLastUpdated(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getFarmerLastUpdated: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getFarmerLastUpdated(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentFarmerAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getPaymentFarmerAddr: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getPaymentFarmerAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentBatchId(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getPaymentBatchId: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getPaymentBatchId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentAmount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getPaymentAmount: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getPaymentAmount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentCurrency(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getPaymentCurrency: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getPaymentCurrency(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentTxId(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getPaymentTxId: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getPaymentTxId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentTimestamp(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getPaymentTimestamp: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getPaymentTimestamp(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatch(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatch: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatch(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `hasBatch(uint64)bool` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        hasBatch: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.hasBatch(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpoint(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpoint: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpoint(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointCount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointCount: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoff(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoff: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `hasHandoff(uint64,uint64)bool` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        hasHandoff: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.hasHandoff(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffCount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoffCount: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoffCount(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchWeight(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchWeight: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchWeight(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchCropType(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchCropType: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchCropType(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmGps(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchFarmGps: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchFarmGps(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmingPractices(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchFarmingPractices: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchFarmingPractices(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchOrganicCertId(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchOrganicCertId: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchOrganicCertId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmerAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchFarmerAddr: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchFarmerAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchCreatedAt(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchCreatedAt: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchCreatedAt(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchAsaId(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getBatchAsaId: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getBatchAsaId(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointTemperature(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointTemperature: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointTemperature(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointHumidity(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointHumidity: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointHumidity(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointGps(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointGps: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointGps(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointHandlerType(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointHandlerType: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointHandlerType(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointNotes(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointNotes: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointNotes(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointPhotoHash(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointPhotoHash: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointPhotoHash(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointTimestamp(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getCheckpointTimestamp: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getCheckpointTimestamp(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffFromAddr(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoffFromAddr: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoffFromAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffToAddr(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoffToAddr: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoffToAddr(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffType(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoffType: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoffType(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffStatus(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoffStatus: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoffStatus(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffConfirmedAt(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoffConfirmedAt: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoffConfirmedAt(params));
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffPhotoHashes(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call transaction
+         */
+        getHandoffPhotoHashes: (params) => {
+            return this.appClient.createTransaction.call(ContractSupplyParamsFactory.getHandoffPhotoHashes(params));
+        },
+    };
+    /**
+     * Send calls to the current app
+     */
+    send = {
+        /**
+         * Makes a clear_state call to an existing instance of the ContractSupply smart contract.
+         *
+         * @param params The params for the bare (raw) call
+         * @returns The clearState result
+         */
+        clearState: (params) => {
+            return this.appClient.send.bare.clearState(params);
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `setAdmin(address)void` ABI method.
+         *
+         * Transfer admin rights to a new address. Only current admin can call.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        setAdmin: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.setAdmin(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `createBatch(string,uint64,string,string,string,string,uint64)uint64` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        createBatch: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.createBatch(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `logCheckpoint(uint64,string,string,uint64,uint64,string,string,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        logCheckpoint: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.logCheckpoint(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `initiateHandoff(uint64,string,string,string,string)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        initiateHandoff: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.initiateHandoff(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `confirmHandoff(uint64,uint64,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        confirmHandoff: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.confirmHandoff(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `mintBatchAsa(uint64,byte[])uint64` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        mintBatchAsa: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.mintBatchAsa(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `storeVerification(uint64,string,uint64,string,string)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        storeVerification: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.storeVerification(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `updateCarbonScore(uint64,uint64,uint64,uint64,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        updateCarbonScore: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.updateCarbonScore(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `updateFarmerReputation(string,uint64,uint64,uint64,string,uint64,uint64,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        updateFarmerReputation: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.updateFarmerReputation(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `recordFarmerPayment(string,uint64,uint64,string,string,uint64)void` ABI method.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        recordFarmerPayment: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.recordFarmerPayment(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerification(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getVerification: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerification(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalVerifications()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getTotalVerifications: async (params = { args: [] }) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getTotalVerifications(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalBatches()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getTotalBatches: async (params = { args: [] }) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getTotalBatches(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getTotalPayments()uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getTotalPayments: async (params = { args: [] }) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getTotalPayments(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationConfidence(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getVerificationConfidence: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationConfidence(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationReason(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getVerificationReason: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationReason(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationVerifierAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getVerificationVerifierAddr: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationVerifierAddr(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getVerificationTimestamp(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getVerificationTimestamp: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationTimestamp(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonScore(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCarbonScore: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonScore(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonCredits(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCarbonCredits: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonCredits(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonDistance(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCarbonDistance: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonDistance(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonTransportMethod(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCarbonTransportMethod: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonTransportMethod(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCarbonCalculatedAt(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCarbonCalculatedAt: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonCalculatedAt(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerTotalBatches(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getFarmerTotalBatches: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerTotalBatches(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerVerifiedCount(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getFarmerVerifiedCount: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerVerifiedCount(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerFlaggedCount(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getFarmerFlaggedCount: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerFlaggedCount(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerTier(string)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getFarmerTier: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerTier(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerCarbonCreditsTotal(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getFarmerCarbonCreditsTotal: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerCarbonCreditsTotal(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerPaymentsTotal(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getFarmerPaymentsTotal: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerPaymentsTotal(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getFarmerLastUpdated(string)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getFarmerLastUpdated: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerLastUpdated(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentFarmerAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getPaymentFarmerAddr: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentFarmerAddr(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentBatchId(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getPaymentBatchId: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentBatchId(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentAmount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getPaymentAmount: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentAmount(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentCurrency(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getPaymentCurrency: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentCurrency(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentTxId(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getPaymentTxId: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentTxId(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getPaymentTimestamp(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getPaymentTimestamp: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentTimestamp(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatch(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatch: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatch(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `hasBatch(uint64)bool` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        hasBatch: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.hasBatch(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpoint(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpoint: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpoint(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointCount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointCount: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointCount(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoff(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoff: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoff(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `hasHandoff(uint64,uint64)bool` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        hasHandoff: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.hasHandoff(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffCount(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoffCount: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffCount(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchWeight(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchWeight: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchWeight(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchCropType(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchCropType: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchCropType(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmGps(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchFarmGps: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchFarmGps(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmingPractices(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchFarmingPractices: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchFarmingPractices(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchOrganicCertId(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchOrganicCertId: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchOrganicCertId(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchFarmerAddr(uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchFarmerAddr: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchFarmerAddr(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchCreatedAt(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchCreatedAt: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchCreatedAt(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getBatchAsaId(uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getBatchAsaId: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchAsaId(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointTemperature(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointTemperature: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointTemperature(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointHumidity(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointHumidity: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointHumidity(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointGps(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointGps: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointGps(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointHandlerType(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointHandlerType: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointHandlerType(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointNotes(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointNotes: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointNotes(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointPhotoHash(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointPhotoHash: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointPhotoHash(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getCheckpointTimestamp(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getCheckpointTimestamp: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointTimestamp(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffFromAddr(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoffFromAddr: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffFromAddr(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffToAddr(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoffToAddr: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffToAddr(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffType(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoffType: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffType(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffStatus(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoffStatus: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffStatus(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffConfirmedAt(uint64,uint64)uint64` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoffConfirmedAt: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffConfirmedAt(params));
+            return { ...result, return: result.return };
+        },
+        /**
+         * Makes a call to the ContractSupply smart contract using the `getHandoffPhotoHashes(uint64,uint64)string` ABI method.
+         *
+         * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+         *
+         * @param params The params for the smart contract call
+         * @returns The call result
+         */
+        getHandoffPhotoHashes: async (params) => {
+            const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffPhotoHashes(params));
+            return { ...result, return: result.return };
+        },
+    };
+    /**
+     * Clone this app client with different params
+     *
+     * @param params The params to use for the the cloned app client. Omit a param to keep the original value. Set a param to override the original value. Setting to undefined will clear the original value.
+     * @returns A new app client with the altered params
+     */
+    clone(params) {
+        return new ContractSupplyClient(this.appClient.clone(params));
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getVerification(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getVerification(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerification(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getTotalVerifications()uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getTotalVerifications(params = { args: [] }) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getTotalVerifications(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getTotalBatches()uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getTotalBatches(params = { args: [] }) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getTotalBatches(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getTotalPayments()uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getTotalPayments(params = { args: [] }) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getTotalPayments(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getVerificationConfidence(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getVerificationConfidence(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationConfidence(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getVerificationReason(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getVerificationReason(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationReason(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getVerificationVerifierAddr(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getVerificationVerifierAddr(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationVerifierAddr(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getVerificationTimestamp(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getVerificationTimestamp(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getVerificationTimestamp(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCarbonScore(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCarbonScore(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonScore(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCarbonCredits(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCarbonCredits(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonCredits(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCarbonDistance(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCarbonDistance(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonDistance(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCarbonTransportMethod(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCarbonTransportMethod(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonTransportMethod(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCarbonCalculatedAt(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCarbonCalculatedAt(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCarbonCalculatedAt(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getFarmerTotalBatches(string)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getFarmerTotalBatches(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerTotalBatches(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getFarmerVerifiedCount(string)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getFarmerVerifiedCount(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerVerifiedCount(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getFarmerFlaggedCount(string)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getFarmerFlaggedCount(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerFlaggedCount(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getFarmerTier(string)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getFarmerTier(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerTier(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getFarmerCarbonCreditsTotal(string)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getFarmerCarbonCreditsTotal(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerCarbonCreditsTotal(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getFarmerPaymentsTotal(string)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getFarmerPaymentsTotal(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerPaymentsTotal(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getFarmerLastUpdated(string)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getFarmerLastUpdated(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getFarmerLastUpdated(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getPaymentFarmerAddr(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getPaymentFarmerAddr(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentFarmerAddr(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getPaymentBatchId(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getPaymentBatchId(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentBatchId(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getPaymentAmount(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getPaymentAmount(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentAmount(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getPaymentCurrency(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getPaymentCurrency(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentCurrency(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getPaymentTxId(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getPaymentTxId(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentTxId(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getPaymentTimestamp(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getPaymentTimestamp(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getPaymentTimestamp(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatch(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatch(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatch(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `hasBatch(uint64)bool` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async hasBatch(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.hasBatch(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpoint(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpoint(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpoint(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointCount(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointCount(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointCount(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoff(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoff(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoff(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `hasHandoff(uint64,uint64)bool` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async hasHandoff(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.hasHandoff(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoffCount(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoffCount(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffCount(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchWeight(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchWeight(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchWeight(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchCropType(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchCropType(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchCropType(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchFarmGps(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchFarmGps(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchFarmGps(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchFarmingPractices(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchFarmingPractices(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchFarmingPractices(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchOrganicCertId(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchOrganicCertId(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchOrganicCertId(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchFarmerAddr(uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchFarmerAddr(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchFarmerAddr(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchCreatedAt(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchCreatedAt(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchCreatedAt(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getBatchAsaId(uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getBatchAsaId(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getBatchAsaId(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointTemperature(uint64,uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointTemperature(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointTemperature(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointHumidity(uint64,uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointHumidity(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointHumidity(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointGps(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointGps(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointGps(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointHandlerType(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointHandlerType(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointHandlerType(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointNotes(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointNotes(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointNotes(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointPhotoHash(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointPhotoHash(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointPhotoHash(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getCheckpointTimestamp(uint64,uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getCheckpointTimestamp(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getCheckpointTimestamp(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoffFromAddr(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoffFromAddr(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffFromAddr(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoffToAddr(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoffToAddr(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffToAddr(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoffType(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoffType(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffType(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoffStatus(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoffStatus(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffStatus(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoffConfirmedAt(uint64,uint64)uint64` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoffConfirmedAt(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffConfirmedAt(params));
+        return result.return;
+    }
+    /**
+     * Makes a readonly (simulated) call to the ContractSupply smart contract using the `getHandoffPhotoHashes(uint64,uint64)string` ABI method.
+     *
+     * This method is a readonly method; calling it with onComplete of NoOp will result in a simulated transaction rather than a real transaction.
+     *
+     * @param params The params for the smart contract call
+     * @returns The call result
+     */
+    async getHandoffPhotoHashes(params) {
+        const result = await this.appClient.send.call(ContractSupplyParamsFactory.getHandoffPhotoHashes(params));
+        return result.return;
+    }
+    /**
+     * Methods to access state for the current ContractSupply app
+     */
+    state = {
+        /**
+         * Methods to access global state for the current ContractSupply app
+         */
+        global: {
+            /**
+             * Get all current keyed values from global state
+             */
+            getAll: async () => {
+                const result = await this.appClient.state.global.getAll();
+                return {
+                    totalBatches: result.totalBatches,
+                    totalVerifications: result.totalVerifications,
+                    totalPayments: result.totalPayments,
+                    admin: result.admin,
+                };
+            },
+            /**
+             * Get the current value of the totalBatches key in global state
+             */
+            totalBatches: async () => { return (await this.appClient.state.global.getValue("totalBatches")); },
+            /**
+             * Get the current value of the totalVerifications key in global state
+             */
+            totalVerifications: async () => { return (await this.appClient.state.global.getValue("totalVerifications")); },
+            /**
+             * Get the current value of the totalPayments key in global state
+             */
+            totalPayments: async () => { return (await this.appClient.state.global.getValue("totalPayments")); },
+            /**
+             * Get the current value of the admin key in global state
+             */
+            admin: async () => { return (await this.appClient.state.global.getValue("admin")); },
+        },
+        /**
+         * Methods to access box state for the current ContractSupply app
+         */
+        box: {
+            /**
+             * Get all current keyed values from box state
+             */
+            getAll: async () => {
+                const result = await this.appClient.state.box.getAll();
+                return {};
+            },
+            /**
+             * Get values from the batchCropTypeBox map in box state
+             */
+            batchCropTypeBox: {
+                /**
+                 * Get all current values of the batchCropTypeBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchCropTypeBox")); },
+                /**
+                 * Get a current value of the batchCropTypeBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchCropTypeBox", key); },
+            },
+            /**
+             * Get values from the batchFarmGpsBox map in box state
+             */
+            batchFarmGpsBox: {
+                /**
+                 * Get all current values of the batchFarmGpsBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchFarmGpsBox")); },
+                /**
+                 * Get a current value of the batchFarmGpsBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchFarmGpsBox", key); },
+            },
+            /**
+             * Get values from the batchOrganicCertIdBox map in box state
+             */
+            batchOrganicCertIdBox: {
+                /**
+                 * Get all current values of the batchOrganicCertIdBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchOrganicCertIdBox")); },
+                /**
+                 * Get a current value of the batchOrganicCertIdBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchOrganicCertIdBox", key); },
+            },
+            /**
+             * Get values from the batchFarmerAddrBox map in box state
+             */
+            batchFarmerAddrBox: {
+                /**
+                 * Get all current values of the batchFarmerAddrBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchFarmerAddrBox")); },
+                /**
+                 * Get a current value of the batchFarmerAddrBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchFarmerAddrBox", key); },
+            },
+            /**
+             * Get values from the batchWeightBox map in box state
+             */
+            batchWeightBox: {
+                /**
+                 * Get all current values of the batchWeightBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchWeightBox")); },
+                /**
+                 * Get a current value of the batchWeightBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchWeightBox", key); },
+            },
+            /**
+             * Get values from the batchFarmingPracticesBox map in box state
+             */
+            batchFarmingPracticesBox: {
+                /**
+                 * Get all current values of the batchFarmingPracticesBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchFarmingPracticesBox")); },
+                /**
+                 * Get a current value of the batchFarmingPracticesBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchFarmingPracticesBox", key); },
+            },
+            /**
+             * Get values from the batchCreatedAtBox map in box state
+             */
+            batchCreatedAtBox: {
+                /**
+                 * Get all current values of the batchCreatedAtBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchCreatedAtBox")); },
+                /**
+                 * Get a current value of the batchCreatedAtBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchCreatedAtBox", key); },
+            },
+            /**
+             * Get values from the batchAsaIdBox map in box state
+             */
+            batchAsaIdBox: {
+                /**
+                 * Get all current values of the batchAsaIdBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("batchAsaIdBox")); },
+                /**
+                 * Get a current value of the batchAsaIdBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("batchAsaIdBox", key); },
+            },
+            /**
+             * Get values from the checkpointGpsBox map in box state
+             */
+            checkpointGpsBox: {
+                /**
+                 * Get all current values of the checkpointGpsBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointGpsBox")); },
+                /**
+                 * Get a current value of the checkpointGpsBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointGpsBox", key); },
+            },
+            /**
+             * Get values from the checkpointTemperatureBox map in box state
+             */
+            checkpointTemperatureBox: {
+                /**
+                 * Get all current values of the checkpointTemperatureBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointTemperatureBox")); },
+                /**
+                 * Get a current value of the checkpointTemperatureBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointTemperatureBox", key); },
+            },
+            /**
+             * Get values from the checkpointHumidityBox map in box state
+             */
+            checkpointHumidityBox: {
+                /**
+                 * Get all current values of the checkpointHumidityBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointHumidityBox")); },
+                /**
+                 * Get a current value of the checkpointHumidityBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointHumidityBox", key); },
+            },
+            /**
+             * Get values from the checkpointHandlerTypeBox map in box state
+             */
+            checkpointHandlerTypeBox: {
+                /**
+                 * Get all current values of the checkpointHandlerTypeBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointHandlerTypeBox")); },
+                /**
+                 * Get a current value of the checkpointHandlerTypeBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointHandlerTypeBox", key); },
+            },
+            /**
+             * Get values from the checkpointNotesBox map in box state
+             */
+            checkpointNotesBox: {
+                /**
+                 * Get all current values of the checkpointNotesBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointNotesBox")); },
+                /**
+                 * Get a current value of the checkpointNotesBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointNotesBox", key); },
+            },
+            /**
+             * Get values from the checkpointPhotoHashBox map in box state
+             */
+            checkpointPhotoHashBox: {
+                /**
+                 * Get all current values of the checkpointPhotoHashBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointPhotoHashBox")); },
+                /**
+                 * Get a current value of the checkpointPhotoHashBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointPhotoHashBox", key); },
+            },
+            /**
+             * Get values from the checkpointTimestampBox map in box state
+             */
+            checkpointTimestampBox: {
+                /**
+                 * Get all current values of the checkpointTimestampBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointTimestampBox")); },
+                /**
+                 * Get a current value of the checkpointTimestampBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointTimestampBox", key); },
+            },
+            /**
+             * Get values from the checkpointCountBox map in box state
+             */
+            checkpointCountBox: {
+                /**
+                 * Get all current values of the checkpointCountBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("checkpointCountBox")); },
+                /**
+                 * Get a current value of the checkpointCountBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("checkpointCountBox", key); },
+            },
+            /**
+             * Get values from the handoffFromAddrBox map in box state
+             */
+            handoffFromAddrBox: {
+                /**
+                 * Get all current values of the handoffFromAddrBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("handoffFromAddrBox")); },
+                /**
+                 * Get a current value of the handoffFromAddrBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("handoffFromAddrBox", key); },
+            },
+            /**
+             * Get values from the handoffToAddrBox map in box state
+             */
+            handoffToAddrBox: {
+                /**
+                 * Get all current values of the handoffToAddrBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("handoffToAddrBox")); },
+                /**
+                 * Get a current value of the handoffToAddrBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("handoffToAddrBox", key); },
+            },
+            /**
+             * Get values from the handoffTypeBox map in box state
+             */
+            handoffTypeBox: {
+                /**
+                 * Get all current values of the handoffTypeBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("handoffTypeBox")); },
+                /**
+                 * Get a current value of the handoffTypeBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("handoffTypeBox", key); },
+            },
+            /**
+             * Get values from the handoffStatusBox map in box state
+             */
+            handoffStatusBox: {
+                /**
+                 * Get all current values of the handoffStatusBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("handoffStatusBox")); },
+                /**
+                 * Get a current value of the handoffStatusBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("handoffStatusBox", key); },
+            },
+            /**
+             * Get values from the handoffConfirmedAtBox map in box state
+             */
+            handoffConfirmedAtBox: {
+                /**
+                 * Get all current values of the handoffConfirmedAtBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("handoffConfirmedAtBox")); },
+                /**
+                 * Get a current value of the handoffConfirmedAtBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("handoffConfirmedAtBox", key); },
+            },
+            /**
+             * Get values from the handoffPhotoHashesBox map in box state
+             */
+            handoffPhotoHashesBox: {
+                /**
+                 * Get all current values of the handoffPhotoHashesBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("handoffPhotoHashesBox")); },
+                /**
+                 * Get a current value of the handoffPhotoHashesBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("handoffPhotoHashesBox", key); },
+            },
+            /**
+             * Get values from the handoffCountBox map in box state
+             */
+            handoffCountBox: {
+                /**
+                 * Get all current values of the handoffCountBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("handoffCountBox")); },
+                /**
+                 * Get a current value of the handoffCountBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("handoffCountBox", key); },
+            },
+            /**
+             * Get values from the verificationResultBox map in box state
+             */
+            verificationResultBox: {
+                /**
+                 * Get all current values of the verificationResultBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("verificationResultBox")); },
+                /**
+                 * Get a current value of the verificationResultBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("verificationResultBox", key); },
+            },
+            /**
+             * Get values from the verificationConfidenceBox map in box state
+             */
+            verificationConfidenceBox: {
+                /**
+                 * Get all current values of the verificationConfidenceBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("verificationConfidenceBox")); },
+                /**
+                 * Get a current value of the verificationConfidenceBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("verificationConfidenceBox", key); },
+            },
+            /**
+             * Get values from the verificationReasonBox map in box state
+             */
+            verificationReasonBox: {
+                /**
+                 * Get all current values of the verificationReasonBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("verificationReasonBox")); },
+                /**
+                 * Get a current value of the verificationReasonBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("verificationReasonBox", key); },
+            },
+            /**
+             * Get values from the verificationVerifierAddrBox map in box state
+             */
+            verificationVerifierAddrBox: {
+                /**
+                 * Get all current values of the verificationVerifierAddrBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("verificationVerifierAddrBox")); },
+                /**
+                 * Get a current value of the verificationVerifierAddrBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("verificationVerifierAddrBox", key); },
+            },
+            /**
+             * Get values from the verificationTimestampBox map in box state
+             */
+            verificationTimestampBox: {
+                /**
+                 * Get all current values of the verificationTimestampBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("verificationTimestampBox")); },
+                /**
+                 * Get a current value of the verificationTimestampBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("verificationTimestampBox", key); },
+            },
+            /**
+             * Get values from the carbonScoreBox map in box state
+             */
+            carbonScoreBox: {
+                /**
+                 * Get all current values of the carbonScoreBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("carbonScoreBox")); },
+                /**
+                 * Get a current value of the carbonScoreBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("carbonScoreBox", key); },
+            },
+            /**
+             * Get values from the carbonCreditsBox map in box state
+             */
+            carbonCreditsBox: {
+                /**
+                 * Get all current values of the carbonCreditsBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("carbonCreditsBox")); },
+                /**
+                 * Get a current value of the carbonCreditsBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("carbonCreditsBox", key); },
+            },
+            /**
+             * Get values from the carbonDistanceBox map in box state
+             */
+            carbonDistanceBox: {
+                /**
+                 * Get all current values of the carbonDistanceBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("carbonDistanceBox")); },
+                /**
+                 * Get a current value of the carbonDistanceBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("carbonDistanceBox", key); },
+            },
+            /**
+             * Get values from the carbonTransportBox map in box state
+             */
+            carbonTransportBox: {
+                /**
+                 * Get all current values of the carbonTransportBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("carbonTransportBox")); },
+                /**
+                 * Get a current value of the carbonTransportBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("carbonTransportBox", key); },
+            },
+            /**
+             * Get values from the carbonCalculatedAtBox map in box state
+             */
+            carbonCalculatedAtBox: {
+                /**
+                 * Get all current values of the carbonCalculatedAtBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("carbonCalculatedAtBox")); },
+                /**
+                 * Get a current value of the carbonCalculatedAtBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("carbonCalculatedAtBox", key); },
+            },
+            /**
+             * Get values from the farmerTotalBatchesBox map in box state
+             */
+            farmerTotalBatchesBox: {
+                /**
+                 * Get all current values of the farmerTotalBatchesBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("farmerTotalBatchesBox")); },
+                /**
+                 * Get a current value of the farmerTotalBatchesBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("farmerTotalBatchesBox", key); },
+            },
+            /**
+             * Get values from the farmerVerifiedCountBox map in box state
+             */
+            farmerVerifiedCountBox: {
+                /**
+                 * Get all current values of the farmerVerifiedCountBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("farmerVerifiedCountBox")); },
+                /**
+                 * Get a current value of the farmerVerifiedCountBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("farmerVerifiedCountBox", key); },
+            },
+            /**
+             * Get values from the farmerFlaggedCountBox map in box state
+             */
+            farmerFlaggedCountBox: {
+                /**
+                 * Get all current values of the farmerFlaggedCountBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("farmerFlaggedCountBox")); },
+                /**
+                 * Get a current value of the farmerFlaggedCountBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("farmerFlaggedCountBox", key); },
+            },
+            /**
+             * Get values from the farmerTierBox map in box state
+             */
+            farmerTierBox: {
+                /**
+                 * Get all current values of the farmerTierBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("farmerTierBox")); },
+                /**
+                 * Get a current value of the farmerTierBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("farmerTierBox", key); },
+            },
+            /**
+             * Get values from the farmerCarbonCreditsBox map in box state
+             */
+            farmerCarbonCreditsBox: {
+                /**
+                 * Get all current values of the farmerCarbonCreditsBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("farmerCarbonCreditsBox")); },
+                /**
+                 * Get a current value of the farmerCarbonCreditsBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("farmerCarbonCreditsBox", key); },
+            },
+            /**
+             * Get values from the farmerPaymentsTotalBox map in box state
+             */
+            farmerPaymentsTotalBox: {
+                /**
+                 * Get all current values of the farmerPaymentsTotalBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("farmerPaymentsTotalBox")); },
+                /**
+                 * Get a current value of the farmerPaymentsTotalBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("farmerPaymentsTotalBox", key); },
+            },
+            /**
+             * Get values from the farmerLastUpdatedBox map in box state
+             */
+            farmerLastUpdatedBox: {
+                /**
+                 * Get all current values of the farmerLastUpdatedBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("farmerLastUpdatedBox")); },
+                /**
+                 * Get a current value of the farmerLastUpdatedBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("farmerLastUpdatedBox", key); },
+            },
+            /**
+             * Get values from the paymentFarmerAddrBox map in box state
+             */
+            paymentFarmerAddrBox: {
+                /**
+                 * Get all current values of the paymentFarmerAddrBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("paymentFarmerAddrBox")); },
+                /**
+                 * Get a current value of the paymentFarmerAddrBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("paymentFarmerAddrBox", key); },
+            },
+            /**
+             * Get values from the paymentBatchIdBox map in box state
+             */
+            paymentBatchIdBox: {
+                /**
+                 * Get all current values of the paymentBatchIdBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("paymentBatchIdBox")); },
+                /**
+                 * Get a current value of the paymentBatchIdBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("paymentBatchIdBox", key); },
+            },
+            /**
+             * Get values from the paymentAmountBox map in box state
+             */
+            paymentAmountBox: {
+                /**
+                 * Get all current values of the paymentAmountBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("paymentAmountBox")); },
+                /**
+                 * Get a current value of the paymentAmountBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("paymentAmountBox", key); },
+            },
+            /**
+             * Get values from the paymentCurrencyBox map in box state
+             */
+            paymentCurrencyBox: {
+                /**
+                 * Get all current values of the paymentCurrencyBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("paymentCurrencyBox")); },
+                /**
+                 * Get a current value of the paymentCurrencyBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("paymentCurrencyBox", key); },
+            },
+            /**
+             * Get values from the paymentTxBox map in box state
+             */
+            paymentTxBox: {
+                /**
+                 * Get all current values of the paymentTxBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("paymentTxBox")); },
+                /**
+                 * Get a current value of the paymentTxBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("paymentTxBox", key); },
+            },
+            /**
+             * Get values from the paymentTimestampBox map in box state
+             */
+            paymentTimestampBox: {
+                /**
+                 * Get all current values of the paymentTimestampBox map in box state
+                 */
+                getMap: async () => { return (await this.appClient.state.box.getMap("paymentTimestampBox")); },
+                /**
+                 * Get a current value of the paymentTimestampBox map by key from box state
+                 */
+                value: async (key) => { return await this.appClient.state.box.getMapValue("paymentTimestampBox", key); },
+            },
+        },
+    };
+    newGroup() {
+        const client = this;
+        const composer = this.algorand.newGroup();
+        let promiseChain = Promise.resolve();
+        const resultMappers = [];
+        return {
+            /**
+             * Add a setAdmin(address)void method call against the ContractSupply contract
+             */
+            setAdmin(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.setAdmin(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a createBatch(string,uint64,string,string,string,string,uint64)uint64 method call against the ContractSupply contract
+             */
+            createBatch(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.createBatch(params)));
+                resultMappers.push((v) => client.decodeReturnValue('createBatch(string,uint64,string,string,string,string,uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a logCheckpoint(uint64,string,string,uint64,uint64,string,string,string,uint64)void method call against the ContractSupply contract
+             */
+            logCheckpoint(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.logCheckpoint(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a initiateHandoff(uint64,string,string,string,string)void method call against the ContractSupply contract
+             */
+            initiateHandoff(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.initiateHandoff(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a confirmHandoff(uint64,uint64,uint64)void method call against the ContractSupply contract
+             */
+            confirmHandoff(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.confirmHandoff(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a mintBatchAsa(uint64,byte[])uint64 method call against the ContractSupply contract
+             */
+            mintBatchAsa(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.mintBatchAsa(params)));
+                resultMappers.push((v) => client.decodeReturnValue('mintBatchAsa(uint64,byte[])uint64', v));
+                return this;
+            },
+            /**
+             * Add a storeVerification(uint64,string,uint64,string,string)void method call against the ContractSupply contract
+             */
+            storeVerification(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.storeVerification(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a updateCarbonScore(uint64,uint64,uint64,uint64,string,uint64)void method call against the ContractSupply contract
+             */
+            updateCarbonScore(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.updateCarbonScore(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a updateFarmerReputation(string,uint64,uint64,uint64,string,uint64,uint64,uint64)void method call against the ContractSupply contract
+             */
+            updateFarmerReputation(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.updateFarmerReputation(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a recordFarmerPayment(string,uint64,uint64,string,string,uint64)void method call against the ContractSupply contract
+             */
+            recordFarmerPayment(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.recordFarmerPayment(params)));
+                resultMappers.push(undefined);
+                return this;
+            },
+            /**
+             * Add a getVerification(uint64)string method call against the ContractSupply contract
+             */
+            getVerification(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getVerification(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getVerification(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getTotalVerifications()uint64 method call against the ContractSupply contract
+             */
+            getTotalVerifications(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getTotalVerifications(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getTotalVerifications()uint64', v));
+                return this;
+            },
+            /**
+             * Add a getTotalBatches()uint64 method call against the ContractSupply contract
+             */
+            getTotalBatches(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getTotalBatches(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getTotalBatches()uint64', v));
+                return this;
+            },
+            /**
+             * Add a getTotalPayments()uint64 method call against the ContractSupply contract
+             */
+            getTotalPayments(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getTotalPayments(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getTotalPayments()uint64', v));
+                return this;
+            },
+            /**
+             * Add a getVerificationConfidence(uint64)uint64 method call against the ContractSupply contract
+             */
+            getVerificationConfidence(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getVerificationConfidence(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getVerificationConfidence(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getVerificationReason(uint64)string method call against the ContractSupply contract
+             */
+            getVerificationReason(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getVerificationReason(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getVerificationReason(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getVerificationVerifierAddr(uint64)string method call against the ContractSupply contract
+             */
+            getVerificationVerifierAddr(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getVerificationVerifierAddr(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getVerificationVerifierAddr(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getVerificationTimestamp(uint64)uint64 method call against the ContractSupply contract
+             */
+            getVerificationTimestamp(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getVerificationTimestamp(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getVerificationTimestamp(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getCarbonScore(uint64)uint64 method call against the ContractSupply contract
+             */
+            getCarbonScore(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCarbonScore(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCarbonScore(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getCarbonCredits(uint64)uint64 method call against the ContractSupply contract
+             */
+            getCarbonCredits(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCarbonCredits(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCarbonCredits(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getCarbonDistance(uint64)uint64 method call against the ContractSupply contract
+             */
+            getCarbonDistance(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCarbonDistance(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCarbonDistance(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getCarbonTransportMethod(uint64)string method call against the ContractSupply contract
+             */
+            getCarbonTransportMethod(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCarbonTransportMethod(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCarbonTransportMethod(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getCarbonCalculatedAt(uint64)uint64 method call against the ContractSupply contract
+             */
+            getCarbonCalculatedAt(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCarbonCalculatedAt(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCarbonCalculatedAt(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getFarmerTotalBatches(string)uint64 method call against the ContractSupply contract
+             */
+            getFarmerTotalBatches(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getFarmerTotalBatches(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getFarmerTotalBatches(string)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getFarmerVerifiedCount(string)uint64 method call against the ContractSupply contract
+             */
+            getFarmerVerifiedCount(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getFarmerVerifiedCount(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getFarmerVerifiedCount(string)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getFarmerFlaggedCount(string)uint64 method call against the ContractSupply contract
+             */
+            getFarmerFlaggedCount(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getFarmerFlaggedCount(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getFarmerFlaggedCount(string)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getFarmerTier(string)string method call against the ContractSupply contract
+             */
+            getFarmerTier(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getFarmerTier(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getFarmerTier(string)string', v));
+                return this;
+            },
+            /**
+             * Add a getFarmerCarbonCreditsTotal(string)uint64 method call against the ContractSupply contract
+             */
+            getFarmerCarbonCreditsTotal(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getFarmerCarbonCreditsTotal(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getFarmerCarbonCreditsTotal(string)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getFarmerPaymentsTotal(string)uint64 method call against the ContractSupply contract
+             */
+            getFarmerPaymentsTotal(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getFarmerPaymentsTotal(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getFarmerPaymentsTotal(string)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getFarmerLastUpdated(string)uint64 method call against the ContractSupply contract
+             */
+            getFarmerLastUpdated(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getFarmerLastUpdated(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getFarmerLastUpdated(string)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getPaymentFarmerAddr(uint64)string method call against the ContractSupply contract
+             */
+            getPaymentFarmerAddr(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getPaymentFarmerAddr(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getPaymentFarmerAddr(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getPaymentBatchId(uint64)uint64 method call against the ContractSupply contract
+             */
+            getPaymentBatchId(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getPaymentBatchId(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getPaymentBatchId(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getPaymentAmount(uint64)uint64 method call against the ContractSupply contract
+             */
+            getPaymentAmount(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getPaymentAmount(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getPaymentAmount(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getPaymentCurrency(uint64)string method call against the ContractSupply contract
+             */
+            getPaymentCurrency(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getPaymentCurrency(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getPaymentCurrency(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getPaymentTxId(uint64)string method call against the ContractSupply contract
+             */
+            getPaymentTxId(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getPaymentTxId(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getPaymentTxId(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getPaymentTimestamp(uint64)uint64 method call against the ContractSupply contract
+             */
+            getPaymentTimestamp(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getPaymentTimestamp(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getPaymentTimestamp(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getBatch(uint64)string method call against the ContractSupply contract
+             */
+            getBatch(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatch(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatch(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a hasBatch(uint64)bool method call against the ContractSupply contract
+             */
+            hasBatch(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.hasBatch(params)));
+                resultMappers.push((v) => client.decodeReturnValue('hasBatch(uint64)bool', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpoint(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getCheckpoint(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpoint(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpoint(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointCount(uint64)uint64 method call against the ContractSupply contract
+             */
+            getCheckpointCount(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointCount(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointCount(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getHandoff(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getHandoff(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoff(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoff(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a hasHandoff(uint64,uint64)bool method call against the ContractSupply contract
+             */
+            hasHandoff(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.hasHandoff(params)));
+                resultMappers.push((v) => client.decodeReturnValue('hasHandoff(uint64,uint64)bool', v));
+                return this;
+            },
+            /**
+             * Add a getHandoffCount(uint64)uint64 method call against the ContractSupply contract
+             */
+            getHandoffCount(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoffCount(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoffCount(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getBatchWeight(uint64)uint64 method call against the ContractSupply contract
+             */
+            getBatchWeight(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchWeight(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchWeight(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getBatchCropType(uint64)string method call against the ContractSupply contract
+             */
+            getBatchCropType(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchCropType(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchCropType(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getBatchFarmGps(uint64)string method call against the ContractSupply contract
+             */
+            getBatchFarmGps(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchFarmGps(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchFarmGps(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getBatchFarmingPractices(uint64)string method call against the ContractSupply contract
+             */
+            getBatchFarmingPractices(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchFarmingPractices(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchFarmingPractices(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getBatchOrganicCertId(uint64)string method call against the ContractSupply contract
+             */
+            getBatchOrganicCertId(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchOrganicCertId(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchOrganicCertId(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getBatchFarmerAddr(uint64)string method call against the ContractSupply contract
+             */
+            getBatchFarmerAddr(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchFarmerAddr(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchFarmerAddr(uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getBatchCreatedAt(uint64)uint64 method call against the ContractSupply contract
+             */
+            getBatchCreatedAt(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchCreatedAt(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchCreatedAt(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getBatchAsaId(uint64)uint64 method call against the ContractSupply contract
+             */
+            getBatchAsaId(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getBatchAsaId(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getBatchAsaId(uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointTemperature(uint64,uint64)uint64 method call against the ContractSupply contract
+             */
+            getCheckpointTemperature(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointTemperature(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointTemperature(uint64,uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointHumidity(uint64,uint64)uint64 method call against the ContractSupply contract
+             */
+            getCheckpointHumidity(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointHumidity(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointHumidity(uint64,uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointGps(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getCheckpointGps(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointGps(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointGps(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointHandlerType(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getCheckpointHandlerType(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointHandlerType(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointHandlerType(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointNotes(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getCheckpointNotes(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointNotes(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointNotes(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointPhotoHash(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getCheckpointPhotoHash(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointPhotoHash(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointPhotoHash(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getCheckpointTimestamp(uint64,uint64)uint64 method call against the ContractSupply contract
+             */
+            getCheckpointTimestamp(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getCheckpointTimestamp(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getCheckpointTimestamp(uint64,uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getHandoffFromAddr(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getHandoffFromAddr(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoffFromAddr(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoffFromAddr(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getHandoffToAddr(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getHandoffToAddr(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoffToAddr(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoffToAddr(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getHandoffType(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getHandoffType(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoffType(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoffType(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getHandoffStatus(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getHandoffStatus(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoffStatus(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoffStatus(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a getHandoffConfirmedAt(uint64,uint64)uint64 method call against the ContractSupply contract
+             */
+            getHandoffConfirmedAt(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoffConfirmedAt(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoffConfirmedAt(uint64,uint64)uint64', v));
+                return this;
+            },
+            /**
+             * Add a getHandoffPhotoHashes(uint64,uint64)string method call against the ContractSupply contract
+             */
+            getHandoffPhotoHashes(params) {
+                promiseChain = promiseChain.then(async () => composer.addAppCallMethodCall(await client.params.getHandoffPhotoHashes(params)));
+                resultMappers.push((v) => client.decodeReturnValue('getHandoffPhotoHashes(uint64,uint64)string', v));
+                return this;
+            },
+            /**
+             * Add a clear state call to the ContractSupply contract
+             */
+            clearState(params) {
+                promiseChain = promiseChain.then(() => composer.addAppCall(client.params.clearState(params)));
+                return this;
+            },
+            addTransaction(txn, signer) {
+                promiseChain = promiseChain.then(() => composer.addTransaction(txn, signer));
+                return this;
+            },
+            async composer() {
+                await promiseChain;
+                return composer;
+            },
+            async simulate(options) {
+                await promiseChain;
+                const result = await (!options ? composer.simulate() : composer.simulate(options));
+                return {
+                    ...result,
+                    returns: result.returns?.map((val, i) => resultMappers[i] !== undefined ? resultMappers[i](val) : val.returnValue)
+                };
+            },
+            async send(params) {
+                await promiseChain;
+                const result = await composer.send(params);
+                return {
+                    ...result,
+                    returns: result.returns?.map((val, i) => resultMappers[i] !== undefined ? resultMappers[i](val) : val.returnValue)
+                };
+            }
+        };
+    }
+}
+exports.ContractSupplyClient = ContractSupplyClient;

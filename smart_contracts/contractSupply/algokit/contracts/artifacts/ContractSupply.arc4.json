@@ -1,0 +1,1054 @@
+{
+  "name": "ContractSupply",
+  "desc": "",
+  "methods": [
+    {
+      "name": "createApplication",
+      "desc": "Called once when the application is created. Sets the deployer as admin.",
+      "args": [],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "setAdmin",
+      "desc": "Transfer admin rights to a new address. Only current admin can call.",
+      "args": [
+        {
+          "name": "newAdmin",
+          "type": "address"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "createBatch",
+      "args": [
+        {
+          "name": "cropType",
+          "type": "string"
+        },
+        {
+          "name": "weight",
+          "type": "uint64"
+        },
+        {
+          "name": "farmGps",
+          "type": "string"
+        },
+        {
+          "name": "farmingPractices",
+          "type": "string"
+        },
+        {
+          "name": "organicCertId",
+          "type": "string"
+        },
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        },
+        {
+          "name": "createdAt",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "logCheckpoint",
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "gpsLat",
+          "type": "string"
+        },
+        {
+          "name": "gpsLng",
+          "type": "string"
+        },
+        {
+          "name": "temperature",
+          "type": "uint64"
+        },
+        {
+          "name": "humidity",
+          "type": "uint64"
+        },
+        {
+          "name": "handlerType",
+          "type": "string"
+        },
+        {
+          "name": "notes",
+          "type": "string"
+        },
+        {
+          "name": "photoHash",
+          "type": "string"
+        },
+        {
+          "name": "checkpointTimestamp",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "initiateHandoff",
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "fromAddr",
+          "type": "string"
+        },
+        {
+          "name": "toAddr",
+          "type": "string"
+        },
+        {
+          "name": "handoffType",
+          "type": "string"
+        },
+        {
+          "name": "handoffPhotoHashes",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "confirmHandoff",
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        },
+        {
+          "name": "confirmedAt",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "mintBatchAsa",
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "metadataHash",
+          "type": "byte[]"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "storeVerification",
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "result",
+          "type": "string"
+        },
+        {
+          "name": "confidence",
+          "type": "uint64"
+        },
+        {
+          "name": "reason",
+          "type": "string"
+        },
+        {
+          "name": "verifierAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "updateCarbonScore",
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "score",
+          "type": "uint64"
+        },
+        {
+          "name": "creditsEarned",
+          "type": "uint64"
+        },
+        {
+          "name": "distance",
+          "type": "uint64"
+        },
+        {
+          "name": "transportMethod",
+          "type": "string"
+        },
+        {
+          "name": "calculatedAt",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "updateFarmerReputation",
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        },
+        {
+          "name": "totalBatches",
+          "type": "uint64"
+        },
+        {
+          "name": "verifiedCount",
+          "type": "uint64"
+        },
+        {
+          "name": "flaggedCount",
+          "type": "uint64"
+        },
+        {
+          "name": "tier",
+          "type": "string"
+        },
+        {
+          "name": "carbonCreditsTotal",
+          "type": "uint64"
+        },
+        {
+          "name": "totalPaymentsReceived",
+          "type": "uint64"
+        },
+        {
+          "name": "lastUpdated",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "recordFarmerPayment",
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        },
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "amount",
+          "type": "uint64"
+        },
+        {
+          "name": "currency",
+          "type": "string"
+        },
+        {
+          "name": "txId",
+          "type": "string"
+        },
+        {
+          "name": "timestamp",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "void"
+      }
+    },
+    {
+      "name": "getVerification",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getTotalVerifications",
+      "readonly": true,
+      "args": [],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getTotalBatches",
+      "readonly": true,
+      "args": [],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getTotalPayments",
+      "readonly": true,
+      "args": [],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getVerificationConfidence",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getVerificationReason",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getVerificationVerifierAddr",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getVerificationTimestamp",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getCarbonScore",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getCarbonCredits",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getCarbonDistance",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getCarbonTransportMethod",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getCarbonCalculatedAt",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getFarmerTotalBatches",
+      "readonly": true,
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getFarmerVerifiedCount",
+      "readonly": true,
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getFarmerFlaggedCount",
+      "readonly": true,
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getFarmerTier",
+      "readonly": true,
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getFarmerCarbonCreditsTotal",
+      "readonly": true,
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getFarmerPaymentsTotal",
+      "readonly": true,
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getFarmerLastUpdated",
+      "readonly": true,
+      "args": [
+        {
+          "name": "farmerAddr",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getPaymentFarmerAddr",
+      "readonly": true,
+      "args": [
+        {
+          "name": "paymentId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getPaymentBatchId",
+      "readonly": true,
+      "args": [
+        {
+          "name": "paymentId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getPaymentAmount",
+      "readonly": true,
+      "args": [
+        {
+          "name": "paymentId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getPaymentCurrency",
+      "readonly": true,
+      "args": [
+        {
+          "name": "paymentId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getPaymentTxId",
+      "readonly": true,
+      "args": [
+        {
+          "name": "paymentId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getPaymentTimestamp",
+      "readonly": true,
+      "args": [
+        {
+          "name": "paymentId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getBatch",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "hasBatch",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "bool"
+      }
+    },
+    {
+      "name": "getCheckpoint",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getCheckpointCount",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getHandoff",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "hasHandoff",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "bool"
+      }
+    },
+    {
+      "name": "getHandoffCount",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getBatchWeight",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getBatchCropType",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getBatchFarmGps",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getBatchFarmingPractices",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getBatchOrganicCertId",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getBatchFarmerAddr",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getBatchCreatedAt",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getBatchAsaId",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getCheckpointTemperature",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getCheckpointHumidity",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getCheckpointGps",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getCheckpointHandlerType",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getCheckpointNotes",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getCheckpointPhotoHash",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getCheckpointTimestamp",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "index",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getHandoffFromAddr",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getHandoffToAddr",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getHandoffType",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getHandoffStatus",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "getHandoffConfirmedAt",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "uint64"
+      }
+    },
+    {
+      "name": "getHandoffPhotoHashes",
+      "readonly": true,
+      "args": [
+        {
+          "name": "batchAsaId",
+          "type": "uint64"
+        },
+        {
+          "name": "handoffIndex",
+          "type": "uint64"
+        }
+      ],
+      "returns": {
+        "type": "string"
+      }
+    }
+  ]
+}
